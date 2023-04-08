@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Mail\AppMailer;
+use App\Http\Controllers\EmailController;
 
 class UserController extends Controller
 {
@@ -38,7 +38,10 @@ class UserController extends Controller
             "password" => Hash::make($data["password"])
         ]);
 
-        AppMailer::sendEmail($user -> email);
+        EmailController::sendEmail($user -> email, [
+            "title" => "test title",
+            'body' => 'This is for testing email using smtp'
+        ]);
 
         return redirect("/");
     }
