@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
-
+use App\Mail\AppMailer;
 
 class UserController extends Controller
 {
@@ -38,6 +37,8 @@ class UserController extends Controller
             "email" => $data["email"],
             "password" => Hash::make($data["password"])
         ]);
+
+        AppMailer::sendEmail($user -> email);
 
         return redirect("/");
     }
