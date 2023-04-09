@@ -5685,7 +5685,8 @@ ul {
   padding-top: 225px;
 }
 .user-hero .hero-ct h1 {
-  margin-left: -120px;
+  margin-left: 290px;
+  text-align: left;
 }
 .user-hero ul.breadcumb {
   text-align: left;
@@ -6520,7 +6521,7 @@ ul {
   -moz-border-radius: 50px !important;
   border-radius: 50px !important;
 }
-.user-pro .user {
+.user-pro .user:not(:last-of-type) {
   padding-bottom: 30px;
   border-bottom: 1px solid #0f2133;
 }
@@ -6969,7 +6970,6 @@ p.ceb-single {
   font-size: 14px;
   color: #222222;
   font-weight: bold;
-  text-transform: capitalize;
   margin-top: 10px;
   height: 42px;
   border: 1px solid #e1e1e1;

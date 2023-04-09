@@ -23,7 +23,7 @@
                     <div>
                         <input type="checkbox" name="remember" value="Remember me"><span>Remember me</span>
                     </div>
-                    <a href="#">Forget password ?</a>
+                    <a href="/forgot-password">Forget password ?</a>
                 </div>
             </div>
             <div class="row" style="margin-bottom: 1em">

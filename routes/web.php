@@ -14,17 +14,6 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
-Route::get('send-mail', function () {
-   
-    $details = [
-        'title' => 'Mail from ItSolutionStuff.com',
-        'body' => 'This is for testing email using smtp'
-    ];
-   
-    Mail::to('abderrahmane.elkaimouni@etu.uae.ac.ma')->send(new \App\Mail\AppMailer($details));
-   
-    dd("Email is Sent.");
-});
 
 // Public Routes
 Route::middleware(["auth:0"])->group(function () {
@@ -42,15 +31,36 @@ Route::middleware(["auth:0"])->group(function () {
     Route::post("/login", "App\Http\Controllers\UserController@login");
 
     Route::get("/logout", "App\Http\Controllers\UserController@logout");
+
+    Route::view("/forgot-password", "auth.forgot-password")->name("password.request");
+
+    Route::post('/forgot-password', "App\Http\Controllers\UserController@forgot_password")->name("password.email");
+
+    Route::get('/reset-password/{token}', function ($token) {
+        return view('auth.reset-password', ['token' => $token]);
+    })->middleware('guest')->name('password.reset');
+
+    Route::post("/reset-password", "App\Http\Controllers\UserController@reset_password")->name('password.update');;
 });
 
 // Protected Routes
 Route::middleware(["auth:1"])->group(function () {
-    Route::view("/profile", "profile");
+
+    Route::get("/profile", "App\Http\Controllers\UserController@profile")->middleware(["verified"]);
+
+    Route::post("/profile", "App\Http\Controllers\UserController@edit_profile")->middleware(["verified"]);
+
+    Route::get("/profile/password", "App\Http\Controllers\UserController@password")->middleware(["verified"]);
+
+    Route::post("/profile/password", "App\Http\Controllers\UserController@change_password")->middleware(["verified"]);
 
     Route::get("/subscription/paiment", "App\Http\Controllers\SubscriptionController@paiment");
 
     Route::get("/subscription/pay", "App\Http\Controllers\SubscriptionController@pay");
+
+    Route::get("/email/verify/{id}/{hash}", "App\Http\Controllers\UserController@verify")->name("verification.verify");
+
+    Route::get("/profile/verify", "App\Http\Controllers\UserController@verification")->name("verification.notice");
 });
 
 // Paid Routes

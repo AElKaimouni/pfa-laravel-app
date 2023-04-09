@@ -1,3 +1,4 @@
+/* Subscription Page */
 
 .pricing-table {
     background: #020d18;
@@ -120,3 +121,24 @@
     .pricing-table { padding: 1em }
 }
 
+/* Verification Page */
+
+.email-verification {
+    background: #020d18;
+    padding: 3em;
+    text-align: center;
+}
+
+.email-verification h2 {
+    margin: 1em;
+    color: #eee;
+}
+
+.email-verification span {
+    color: #ddd;
+    margin: 1em;
+}
+
+.email-verification a {
+    display: inline-block;
+}
