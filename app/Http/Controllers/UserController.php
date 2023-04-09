@@ -79,7 +79,7 @@ class UserController extends Controller
         );
      
         return $status === Password::RESET_LINK_SENT
-                    ? view("auth.forgot-password")->with(["status" => __($status)])
+                    ? back()->with(["status" => __($status)])
                     : back()->withErrors(["email" => __($status)]);
     }
 
