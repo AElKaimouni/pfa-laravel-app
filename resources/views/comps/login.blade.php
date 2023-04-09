@@ -15,7 +15,7 @@
             <div class="row">
                 <label for="password">
                     Password:
-                    <input type="password" name="password" id="password" placeholder="" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                    <input type="password" name="password" id="password" placeholder="" required="required" />
                 </label>
             </div>
             <div class="row">
