@@ -27,7 +27,7 @@
             <div class="row">
                 <label for="repassword-2">
                     re-type Password:
-                    <input type="password" name="password" id="repassword-2" placeholder="" required="required" />
+                    <input type="password" name="password_confirmation" id="repassword-2" placeholder="" required="required" />
                 </label>
             </div>
         <div class="row">

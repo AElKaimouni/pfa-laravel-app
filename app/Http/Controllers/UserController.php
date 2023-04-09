@@ -27,7 +27,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             "name" => "required",
             "email" => "required|email|unique:users",
-            "password" => "required|min:6",
+            "password" => "required|confirmed|min:6",
         ]);
 
         if ($validator->fails()) return redirect('/register')
@@ -182,7 +182,8 @@ class UserController extends Controller
             "f_name" => $user -> f_name,
             "l_name" => $user -> l_name,
             "username" => $user -> name,
-            "email" => $user -> email
+            "email" => $user -> email,
+            "avatar" => $user -> avatar
         ]);
     }
 
@@ -192,13 +193,18 @@ class UserController extends Controller
             "name" => "required",
             "f_name" => "",
             "l_name" => "",
+            "avatar" => "required|image|mimes:jpg,png,jpeg,gif,svg",
         ]);
 
         $user = Auth::user();
+        $avatarName = time().".".$request->avatar->getClientOriginalExtension();
+        $request->avatar->move(public_path("avatars"), $avatarName);
         
 
         if($user instanceof User)
-        $user -> update($request->only(["email", "name", "f_name", "l_name"]));
+        $user -> update(array_merge([
+            "avatar" => $avatarName
+        ], $request->only(["email", "name", "f_name", "l_name"])));
 
         return redirect("/profile");
     }
@@ -206,11 +212,9 @@ class UserController extends Controller
     static function password(Request $request) {
         $user = Auth::user();
 
-        return view("profile.index")->with([
+        return view("profile.password")->with([
             "f_name" => $user -> f_name,
-            "l_name" => $user -> l_name,
-            "username" => $user -> name,
-            "email" => $user -> email
+            "l_name" => $user -> l_name
         ]);
     }
 

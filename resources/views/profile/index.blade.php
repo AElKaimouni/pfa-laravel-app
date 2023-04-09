@@ -26,7 +26,7 @@
 			</div>
 			<div class="col-md-9 col-sm-12 col-xs-12">
 				<div class="form-style-1 user-pro" action="">
-					<form action="/profile" method="POST" class="user">
+					<form action="/profile" method="POST" class="user" enctype="multipart/form-data">
            				@csrf <!-- {{ csrf_field() }} -->
 						@include("comps.messages")
 						<h4>Profile details</h4>
@@ -54,6 +54,13 @@
 						<div class="row">
 							<div class="col-md-2">
 								<input class="submit" type="submit" value="save">
+								
+							</div>
+							<div class="col-md-3">
+								<div class="file-input">
+									<input id="profile-avatar" name="avatar" type="file" placeholder="Username">
+        							<div class="input-btn redbtn">Change avatar</div>
+								</div>
 							</div>
 						</div>	
 					</form>
