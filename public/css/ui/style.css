@@ -7126,7 +7126,7 @@ p.ceb-single {
   text-align: right;
 }
 .sliderv2 {
-  background: url('../../images/uploads/slider-bg2.jpg') no-repeat;
+  background: url('../../images/uploads/Hero.jpg') no-repeat;
   padding-bottom: 0;
   padding-top: 180px;
   overflow: hidden;
@@ -8128,7 +8128,7 @@ header#headerv3-light {
   }
 }
 footer {
-  background: url('../../images/uploads/ft-bg.jpg') no-repeat;
+  background: url('../../images/uploads/Footer.jpeg') no-repeat;
   background-position: center;
   background-size: cover;
 }
@@ -8219,15 +8219,14 @@ footer .ft-copyright {
   display: -ms-flexbox;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid #405266;
+  justify-content: center;
   padding-top: 20px;
   padding-bottom: 10px;
-  background-color: #020d18;
-  -moz-opacity: 0.7;
-  -khtml-opacity: 0.7;
-  -webkit-opacity: 0.7;
-  opacity: 0.7;
+  background-color: #01070d;
+  -moz-opacity: 0.9;
+  -khtml-opacity: 0.9;
+  -webkit-opacity: 0.9;
+  opacity: 0.9;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
   filter: alpha(opacity=70);
   padding-left: 380px;
@@ -8273,3 +8272,4 @@ footer.full-width-ft .ft-copyright {
   font-family: 'Dosis', sans-serif;
   font-weight: 700;
 }
+ 

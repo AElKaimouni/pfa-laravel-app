@@ -193,18 +193,19 @@ class UserController extends Controller
             "name" => "required",
             "f_name" => "",
             "l_name" => "",
-            "avatar" => "required|image|mimes:jpg,png,jpeg,gif,svg",
+            "avatar" => "image|mimes:jpg,png,jpeg,gif,svg",
         ]);
 
         $user = Auth::user();
-        $avatarName = time().".".$request->avatar->getClientOriginalExtension();
-        $request->avatar->move(public_path("avatars"), $avatarName);
-        
+        if($request->avatar) {
+            $avatarName = time().".".$request->avatar->getClientOriginalExtension();
+            $request->avatar->move(public_path("avatars"), $avatarName);
+        }
 
         if($user instanceof User)
-        $user -> update(array_merge([
+        $user -> update(array_merge($request->avatar ? [
             "avatar" => $avatarName
-        ], $request->only(["email", "name", "f_name", "l_name"])));
+        ] : [], $request->only(["email", "name", "f_name", "l_name"])));
 
         return redirect("/profile");
     }
@@ -214,7 +215,8 @@ class UserController extends Controller
 
         return view("profile.password")->with([
             "f_name" => $user -> f_name,
-            "l_name" => $user -> l_name
+            "l_name" => $user -> l_name,
+            "avatar" => $user -> avatar
         ]);
     }
 
