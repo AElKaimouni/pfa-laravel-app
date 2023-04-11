@@ -78,4 +78,5 @@ Route::middleware(["auth:2"])->group(function () {
 Route::middleware(["auth:3", "admin.app"])->group(function () {
     Route::view("/admin", "admin.index");
 
+    Route::get("/admin/clients", "App\Http\Controllers\UserController@clients");
 });

@@ -14,10 +14,19 @@
         <!--navigation-->
         <ul class="metismenu" id="menu">
             <li>
-                <a href="index.html">
-                <div class="parent-icon"><span class="material-symbols-outlined">home</span>
-                </div>
-                <div class="menu-title">Dashboard</div>
+                <a href="/admin">
+                    <div class="parent-icon">
+                        <span class="material-symbols-outlined">home</span>
+                    </div>
+                    <div class="menu-title">Dashboard</div>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/clients">
+                    <div class="parent-icon">
+                        <span class="material-symbols-outlined">account_circle</span>
+                    </div>
+                    <div class="menu-title">Clients</div>
                 </a>
             </li>
         </ul>

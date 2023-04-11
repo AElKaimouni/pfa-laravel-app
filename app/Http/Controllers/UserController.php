@@ -249,4 +249,11 @@ class UserController extends Controller
         return back()->with("status", "Password changed successfully!");
     }
 
+    public function clients() {
+        $clients = User::select("name","email", "id", "created_at", "avatar", "f_name", "l_name")->where("role", "user")->get();
+
+        return view("admin.clients.index") -> with([
+            "clients" => $clients
+        ]);
+    }
 }
