@@ -1077,7 +1077,7 @@ a {
 }
 
 .profile-cover {
-    background-image: url(../images/gallery/profile-bg.jpg);
+    background-image: url(/images/gallery/profile-bg.jpg);
     background-size: cover;
     height: 10rem;
     background-position: center;
@@ -1232,11 +1232,11 @@ a {
 }
 
 .bg-error {
-    background-image: url(../images/gallery/texture.jpg);
+    background-image: url(/images/gallery/texture.jpg);
 }
 
 .bg-coming-soon {
-    background-image: url(../images/gallery/coming-soon.png);
+    background-image: url(/images/gallery/coming-soon.png);
 }
 
 .text-facebook {

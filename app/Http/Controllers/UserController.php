@@ -115,7 +115,7 @@ class UserController extends Controller
      * 
      * @return Route Home page if successed if not login
     */
-    static function login(Request $request) {
+    static function login(Request $request, $mode) {
         $request->validate([
             "email" => "required|email",
             "password" => "required",
@@ -123,9 +123,13 @@ class UserController extends Controller
 
         $success = Auth::attempt($request->only("email", "password"), $request -> input("remember"));
 
-        if($success) return redirect("/");
+        if($success) {
+            if($mode === "admin") return redirect("/admin");
+
+            return redirect("/");
+        }
         
-        return redirect("login")->withErrors(["Unvalid Credentials"]);
+        return redirect("login/$mode")->withErrors(["Unvalid Credentials"]);
     }
 
     /**
@@ -133,9 +137,12 @@ class UserController extends Controller
      * 
      * @return View login
      */
-    static function logout() {
+    static function logout($mode) {
         
         Auth::logout();
+        
+        if($mode === "admin") return redirect("/admin/login");
+
         return redirect("/login");
     }
 
@@ -159,6 +166,8 @@ class UserController extends Controller
         if($level > 0 && !($user instanceof User)) {
             echo "$level > 0 && !(user instanceof User)";
 
+            if($level === 3) return redirect("/admin/login");
+
             return redirect("/login");
         } else if ($level > 0 && $user instanceof User) {
 
@@ -169,7 +178,7 @@ class UserController extends Controller
     
             if($level === 3 && $user["role"] !== "admin") {
 
-                return redirect("/403");
+                return redirect("/admin/403");
             }
         }
 

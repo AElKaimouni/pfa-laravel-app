@@ -28,7 +28,9 @@ Route::middleware(["auth:0"])->group(function () {
 
     Route::post("/register", "App\Http\Controllers\UserController@register");
 
-    Route::post("/login", "App\Http\Controllers\UserController@login");
+    Route::post("/login/{mode}", "App\Http\Controllers\UserController@login");
+
+    Route::get("/logout/{mode}", "App\Http\Controllers\UserController@logout");
 
     Route::get("/logout", "App\Http\Controllers\UserController@logout");
 
@@ -36,11 +38,13 @@ Route::middleware(["auth:0"])->group(function () {
 
     Route::post('/forgot-password', "App\Http\Controllers\UserController@forgot_password")->name("password.email");
 
-    Route::get('/reset-password/{token}', function ($token) {
-        return view('auth.reset-password', ['token' => $token]);
-    })->middleware('guest')->name('password.reset');
+    Route::get('/reset-password/{token}', function ($token) { return view('auth.reset-password', ['token' => $token]); })->middleware('guest')->name('password.reset');
 
-    Route::post("/reset-password", "App\Http\Controllers\UserController@reset_password")->name('password.update');;
+    Route::post("/reset-password", "App\Http\Controllers\UserController@reset_password")->name('password.update');
+
+    Route::view("/admin/login", "admin.auth.login");
+
+    Route::view("/admin/403", "admin.errors.403");
 });
 
 // Protected Routes
@@ -69,7 +73,9 @@ Route::middleware(["auth:2"])->group(function () {
     
 });
 
+
 // Admin Routes
-Route::middleware(["auth:3"])->group(function () {
-    
+Route::middleware(["auth:3", "admin.app"])->group(function () {
+    Route::view("/admin", "admin.index");
+
 });

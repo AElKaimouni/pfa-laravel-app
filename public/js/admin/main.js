@@ -4,8 +4,9 @@ $(function() {
 
 
 // app dropdown
-new PerfectScrollbar(".app-container")
-new PerfectScrollbar(".header-notifications-list")
+if($(".app-container").length) new PerfectScrollbar(".app-container")
+
+if($(".header-notifications-list").length) new PerfectScrollbar(".header-notifications-list")
 
 
 $(".sidebar-close").on("click", function() {
@@ -100,7 +101,7 @@ $("#ShadowTheme").on("click", function() {
 
 $(".dark-mode").click(function () {
 	$("html").attr("data-bs-theme" , function(i, v){
-	  return v === 'dark' ? 'light1' : 'dark';
+	  return v === 'dark' ? 'semi-dark' : 'dark';
 	})
 })
 

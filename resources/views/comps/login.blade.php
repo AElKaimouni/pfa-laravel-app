@@ -3,7 +3,7 @@
         <a href="#" class="close">x</a>
 
         <h3>Login</h3>
-        <form method="post" action="/login">
+        <form method="post" action="/login/client">
             @csrf <!-- {{ csrf_field() }} -->
             <div class="row">
                 <label for="username">

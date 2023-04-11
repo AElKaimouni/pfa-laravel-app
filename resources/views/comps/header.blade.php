@@ -43,7 +43,7 @@
                     <ul class="nav navbar-nav flex-child-menu menu-right">
                         @auth
                             <li><a href="/profile">Profie</a></li>
-                            <li class="btn"><a href="/logout">Logout</a></li>
+                            <li class="btn"><a href="/logout/client">Logout</a></li>
                         @endauth
                         
                         @guest
