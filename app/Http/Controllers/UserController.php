@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -11,7 +12,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Str;
-
+use App\Models\Subscription;
 
 class UserController extends Controller
 {
@@ -129,7 +130,7 @@ class UserController extends Controller
             return redirect("/");
         }
         
-        return redirect("login/$mode")->withErrors(["Unvalid Credentials"]);
+        return redirect($mode !== "admin" ? "/login" : "/admin/login")->withErrors(["Unvalid Credentials"]);
     }
 
     /**
@@ -249,11 +250,46 @@ class UserController extends Controller
         return back()->with("status", "Password changed successfully!");
     }
 
-    public function clients() {
-        $clients = User::select("name","email", "id", "created_at", "avatar", "f_name", "l_name")->where("role", "user")->get();
+    public function clients(Request $request) {
+        $search = $request->input("search");
+        $page = $request->input("page") ?: 0;
+        $max = $request->input("max") ?: 20;
+        $target = $request->input("target") ?: "all";
 
-        return view("admin.clients.index") -> with([
-            "clients" => $clients
-        ]);
+        $query = User::where("role", "user")->with("subscription")->select("name","email", "id", "created_at", "avatar", "email_verified_at");
+        
+        switch($target) {
+            case "verified": $query = $query->whereRAW("email_verified_at IS NOT NULL"); break;
+            case "subscribed": $query = $query->has("subscription");
+        }
+
+        if($search) {
+            $query = $query->where("name", "like", "%" . $request->input("search") . "%");
+        }
+
+        $count = $query->count();
+        $verifiedCount = (clone $query)->whereRAW("email_verified_at IS NOT NULL")->count();
+        $subCount = (clone $query)->has("subscription")->count();
+
+        $clients = $query->skip($page * $max)->take($max)->get();
+
+        $data = [
+            "clients" => $clients,
+            "count" => $count,
+            "max" => $max,
+            "page" => $page,
+            "subCount" => $subCount,
+            "verifiedCount" => $verifiedCount,
+            "search" => $search
+        ];
+
+        return view("admin.clients.index") -> with($data);
+        
+    }
+
+    public function deleteClient($clientID) {
+        User::destroy($clientID);
+
+        return redirect("/admin/clients") -> with("status", "Client has been deleted successfuly");
     }
 }

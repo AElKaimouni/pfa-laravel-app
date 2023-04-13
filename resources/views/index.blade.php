@@ -3,6 +3,7 @@
 @section("title", "Home Page - PFA")
 
 @section('content')
+
 <div class="slider sliderv2">
 	<div class="container">
 		<div class="row">

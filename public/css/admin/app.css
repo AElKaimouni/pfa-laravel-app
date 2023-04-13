@@ -5,3 +5,61 @@
     justify-content: center;
     overflow: auto;
 }
+
+.profile-avatar {
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
+}
+
+.select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered .select2-selection__choice {
+    font-size: .8rem;
+}
+
+.bootstrap-tagsinput .badge {
+    font-size: .8em;
+}
+
+.bootstrap-tagsinput input {
+    padding: 5px;
+}
+
+.poster-upload {
+    position: relative;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.poster-upload-info {
+    display: none;
+}
+
+.poster-upload-info.active {
+    display: block;
+}
+
+.poster-upload-info span {
+    font-size: 3em;
+}
+
+.poster-upload > input, .poster-upload > img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.poster-upload > img {
+    -o-object-fit: contain;
+       object-fit: contain;
+    -o-object-position: center;
+       object-position: center;
+    opacity: 1;
+}

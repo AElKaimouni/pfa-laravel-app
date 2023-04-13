@@ -4,12 +4,13 @@
 
 @section('content')
     <img src="/images/logo-icon.png" class="mb-4" width="45" alt="">
-    <h4 class="fw-bold">Get Started Now</h4>
+    @include("admin.comps.messages")
+    <h4 class="fw-bold">Admin Login</h4>
     <p class="mb-0">Enter your credentials to login your account</p>
 
 
     <div class="form-body mt-4">
-    <form method="POST" action="/login/admin" class="row g-3">
+    <form method="post" action="/login/admin" class="row g-3">
         @csrf <!-- {{ csrf_field() }} -->
         <div class="col-12">
             <label for="inputEmailAddress" class="form-label">Email</label>
@@ -28,24 +29,18 @@
                 <label name="remember" class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
             </div>
         </div>
-        <div class="col-md-6 text-end">	<a href="auth-basic-forgot-password.html">Forgot Password ?</a>
+        <div class="col-md-6 text-end">	<a href="/admin/forgot-password">Forgot Password ?</a>
         </div>
         <div class="col-12">
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
         </div>
-        <div class="col-12">
-            <div class="text-start">
-                <p class="mb-0">Don't have an account yet? <a href="auth-basic-register.html">Sign up here</a>
-                </p>
-            </div>
-        </div>
     </form>
 </div>
 @endsection
 
-@section('content')
+@section('scripts')
     <script>
       $(document).ready(function () {
         $("#show_hide_password a").on('click', function (event) {

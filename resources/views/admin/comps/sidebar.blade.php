@@ -29,13 +29,21 @@
                     <div class="menu-title">Clients</div>
                 </a>
             </li>
+            <li>
+                <a href="/admin/shows">
+                    <div class="parent-icon">
+                        <span class="material-symbols-outlined">slideshow</span>
+                    </div>
+                    <div class="menu-title">Shows</div>
+                </a>
+            </li>
         </ul>
         <!--end navigation-->
     </div>
     <div class="sidebar-bottom dropdown dropup-center dropup">
         <div class="dropdown-toggle d-flex align-items-center px-3 gap-3 w-100 h-100" data-bs-toggle="dropdown">
             <div class="user-img">
-                <img src="/avatars/{{ Session::get("avatar") }}" alt="">
+                <img class="profile-avatar" src="/avatars/{{ Session::get("avatar") }}" alt="">
             </div>
             <div class="user-info">
                 <h5 class="mb-0 user-name">{{ Session::get("name") }}</h5>

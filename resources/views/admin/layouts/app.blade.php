@@ -9,6 +9,7 @@
     <link href="/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" >
     <link href="/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet">
     <link href="/plugins/simplebar/css/simplebar.css" rel="stylesheet">
+    @yield("styles")
     <!-- loader-->
 	  <link href="/css/admin/pace.min.css" rel="stylesheet">
 	  <script src="/js/admin/pace.min.js"></script>
@@ -19,10 +20,9 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="/css/admin/main.css" rel="stylesheet">
+    <link href="/css/admin/app.css" rel="stylesheet">
     <link href="/css/admin/dark-theme.css" rel="stylesheet">
     <link href="/css/admin/semi-dark-theme.css" rel="stylesheet">
-    <link href="/css/admin/minimal-theme.css" rel="stylesheet">
-    <link href="/css/admin/shadow-theme.css" rel="stylesheet">
      
   </head>
   <body>
@@ -96,5 +96,7 @@
     <!--BS Scripts-->
     <script src="/js/admin/bootstrap.bundle.min.js"></script>
     <script src="/js/admin/main.js"></script>
+
+    @yield('scripts')
   </body>
 </html>

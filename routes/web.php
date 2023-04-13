@@ -45,6 +45,8 @@ Route::middleware(["auth:0"])->group(function () {
     Route::view("/admin/login", "admin.auth.login");
 
     Route::view("/admin/403", "admin.errors.403");
+
+    Route::view("/admin/forgot-password", "admin.auth.forgot-password");
 });
 
 // Protected Routes
@@ -79,4 +81,10 @@ Route::middleware(["auth:3", "admin.app"])->group(function () {
     Route::view("/admin", "admin.index");
 
     Route::get("/admin/clients", "App\Http\Controllers\UserController@clients");
+    Route::get("/admin/clients/delete/{clientID}", "App\Http\Controllers\UserController@deleteClient");
+
+    Route::get("/admin/shows", "App\Http\Controllers\ShowController@index");
+    Route::get("/admin/shows/add", "App\Http\Controllers\ShowController@add");
+    Route::post("/admin/shows/add", "App\Http\Controllers\ShowController@create");
+    Route::get("/admin/shows/delete/{showID}", "App\Http\Controllers\ShowController@delete");
 });
