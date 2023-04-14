@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Mail;
 // Public Routes
 Route::middleware(["auth:0"])->group(function () {
 
-    Route::view("/", "index");
+    Route::get("/", "App\Http\Controllers\PageController@HomePage");
 
     Route::get("/subscription", "App\Http\Controllers\SubscriptionController@subscription");
     

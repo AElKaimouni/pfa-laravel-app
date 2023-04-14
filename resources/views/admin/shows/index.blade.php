@@ -1,6 +1,6 @@
 @extends("admin.layouts.app")
 
-@section("title", "Dashboard Page - PFA")
+@section("title", "Shows- PFA")
 
 @section('content')
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">

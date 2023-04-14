@@ -4100,6 +4100,9 @@ ul {
   content: "";
 }
 .movie-items .movie-item img {
+  height: 300px;
+    object-fit: cover;
+    object-position: center;
   width: 100%;
   -webkit-transition: all 0.5s ease-out;
   -moz-transition: all 0.5s ease-out;
@@ -7059,7 +7062,7 @@ p.ceb-single {
   margin-right: 15px;
 }
 .slider .movie-item .title-in {
-  margin-bottom: 45px;
+  margin-top: 45px;
 }
 .slider .movie-item .title-in h6 a {
   font-size: 18px;
@@ -8128,7 +8131,7 @@ header#headerv3-light {
   }
 }
 footer {
-  background: url('../../images/uploads/Footer.jpeg') no-repeat;
+  background: url('../../images/uploads/Footer.jpg') no-repeat;
   background-position: center;
   background-size: cover;
 }
