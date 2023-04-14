@@ -93,7 +93,7 @@
                                                 <img style="width: unset;" src="/posters/{{ $show["poster"] }}" alt="">
                                             </div>
                                             <div class="product-info">
-                                                <a href="javascript:;" class="product-title">{{ $show["title"] }}</a>
+                                                <a href="javascript:;" class="product-title">{{ \Illuminate\Support\Str::limit($show["title"], 30, $end='...') }}</a>
                                                 <p class="mb-0 product-category">Run Time : {{ $show["runTime"] }}min</p>
                                             </div>
                                         </div>
