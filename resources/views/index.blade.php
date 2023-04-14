@@ -128,7 +128,7 @@
 			        <div id="tab1-h2" class="tab active">
 			            <div class="row">
 			            	<div class="slick-multiItem2">
-								@foreach ($latestTV as $show)
+								@foreach ($latestFilms as $show)
 									<div class="slide-it">
 										<div class="movie-item">
 											<div class="mv-img">

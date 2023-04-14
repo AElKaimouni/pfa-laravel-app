@@ -11,13 +11,17 @@ class PageController extends Controller
         $latest = Show::latest()->take(3)->get()->map(function($show) {
             return $show->populate();
         });
-        $latestTV = Show::where("type", "TV SHOW")->latest()->take(3)->get()->map(function($show) {
+        $latestTV = Show::where("type", "TV SHOW")->latest()->take(10)->get()->map(function($show) {
+            return $show->populate();
+        });
+        $latestFilms = Show::where("type", "Film")->latest()->take(10)->get()->map(function($show) {
             return $show->populate();
         });
 
         return view("index")->with([
             "latest" => $latest,
-            "latestTV" => $latestTV 
+            "latestTV" => $latestTV,
+            "latestFilms" => $latestFilms
         ]);
     }
 }
