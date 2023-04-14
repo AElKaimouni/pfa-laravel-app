@@ -9,7 +9,7 @@
 @endsection
 
 @section("content")
-<form method="POST" action="/admin/shows/add" enctype="multipart/form-data">
+<form method="POST" action=@if(!isset($show)) "/admin/shows/add" @else "/admin/shows/edit/{{ $show["id"] }}" @endif enctype="multipart/form-data">
     @csrf <!-- {{ csrf_field() }} -->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div class="breadcrumb-title pe-3">Dashboard</div>
@@ -38,12 +38,12 @@
             <div class="col-12 col-lg-3">
             <div class="card">
                 <div class="card-body p-0 poster-upload">
-                    <div class="text-center poster-upload-info active" id="poster-upload-info">
+                    <div class="text-center poster-upload-info @if(!isset($show))active @endif" id="poster-upload-info">
                         <span class="material-symbols-outlined">upload</span>
                         <h5>360 x 521</h5>
                         <h5 class="mb-3">Upload Poster</h5>
                     </div>
-                    <img id="poster-upload-img" />
+                    <img @isset($show) src="/posters/{{ $show["poster"] }}" @endisset id="poster-upload-img" />
                     <input id="poster-upload" type="file" name="poster" accept=".jpg, .png, image/jpeg, image/png" multiple>
                 </div>
             </div> 
@@ -52,28 +52,28 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <label for="AddCategory" class="form-label fw-bold">Type:</label>
-                            <select name="type" class="form-select" id="AddCategory">
-                                <option value="TV SHOW">TV SHOW</option>
-                                <option value="FILM">Film</option>
+                            <select  name="type" class="form-select" id="AddCategory">
+                                <option @if(isset($show) && $show["type"] === "TV SHOW")selected @endif value="TV SHOW">TV SHOW</option>
+                                <option @if(isset($show) && $show["type"] === "Film")selected @endif value="FILM">Film</option>
                             </select>
                         </div>
                         <div class="col-12">
                             <label for="AddCategory" class="form-label fw-bold">MMPA Rating:</label>
                             <select name="rating" class="form-select" id="AddCategory">
-                                <option value="G">G</option>
-                                <option value="PG">PG</option>
-                                <option value="PG-13">PG-13</option>
-                                <option value="R">R</option>
-                                <option value="NC-17">NC-17</option>
+                                <option @if(isset($show) && $show["rating"] === "G")selected @endif value="G">G</option>
+                                <option @if(isset($show) && $show["rating"] === "PG")selected @endif value="PG">PG</option>
+                                <option @if(isset($show) && $show["rating"] === "PG-13")selected @endif value="PG-13">PG-13</option>
+                                <option @if(isset($show) && $show["rating"] === "R")selected @endif value="R">R</option>
+                                <option @if(isset($show) && $show["rating"] === "NC-17")selected @endif value="NC-17">NC-17</option>
                             </select>
                         </div>
                         <div class="col-12">
                             <label for="Collection" class="form-label fw-bold">Run Time (On Minutes):</label>
-                            <input name="runTime" type="text" class="form-control" id="Collection" placeholder="Run Time">
+                            <input @isset($show) value="{{ $show["runTime"] }}" @endisset name="runTime" type="text" class="form-control" id="Collection" placeholder="Run Time">
                         </div>
                         <div class="col-12">
                             <label for="Tags" class="form-label fw-bold">Release Date:</label>
-                            <input name="releaseDate" type="date" class="form-control" id="Tags" placeholder="Tags">
+                            <input @isset($show) value="{{ $show["releaseDate"] }}" @endisset name="releaseDate" type="date" class="form-control" id="Tags" placeholder="Tags">
                         </div>
                     </div>
                     <!--end row-->
@@ -88,29 +88,26 @@
                     </div>
                     <div class="mb-4">
                         <h5 class="mb-3">Show Title</h5>
-                        <input name="title" type="text" class="form-control" placeholder="write title here....">
+                        <input @isset($show) value="{{ $show["title"] }}" @endisset name="title" type="text" class="form-control" placeholder="write title here....">
                     </div>
                     <div class="mb-4">
                         <h5 class="mb-3">Show Description</h5>
-                        <textarea name="description" class="form-control" cols="4" rows="6" placeholder="write a description here.."></textarea>
+                        <textarea name="description" class="form-control" cols="4" rows="6" placeholder="write a description here..">@isset($show){{ $show["description"] }}@endisset</textarea>
                     </div>
                     <div class="mb-4">
                         <div class="row">
                             <div class="col-12 col-lg-6">
                                 <label for="multiple-select-genres" class="form-label">Genres</label>
 								<select class="form-select" id="multiple-select-genres" data-placeholder="Choose anything" multiple>
-									<option>Christmas Island</option>
-									<option>South Sudan</option>
-									<option>Jamaica</option>
-									<option>Kenya</option>
-									<option>French Guiana</option>
-									<option>Mayotta</option>
-									<option>Liechtenstein</option>
+									@foreach ($genres as $genre)
+                                        <option @if(isset($show) && in_array($genre, $show["genres"]))selected @endif>{{ $genre }}</option>
+                                    @endforeach
 								</select>
+                                <input name="genres" type="hidden" value="@isset($show){{ join(",", $show["genres"]) }}@endisset" id="multiple-select-genres-input" />
                             </div>
                             <div class="col-12 col-lg-6">
                                 <label class="form-label">Key Words</label>
-                                <input name="keywords" type="text" class="form-control" data-role="tagsinput" value="">
+                                <input name="keywords" type="text" class="form-control" data-role="tagsinput" @isset($show) value="{{ $show["keywords"] }}" @endisset>
                             </div>
                         </div>
                     </div>
@@ -179,7 +176,16 @@
                 closeOnSelect: false,
                 tags: true
             };
-            $( "#multiple-select-genres" ).select2(settings);
+
+            function setupSelectInput(id) {
+                $(id).select2(settings);
+                $(id).on("change", function (e) {
+                    $(id + "-input").attr("value", $(id).select2("data").map(item => item.id).join(","))
+                });
+            }
+
+            setupSelectInput("#multiple-select-genres");
+
             $( "#multiple-select-directors" ).select2(settings);
             $( "#multiple-select-writers" ).select2(settings);
             $( "#multiple-select-actors" ).select2(settings);

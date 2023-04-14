@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create("shows", function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->string("description");
+            $table->longText("description");
             $table->string("runTime");
             $table->string("rating");
             $table->string("keywords");
@@ -22,7 +22,7 @@ return new class extends Migration {
     }
 
     public function down() {
-
+        Schema::dropIfExists("show_genres");
         Schema::dropIfExists("shows");
     }
 };

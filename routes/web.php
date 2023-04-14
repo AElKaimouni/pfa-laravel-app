@@ -87,4 +87,6 @@ Route::middleware(["auth:3", "admin.app"])->group(function () {
     Route::get("/admin/shows/add", "App\Http\Controllers\ShowController@add");
     Route::post("/admin/shows/add", "App\Http\Controllers\ShowController@create");
     Route::get("/admin/shows/delete/{showID}", "App\Http\Controllers\ShowController@delete");
+    Route::get("/admin/shows/edit/{showID}", "App\Http\Controllers\ShowController@edit");
+    Route::post("/admin/shows/edit/{showID}", "App\Http\Controllers\ShowController@update");
 });

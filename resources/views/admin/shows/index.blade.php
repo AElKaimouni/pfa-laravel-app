@@ -74,7 +74,7 @@
                                 <th>Show Name</th>
                                 <th>Type</th>
                                 <th>Rating</th>
-                                <th>Keywords</th>
+                                <th>Genres</th>
                                 <th>Release Date</th>
                                 <th>Date</th>
                                 <th>Action</th>
@@ -102,22 +102,23 @@
                                     <td>{{ $show["rating"] }}</td>
                                     <td>
                                         <div class="product-tags">
-                                            @php
-                                                $words = explode(",", $show["keywords"]);
-                                            @endphp
-                                            @foreach ($words as $word)
+    
+                                            @foreach ( $show["genres"] as $word)
                                                 <a href="javascript:;" class="btn-tags">{{ $word }}</a>
                                             @endforeach
                                         </div>
                                     </td>
                                     <td>{{ $show["releaseDate"] }}</td>
-                                    <td>{{ $show["created_at"] }}</td>
+                                    <td>{{ date("Y-m-d-h:i", strtotime($show["created_at"])); }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-sm btn-light border dropdown-toggle dropdown-toggle-nocaret" type="button" data-bs-toggle="dropdown">
                                                 <i class="bi bi-three-dots"></i>
                                             </button>
                                             <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" href="/admin/shows/edit/{{ $show["id"] }}">Edit</a>
+                                                </li>
                                                 <li>
                                                     <a class="dropdown-item client-delete-btn" data-bs-toggle="modal" data-bs-target="#DeleteModal" data-show-id={{ $show["id"] }} href="javascript:;">Delete</a>
                                                 </li>
