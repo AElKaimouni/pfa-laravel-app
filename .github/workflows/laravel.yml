@@ -27,6 +27,6 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: npm ci
-      run: npm run production
-      run: php artisan serve
+    - run: npm ci
+    - run: npm run production
+    - run: php artisan serve
