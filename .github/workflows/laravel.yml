@@ -17,4 +17,4 @@ jobs:
           npm install
           npm run prod
       - name: Install Depencies
-        run: composer install --no-dev --no-interaction --prefer-dist
+        run: composer install --no-dev --no-interaction --prefer-dist 
