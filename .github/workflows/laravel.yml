@@ -23,10 +23,12 @@ jobs:
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
+    - name: Install NPM Packages
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-    - run: npm ci
-    - run: npm run production
-    - run: php artisan serve
+      run: npm ci
+    - name: Compile & Builder
+      run: npm run production
+    - name: Runs
+      run: php artisan serve
