@@ -5,30 +5,19 @@ on:
     branches: [ "master" ]
 
 jobs:
-  laravel-tests:
-
-    runs-on: self-hosted
-
+  build-js-production:
+    name: Build JavaScript/CSS for Production Server
+    runs-on: sef-hosted
+    if: github.ref == 'refs/heads/main'
     steps:
-
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-      with:
-        php-version: '8.0'
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
-        registry-url: https://npm.pkg.github.com/
-    - uses: actions/checkout@v3
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-    - name: Install NPM Packages
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: npm ci
-    - name: Compile & Builder
-      run: npm run production
-    - name: Runs
-      run: php artisan serve
+      - uses: actions/checkout@v1
+      - name: NPM Build
+        run: |
+          npm install
+          npm run prod
+      - name: Put built assets in Artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: assets
+          path: public
+          retention-days: 3
