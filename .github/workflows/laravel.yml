@@ -1,6 +1,6 @@
 name: Laravel
 
-on:
+on: 
   push:
     branches: [ "master" ]
 
