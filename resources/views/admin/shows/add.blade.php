@@ -1,6 +1,6 @@
 @extends("admin.layouts.app")
 
-@section("title", "Dashboard Page - PFA")
+@section("title", "Add Show - PFA")
 
 @section("styles")
     <link href="/plugins/input-tags/css/tagsinput.css" rel="stylesheet">
