@@ -31,7 +31,7 @@ class UserController extends Controller
             "password" => "required|confirmed|min:6",
         ]);
 
-        if ($validator->fails()) return redirect('/register')
+        if ($validator->fails()) return redirect("/register")
             ->withErrors($validator)
             ->withInput();
 
@@ -58,7 +58,7 @@ class UserController extends Controller
     static function verify(EmailVerificationRequest $request) {
         $request->fulfill();
      
-        return redirect('/');
+        return redirect("/");
     }
 
     static function verification() {
@@ -86,16 +86,16 @@ class UserController extends Controller
 
     static function reset_password(Request $request) {
         $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
+            "token" => "required",
+            "email" => "required|email",
+            "password" => "required|min:8|confirmed",
         ]);
      
         $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
+            $request->only("email", "password", "password_confirmation", "token"),
             function ($user, $password) {
                 $user->forceFill([
-                    'password' => Hash::make($password)
+                    "password" => Hash::make($password)
                 ])->setRememberToken(Str::random(60));
      
                 $user->save();
@@ -105,8 +105,8 @@ class UserController extends Controller
         );
      
         return $status === Password::PASSWORD_RESET
-                    ? view("auth.login")->with('status', __($status))
-                    : back()->withErrors(['email' => [__($status)]]);
+                    ? view("auth.login")->with("status", __($status))
+                    : back()->withErrors(["email" => [__($status)]]);
     }
 
     /**
@@ -163,7 +163,6 @@ class UserController extends Controller
     static function auth($level = 0) {
         $user = Auth::user();
 
-        
         if($level > 0 && !($user instanceof User)) {
             echo "$level > 0 && !(user instanceof User)";
 
@@ -232,8 +231,8 @@ class UserController extends Controller
 
     static function change_password(Request $request) {
         $request->validate([
-            'old_password' => 'required',
-            'new_password' => 'required|confirmed',
+            "old_password" => "required",
+            "new_password" => "required|confirmed",
         ]);
 
         $user = Auth::user();
@@ -243,7 +242,7 @@ class UserController extends Controller
         }
 
         if($user instanceof User) $user->update([
-            'password' => Hash::make($request->new_password)
+            "password" => Hash::make($request->new_password)
         ]);
 
 

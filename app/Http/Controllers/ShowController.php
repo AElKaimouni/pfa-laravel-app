@@ -15,7 +15,7 @@ class ShowController extends Controller {
         $max = $request->input("max") ?: 20;
         $target = $request->input("target");
 
-        $query = Show::select("id", "poster", "title", "runTime", "type", "rating", "keywords", "releaseDate", "created_at");
+        $query = Show::latest()->select("id", "poster", "title", "runTime", "type", "rating", "keywords", "releaseDate", "created_at");
 
         if($target) $query = $query->where("type", $target);
         if($search) $query = $query->where("title", "like", "%" . $request->input("search") . "%");
