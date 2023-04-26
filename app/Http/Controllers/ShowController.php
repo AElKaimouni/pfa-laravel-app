@@ -82,7 +82,7 @@ class ShowController extends Controller {
 
         $show = new Show(array_merge($request->except(["poster", "genres", "thumbnail"]), [
             "poster" => $posterName,
-            "thumbnail" => $thumbName || ""
+            "thumbnail" => $thumbName
         ]));
 
         $show->save();

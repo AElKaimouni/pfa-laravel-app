@@ -3,7 +3,7 @@
 @section("title", $show["title"])
 
 @section('content')
-<div class="hero mv-single-hero" style="background:url({{ $base }}posters/{{ $show["poster"] }})">
+<div class="hero mv-single-hero" style="background:url({{ $base }}@if($show["thumbnail"]){{ "thumbnails/" . $show["thumbnail"] }}@else{{ "posters/" . $show["poster"] }}@endif)">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
