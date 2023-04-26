@@ -174,3 +174,18 @@
     object-fit: cover;
     object-position: center;
 }
+
+.movie-single .movie-img img {
+    max-height: 65vh;
+    object-fit: contain;
+    object-position: center;
+}
+
+.movie-single .sticky-sb {
+    text-align: center;
+}
+
+.mv-single-hero {
+    background-size: cover !important;
+    background-position: center !important;
+}

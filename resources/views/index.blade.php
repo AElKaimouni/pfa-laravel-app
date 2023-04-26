@@ -32,7 +32,7 @@
 										<span class="yell"><a href="#">Action</a></span>
 										<span class="orange"><a href="#">advanture</a></span> --}}
 									</div>
-									<h1><a href="#">{{ $show["title"] }}<span>{{ date("Y", strtotime($show["releaseDate"])); }}</span></a></h1>
+									<h1><a href="shows/{{ $show["id"] }}">{{ $show["title"] }}<span>{{ date("Y", strtotime($show["releaseDate"])); }}</span></a></h1>
 									<div class="social-btn">
 										<a href="#" class="parent-btn"><i class="ion-play"></i> Watch Trailer</a>
 										<a href="#" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
@@ -62,7 +62,7 @@
 							</div>
 							<div class="col-md-4 col-sm-12 col-xs-12">
 								<div class="mv-img-2">
-									<a href="#"><img style="width: 300px;" src="/posters/{{ $show["poster"] }}" alt=""></a>
+									<a href="shows/{{ $show["id"] }}"><img style="width: 300px;" src="/posters/{{ $show["poster"] }}" alt=""></a>
 								</div>
 							</div>
 						</div>	
@@ -99,10 +99,10 @@
 												<img src="posters/{{ $show["poster"] }}" alt="">
 											</div>
 											<div class="hvr-inner">
-												<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+												<a  href="shows/{{ $show["id"] }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 											</div>
 											<div class="title-in">
-												<h6 style="max-width: 95%;"><a href="#">{{ $show["title"] }}</a></h6>
+												<h6 style="max-width: 95%;"><a href="shows/{{ $show["id"] }}">{{ $show["title"] }}</a></h6>
 												<p><i class="ion-android-star"></i><span>7.4</span> /10</p>
 											</div>
 										</div>

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Show;
 use App\Models\Genre;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
+
 
 class ShowController extends Controller {
 
@@ -66,14 +68,21 @@ class ShowController extends Controller {
             "releaseDate" => "required|date",
             "keywords" => "required",
             "genres" => "required",
-            "poster" => "required|image|mimes:jpg,png,jpeg,gif,svg"
+            "poster" => "required|image|mimes:jpg,png,jpeg,gif,svg,webp",
+            "thumbnail" => "image|mimes:jpg,png,jpeg,gif,svg,webp"
         ]);
 
         $posterName = time().".".$request->poster->getClientOriginalExtension();
         $request->poster->move(public_path("posters"), $posterName);
 
-        $show = new Show(array_merge($request->except(["poster", "genres"]), [
-            "poster" => $posterName
+        if($request->thumbnail) {
+            $thumbName = time().".".$request->thumbnail->getClientOriginalExtension();
+            $request->thumbnail->move(public_path("thumbnails"), $thumbName);
+        }
+
+        $show = new Show(array_merge($request->except(["poster", "genres", "thumbnail"]), [
+            "poster" => $posterName,
+            "thumbnail" => $thumbName || ""
         ]));
 
         $show->save();
@@ -99,7 +108,8 @@ class ShowController extends Controller {
             "releaseDate" => "required|date",
             "keywords" => "required",
             "genres" => "required",
-            "poster" => "image|mimes:jpg,png,jpeg,gif,svg"
+            "poster" => "image|mimes:jpg,png,jpeg,gif,svg,webp",
+            "thumbnail" => "image|mimes:jpg,png,jpeg,gif,svg,webp"
         ]);
 
         $show = Show::find($showID);
@@ -110,12 +120,31 @@ class ShowController extends Controller {
             File::delete(public_path("posters") . "/" . $show -> poster);
         }
 
-        $show->editGenres($request->genres);
+        if($request->thumbnail) {
+            $thumbName = time().".".$request->thumbnail->getClientOriginalExtension();
+            $request->thumbnail->move(public_path("thumbnails"), $thumbName);
+            if($show -> thumbnail)
+            File::delete(public_path("thumbnails") . "/" . $show -> thumbnail);
+        }
 
-        $show->update(array_merge($request -> poster ? [
-            "poster" => $posterName
-        ] : [], $request -> except(["poster", "genres"])));
+        $show->editGenres($request->genres);
+        $images = [];
+
+        if($request -> poster) $images["poster"] = $posterName;
+        if($request -> thumbnail) $images["thumbnail"] = $thumbName;
+
+        $show->update(array_merge($images, $request -> except(["poster", "genres", "thumbnail"])));
 
         return redirect("/admin/shows")->with("status", "Show have been updated successfuly");
+    }
+
+    public function show($showID) {
+        $show = Show::find($showID);
+        $user = Auth::user();
+
+        return view("shows/single")->with([
+            "show" => $show->populate(),
+            "user" => $user
+        ]);
     }
 }

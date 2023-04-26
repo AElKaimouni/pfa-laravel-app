@@ -3,6 +3,7 @@
 /public/storage
 /public/avatars
 /public/posters
+/public/thumbnails
 /storage/*.key
 /vendor
 .env

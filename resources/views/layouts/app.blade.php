@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html>
     <head>
@@ -13,6 +15,8 @@
         <title>@yield("title")</title>
 
 
+
+
         <!--Google Font-->
         <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
         <!-- Mobile specific meta -->
@@ -24,6 +28,7 @@
         <link rel="stylesheet" href="/css/ui/style.css">
         <link rel="stylesheet" href="/css/ui/app.css">
 
+        
     </head>
     <body>
         
@@ -35,7 +40,7 @@
 
         @include("comps.header")
 
-        @yield('content')
+        @yield("content")
 
         @include("comps.footer")
 
@@ -45,5 +50,15 @@
         <script src="/js/ui/plugins2.js"></script>
         <script src="/js/ui/custom.js"></script>
         <script src="/js/ui/app.js"></script>
+        @if(env("APP_ENV") === "local")
+            <script>
+                $("img").each(function() {
+                    if($(this).attr("src"))
+                    $(this).attr("src", "https://www.elkaimouni.live/" + $(this).attr("src"));
+                })
+            </script>
+        @endif
+
+        @yield('scripts')
     </body>
 </html>
