@@ -50,14 +50,7 @@
         <script src="/js/ui/plugins2.js"></script>
         <script src="/js/ui/custom.js"></script>
         <script src="/js/ui/app.js"></script>
-        @if(env("APP_ENV") === "local")
-            <script>
-                $("img").each(function() {
-                    if($(this).attr("src"))
-                    $(this).attr("src", "https://www.elkaimouni.live/" + $(this).attr("src"));
-                })
-            </script>
-        @endif
+        
 
         @yield('scripts')
     </body>

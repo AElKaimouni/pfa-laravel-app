@@ -62,7 +62,7 @@
 							</div>
 							<div class="col-md-4 col-sm-12 col-xs-12">
 								<div class="mv-img-2">
-									<a href="shows/{{ $show["id"] }}"><img style="width: 300px;" src="/posters/{{ $show["poster"] }}" alt=""></a>
+									<a href="shows/{{ $show["id"] }}"><img style="width: 300px;" src="{{ $base }}/posters/{{ $show["poster"] }}" alt=""></a>
 								</div>
 							</div>
 						</div>	
@@ -96,7 +96,7 @@
 									<div class="slide-it">
 										<div class="movie-item">
 											<div class="mv-img">
-												<img src="posters/{{ $show["poster"] }}" alt="">
+												<img src="{{ $base }}/posters/{{ $show["poster"] }}" alt="">
 											</div>
 											<div class="hvr-inner">
 												<a  href="shows/{{ $show["id"] }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
@@ -132,7 +132,7 @@
 									<div class="slide-it">
 										<div class="movie-item">
 											<div class="mv-img">
-												<img src="posters/{{ $show["poster"] }}" alt="">
+												<img src="{{ $base }}/posters/{{ $show["poster"] }}" alt="">
 											</div>
 											<div class="hvr-inner">
 												<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>

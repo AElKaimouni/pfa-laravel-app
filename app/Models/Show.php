@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class Show extends Model {
     use HasFactory;
@@ -32,9 +33,24 @@ class Show extends Model {
         })->toArray();
     }
 
+    public function favorites(): HasMany {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function isFavorite() {
+        $user = Auth::user();
+
+        $favorite = $this -> favorites() -> where("user_id", $user->id)->first();
+
+        if($favorite) return true;
+
+        return false;
+    }
+
     public function populate() {
         return array_merge($this->toArray(), [
-            "genres" => $this->getGenres()
+            "genres" => $this->getGenres(),
+            "favorite" =>  $this->isFavorite()
         ]);
     }
 }

@@ -3,7 +3,7 @@
 @section("title", $show["title"])
 
 @section('content')
-<div class="hero mv-single-hero" style="background:url({{ $base }}@if($show["thumbnail"]){{ "thumbnails/" . $show["thumbnail"] }}@else{{ "posters/" . $show["poster"] }}@endif)">
+<div class="hero mv-single-hero" style="background:url({{ $base }}@if($show["thumbnail"]){{ "/thumbnails/" . $show["thumbnail"] }}@else{{ "/posters/" . $show["poster"] }}@endif)">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -17,7 +17,7 @@
 		<div class="row ipad-width2">
 			<div class="col-md-4 col-sm-12 col-xs-12">
 				<div class="movie-img sticky-sb">
-					<img src="posters/{{ $show["poster"] }}" alt="">
+					<img src="{{ $base }}/posters/{{ $show["poster"] }}" alt="">
 					<div class="movie-btn">	
 
                         
@@ -42,9 +42,14 @@
 			</div>
 			<div class="col-md-8 col-sm-12 col-xs-12">
 				<div class="movie-single-ct main-content">
-					<h1 class="bd-hd">{{ $show["title"] }} <span>{{ date("Y", strtotime($show["releaseDate"])); }}</span></h1>
+					<h1 style="white-space: nowrap;" class="bd-hd">{{ $show["title"] }} <span>{{ date("Y", strtotime($show["releaseDate"])); }}</span></h1>
 					<div class="social-btn">
-						<a href="#" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
+						<a href="#" class="parent-btn" id="favorite-btn">
+							<div style="display: none;" class="loader">
+								<span></span>
+							</div>
+							<i class="ion-heart @if($show["favorite"]) active @endif"></i> <span>@if($show["favorite"]) Remove From @else Add To @endif Favorite</span>
+						</a>
 						<div class="hover-bnt">
 							<a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>share</a>
 							<div class="hvr-item">
@@ -94,12 +99,12 @@
 												<a href="#" class="time">All 5 Videos & 245 Photos <i class="ion-ios-arrow-right"></i></a>
 											</div>
 											<div class="mvsingle-item ov-item">
-												<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image11.jpg" ><img src="images/uploads/image1.jpg" alt=""></a>
-												<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image21.jpg" ><img src="images/uploads/image2.jpg" alt=""></a>
-												<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image31.jpg" ><img src="images/uploads/image3.jpg" alt=""></a>
+												<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image11.jpg" ><img src="/images/uploads/image1.jpg" alt=""></a>
+												<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image21.jpg" ><img src="/images/uploads/image2.jpg" alt=""></a>
+												<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image31.jpg" ><img src="/images/uploads/image3.jpg" alt=""></a>
 												<div class="vd-it">
-													<img class="vd-img" src="images/uploads/image4.jpg" alt="">
-													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="images/uploads/play-vd.png" alt=""></a>
+													<img class="vd-img" src="/images/uploads/image4.jpg" alt="">
+													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/images/uploads/play-vd.png" alt=""></a>
 												</div>
 											</div>
 											<div class="title-hd-sm">
@@ -110,56 +115,21 @@
 											<div class="mvcast-item">											
 												<div class="cast-it">
 													<div class="cast-left">
-														<img src="images/uploads/cast1.jpg" alt="">
+														<img src="/images/uploads/cast1.jpg" alt="">
 														<a href="#">Robert Downey Jr.</a>
 													</div>
 													<p>...  Robert Downey Jr.</p>
 												</div>
 												<div class="cast-it">
 													<div class="cast-left">
-														<img src="images/uploads/cast2.jpg" alt="">
-														<a href="#">Chris Hemsworth</a>
-													</div>
-													<p>...  Thor</p>
-												</div>
-												<div class="cast-it">
-													<div class="cast-left">
-														<img src="images/uploads/cast3.jpg" alt="">
-														<a href="#">Mark Ruffalo</a>
-													</div>
-													<p>...  Bruce Banner/ Hulk</p>
-												</div>
-												<div class="cast-it">
-													<div class="cast-left">
-														<img src="images/uploads/cast4.jpg" alt="">
-														<a href="#">Chris Evans</a>
-													</div>
-													<p>...  Steve Rogers/ Captain America</p>
-												</div>
-												<div class="cast-it">
-													<div class="cast-left">
-														<img src="images/uploads/cast5.jpg" alt="">
-														<a href="#">Scarlett Johansson</a>
-													</div>
-													<p>...  Natasha Romanoff/ Black Widow</p>
-												</div>
-												<div class="cast-it">
-													<div class="cast-left">
-														<img src="images/uploads/cast6.jpg" alt="">
-														<a href="#">Jeremy Renner</a>
-													</div>
-													<p>...  Clint Barton/ Hawkeye</p>
-												</div>
-												<div class="cast-it">
-													<div class="cast-left">
-														<img src="images/uploads/cast7.jpg" alt="">
+														<img src="/images/uploads/cast7.jpg" alt="">
 														<a href="#">James Spader</a>
 													</div>
 													<p>...  Ultron</p>
 												</div>
 												<div class="cast-it">
 													<div class="cast-left">
-														<img src="images/uploads/cast9.jpg" alt="">
+														<img src="/images/uploads/cast9.jpg" alt="">
 														<a href="#">Don Cheadle</a>
 													</div>
 													<p>...  James Rhodes/ War Machine</p>
@@ -187,7 +157,7 @@
 												<p class="time">
 													17 December 2016 by <a href="#"> hawaiipierson</a>
 												</p>
-												<p>This is by far one of my favorite movies from the MCU. The introduction of new Characters both good and bad also makes the movie more exciting. giving the characters more of a back story can also help audiences relate more to different characters better, and it connects a bond between the audience and actors or characters. Having seen the movie three times does not bother me here as it is as thrilling and exciting every time I am watching it. In other words, the movie is by far better than previous movies (and I do love everything Marvel), the plotting is splendid (they really do out do themselves in each film, there are no problems watching it more than once.</p>
+												<p>This is by far one of my favorite movies from the MCU. The introduction of new Characters both good and bad also makes the movie more exciting. giving the characters more of a back story can also help audiences relate more to different characters better.</p>
 											</div>
 						            	</div>
 						            	<div class="col-md-4 col-xs-12 col-sm-12">
@@ -232,7 +202,7 @@
 						            			</p>
 						            		</div>
 						            		<div class="ads">
-												<img src="images/uploads/ads1.png" alt="">
+												<img src="/images/uploads/ads1.png" alt="">
 											</div>
 						            	</div>
 						            </div>
@@ -260,7 +230,7 @@
 										</div>
 										<div class="mv-user-review-item">
 											<div class="user-infor">
-												<img src="images/uploads/userava1.jpg" alt="">
+												<img src="/images/uploads/userava1.jpg" alt="">
 												<div>
 													<h3>Best Marvel movie in my opinion</h3>
 													<div class="no-star">
@@ -284,7 +254,7 @@
 										</div>
 										<div class="mv-user-review-item">
 											<div class="user-infor">
-												<img src="images/uploads/userava2.jpg" alt="">
+												<img src="/images/uploads/userava2.jpg" alt="">
 												<div>
 													<h3>Just about as good as the first one!</h3>
 													<div class="no-star">
@@ -316,7 +286,7 @@
 										</div>
 										<div class="mv-user-review-item">
 											<div class="user-infor">
-												<img src="images/uploads/userava3.jpg" alt="">
+												<img src="/images/uploads/userava3.jpg" alt="">
 												<div>
 													<h3>One of the most boring exepirences from watching a movie</h3>
 													<div class="no-star">
@@ -344,7 +314,7 @@
 										</div>
 										<div class="mv-user-review-item ">
 											<div class="user-infor">
-												<img src="images/uploads/userava4.jpg" alt="">
+												<img src="/images/uploads/userava4.jpg" alt="">
 												<div>
 													<h3>That spirit of fun</h3>
 													<div class="no-star">
@@ -373,7 +343,7 @@
 										</div>
 										<div class="mv-user-review-item last">
 											<div class="user-infor">
-												<img src="images/uploads/userava5.jpg" alt="">
+												<img src="/images/uploads/userava5.jpg" alt="">
 												<div>
 													<h3>Impressive Special Effects and Cast</h3>
 													<div class="no-star">
@@ -488,56 +458,56 @@
 										<div class="mvcast-item">											
 											<div class="cast-it">
 												<div class="cast-left">
-													<img src="images/uploads/cast1.jpg" alt="">
+													<img src="/images/uploads/cast1.jpg" alt="">
 													<a href="#">Robert Downey Jr.</a>
 												</div>
 												<p>...  Robert Downey Jr.</p>
 											</div>
 											<div class="cast-it">
 												<div class="cast-left">
-													<img src="images/uploads/cast2.jpg" alt="">
+													<img src="/images/uploads/cast2.jpg" alt="">
 													<a href="#">Chris Hemsworth</a>
 												</div>
 												<p>...  Thor</p>
 											</div>
 											<div class="cast-it">
 												<div class="cast-left">
-													<img src="images/uploads/cast3.jpg" alt="">
+													<img src="/images/uploads/cast3.jpg" alt="">
 													<a href="#">Mark Ruffalo</a>
 												</div>
 												<p>...  Bruce Banner/ Hulk</p>
 											</div>
 											<div class="cast-it">
 												<div class="cast-left">
-													<img src="images/uploads/cast4.jpg" alt="">
+													<img src="/images/uploads/cast4.jpg" alt="">
 													<a href="#">Chris Evans</a>
 												</div>
 												<p>...  Steve Rogers/ Captain America</p>
 											</div>
 											<div class="cast-it">
 												<div class="cast-left">
-													<img src="images/uploads/cast5.jpg" alt="">
+													<img src="/images/uploads/cast5.jpg" alt="">
 													<a href="#">Scarlett Johansson</a>
 												</div>
 												<p>...  Natasha Romanoff/ Black Widow</p>
 											</div>
 											<div class="cast-it">
 												<div class="cast-left">
-													<img src="images/uploads/cast6.jpg" alt="">
+													<img src="/images/uploads/cast6.jpg" alt="">
 													<a href="#">Jeremy Renner</a>
 												</div>
 												<p>...  Clint Barton/ Hawkeye</p>
 											</div>
 											<div class="cast-it">
 												<div class="cast-left">
-													<img src="images/uploads/cast7.jpg" alt="">
+													<img src="/images/uploads/cast7.jpg" alt="">
 													<a href="#">James Spader</a>
 												</div>
 												<p>...  Ultron</p>
 											</div>
 											<div class="cast-it">
 												<div class="cast-left">
-													<img src="images/uploads/cast9.jpg" alt="">
+													<img src="/images/uploads/cast9.jpg" alt="">
 													<a href="#">Don Cheadle</a>
 												</div>
 												<p>...  James Rhodes/ War Machine</p>
@@ -621,8 +591,8 @@
 										<div class="mvsingle-item media-item">
 											<div class="vd-item">
 												<div class="vd-it">
-													<img class="vd-img" src="images/uploads/vd-item1.jpg" alt="">
-													<a class="fancybox-media hvr-grow"  href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="images/uploads/play-vd.png" alt=""></a>
+													<img class="vd-img" src="/images/uploads/vd-item1.jpg" alt="">
+													<a class="fancybox-media hvr-grow"  href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/images/uploads/play-vd.png" alt=""></a>
 												</div>
 												<div class="vd-infor">
 													<h6> <a href="#">Trailer:  Watch New Scenes</a></h6>
@@ -631,8 +601,8 @@
 											</div>
 											<div class="vd-item">
 												<div class="vd-it">
-													<img class="vd-img" src="images/uploads/vd-item2.jpg" alt="">
-													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="images/uploads/play-vd.png" alt=""></a>
+													<img class="vd-img" src="/images/uploads/vd-item2.jpg" alt="">
+													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/images/uploads/play-vd.png" alt=""></a>
 												</div>
 												<div class="vd-infor">
 													<h6> <a href="#">Featurette: “Avengers Re-Assembled</a></h6>
@@ -641,8 +611,8 @@
 											</div>
 											<div class="vd-item">
 												<div class="vd-it">
-													<img class="vd-img" src="images/uploads/vd-item3.jpg" alt="">
-													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="images/uploads/play-vd.png" alt=""></a>
+													<img class="vd-img" src="/images/uploads/vd-item3.jpg" alt="">
+													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/images/uploads/play-vd.png" alt=""></a>
 												</div>
 												<div class="vd-infor">
 													<h6> <a href="#">Interview: Robert Downey Jr</a></h6>
@@ -651,8 +621,8 @@
 											</div>
 											<div class="vd-item">
 												<div class="vd-it">
-													<img class="vd-img" src="images/uploads/vd-item4.jpg" alt="">
-													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="images/uploads/play-vd.png" alt=""></a>
+													<img class="vd-img" src="/images/uploads/vd-item4.jpg" alt="">
+													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/images/uploads/play-vd.png" alt=""></a>
 												</div>
 												<div class="vd-infor">
 													<h6> <a href="#">Interview: Scarlett Johansson</a></h6>
@@ -661,8 +631,8 @@
 											</div>
 											<div class="vd-item">
 												<div class="vd-it">
-													<img class="vd-img" src="images/uploads/vd-item1.jpg" alt="">
-													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="images/uploads/play-vd.png" alt=""></a>
+													<img class="vd-img" src="/images/uploads/vd-item1.jpg" alt="">
+													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/images/uploads/play-vd.png" alt=""></a>
 												</div>
 												<div class="vd-infor">
 													<h6> <a href="#">Featurette: Meet Quicksilver & The Scarlet Witch</a></h6>
@@ -671,8 +641,8 @@
 											</div>
 											<div class="vd-item">
 												<div class="vd-it">
-													<img class="vd-img" src="images/uploads/vd-item2.jpg" alt="">
-													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="images/uploads/play-vd.png" alt=""></a>
+													<img class="vd-img" src="/images/uploads/vd-item2.jpg" alt="">
+													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/images/uploads/play-vd.png" alt=""></a>
 												</div>
 												<div class="vd-infor">
 													<h6> <a href="#">Interview: Director Joss Whedon</a></h6>
@@ -681,8 +651,8 @@
 											</div>
 											<div class="vd-item">
 												<div class="vd-it">
-													<img class="vd-img" src="images/uploads/vd-item3.jpg" alt="">
-													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="images/uploads/play-vd.png" alt=""></a>
+													<img class="vd-img" src="/images/uploads/vd-item3.jpg" alt="">
+													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/images/uploads/play-vd.png" alt=""></a>
 												</div>
 												<div class="vd-infor">
 													<h6> <a href="#">Interview: Mark Ruffalo</a></h6>
@@ -691,8 +661,8 @@
 											</div>
 											<div class="vd-item">
 												<div class="vd-it">
-													<img class="vd-img" src="images/uploads/vd-item4.jpg" alt="">
-													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="images/uploads/play-vd.png" alt=""></a>
+													<img class="vd-img" src="/images/uploads/vd-item4.jpg" alt="">
+													<a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/images/uploads/play-vd.png" alt=""></a>
 												</div>
 												<div class="vd-infor">
 													<h6> <a href="#">Official Trailer #2</a></h6>
@@ -704,27 +674,27 @@
 											<h4>Photos <span> (21)</span></h4>
 										</div>
 										<div class="mvsingle-item">
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image11.jpg" ><img src="images/uploads/image1.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery"  href="images/uploads/image21.jpg" ><img src="images/uploads/image2.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image31.jpg" ><img src="images/uploads/image3.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image41.jpg" ><img src="images/uploads/image4.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image51.jpg" ><img src="images/uploads/image5.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image61.jpg" ><img src="images/uploads/image6.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image71.jpg" ><img src="images/uploads/image7.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image81.jpg" ><img src="images/uploads/image8.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image91.jpg" ><img src="images/uploads/image9.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image101.jpg" ><img src="images/uploads/image10.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image111.jpg" ><img src="images/uploads/image1-1.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image121.jpg" ><img src="images/uploads/image12.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image131.jpg" ><img src="images/uploads/image13.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image141.jpg" ><img src="images/uploads/image14.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image151.jpg" ><img src="images/uploads/image15.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image161.jpg" ><img src="images/uploads/image16.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image171.jpg" ><img src="images/uploads/image17.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image181.jpg" ><img src="images/uploads/image18.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image191.jpg" ><img src="images/uploads/image19.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image201.jpg" ><img src="images/uploads/image20.jpg" alt=""></a>
-											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image211.jpg" ><img src="images/uploads/image2-1.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image11.jpg" ><img src="/images/uploads/image1.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery"  href="images/uploads/image21.jpg" ><img src="/images/uploads/image2.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image31.jpg" ><img src="/images/uploads/image3.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image41.jpg" ><img src="/images/uploads/image4.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image51.jpg" ><img src="/images/uploads/image5.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image61.jpg" ><img src="/images/uploads/image6.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image71.jpg" ><img src="/images/uploads/image7.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image81.jpg" ><img src="/images/uploads/image8.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image91.jpg" ><img src="/images/uploads/image9.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image101.jpg" ><img src="/images/uploads/image10.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image111.jpg" ><img src="/images/uploads/image1-1.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image121.jpg" ><img src="/images/uploads/image12.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image131.jpg" ><img src="/images/uploads/image13.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image141.jpg" ><img src="/images/uploads/image14.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image151.jpg" ><img src="/images/uploads/image15.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image161.jpg" ><img src="/images/uploads/image16.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image171.jpg" ><img src="/images/uploads/image17.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image181.jpg" ><img src="/images/uploads/image18.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image191.jpg" ><img src="/images/uploads/image19.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image201.jpg" ><img src="/images/uploads/image20.jpg" alt=""></a>
+											<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image211.jpg" ><img src="/images/uploads/image2-1.jpg" alt=""></a>
 										</div>
 						        	</div>
 					       	 	</div>
@@ -745,7 +715,7 @@
 											</select>
 										</div>
 										<div class="movie-item-style-2">
-											<img src="images/uploads/mv1.jpg" alt="">
+											<img src="/images/uploads/mv1.jpg" alt="">
 											<div class="mv-item-infor">
 												<h6><a href="#">oblivion <span>(2012)</span></a></h6>
 												<p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
@@ -756,7 +726,7 @@
 											</div>
 										</div>
 										<div class="movie-item-style-2">
-											<img src="images/uploads/mv2.jpg" alt="">
+											<img src="/images/uploads/mv2.jpg" alt="">
 											<div class="mv-item-infor">
 												<h6><a href="#">into the wild <span>(2014)</span></a></h6>
 												<p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
@@ -767,7 +737,7 @@
 											</div>
 										</div>
 										<div class="movie-item-style-2">
-											<img src="images/uploads/mv3.jpg" alt="">
+											<img src="/images/uploads/mv3.jpg" alt="">
 											<div class="mv-item-infor">
 												<h6><a href="#">blade runner  <span>(2015)</span></a></h6>
 												<p class="rate"><i class="ion-android-star"></i><span>7.3</span> /10</p>
@@ -778,7 +748,7 @@
 											</div>
 										</div>
 										<div class="movie-item-style-2">
-											<img src="images/uploads/mv4.jpg" alt="">
+											<img src="/images/uploads/mv4.jpg" alt="">
 											<div class="mv-item-infor">
 												<h6><a href="#">Mulholland pride<span> (2013)  </span></a></h6>
 												<p class="rate"><i class="ion-android-star"></i><span>7.2</span> /10</p>
@@ -789,7 +759,7 @@
 											</div>
 										</div>
 										<div class="movie-item-style-2">
-											<img src="images/uploads/mv5.jpg" alt="">
+											<img src="/images/uploads/mv5.jpg" alt="">
 											<div class="mv-item-infor">
 												<h6><a href="#">skyfall: evil of boss<span> (2013)  </span></a></h6>
 												<p class="rate"><i class="ion-android-star"></i><span>7.0</span> /10</p>
@@ -822,4 +792,35 @@
 		</div>
 	</div>
 </div>
+@endsection
+
+@section("scripts")
+	<script>
+		$("#favorite-btn").on("click", function() {
+			var loader = $(this).find(".loader");
+			var icon = $(this).find("i");
+			var text = $(this).find(" > span");
+			var active = icon.hasClass("active");
+
+			loader.show();
+			icon.hide();
+
+			$.ajax({
+				headers: {
+					"X-CSRF-TOKEN": "{{ csrf_token() }}"
+				},
+				type: "POST",
+				url: active ? "/unfavorite" : "/favorite",
+				data: {
+					show: "{{ $show["id"] }}"
+				},
+				success: () => {
+					text.text(active ? "Add To Faovrite" : "Remove From Favorite")
+					icon.toggleClass("active");
+					loader.hide();
+					icon.show();
+				},
+			});
+		})
+	</script>
 @endsection

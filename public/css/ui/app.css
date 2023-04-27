@@ -193,3 +193,33 @@
     background-size: cover !important;
     background-position: center !important;
 }
+.loader {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+}
+
+.loader span {
+    position: absolute;
+    border-radius: 999px;
+    border: 5px solid #dd003f;
+    border-top: 5px solid transparent;
+    width: 30px;
+    height: 30px;
+    animation: spin2 1s infinite linear;
+}
+
+#favorite-btn {
+    display: flex;
+    align-items: center;
+}
+
+#favorite-btn .loader {
+    margin-right: 10px;
+}
+
+#favorite-btn i.active {
+    background: #dd003f;
+    color: #fff;
+}

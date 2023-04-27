@@ -93,7 +93,16 @@ class ShowController extends Controller {
     }
 
     public function delete($showID) {
-        Show::destroy($showID);
+        $show = Show::find($showID);
+
+        $show->genres()->delete();
+        $show->favorites()->delete();
+
+        File::delete(public_path("posters") . "/" . $show -> poster);
+        if($show -> thumbnail)
+        File::delete(public_path("thumbnails") . "/" . $show -> thumbnail);
+
+        $show->delete();
 
         return redirect("/admin/shows") -> with("status", "Client has been deleted successfuly");
     }

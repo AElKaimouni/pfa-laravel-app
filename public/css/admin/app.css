@@ -66,3 +66,7 @@
        object-position: center;
     opacity: 1;
 }
+
+th {
+    white-space: nowrap;
+}

@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield("title")</title>
 
+    <script>
+        document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("theme") || "semi-dark");
+    </script>
+
     <!--plugins-->
     <link href="/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" >
     <link href="/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet">

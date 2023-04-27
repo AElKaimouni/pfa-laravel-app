@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string("rating");
             $table->string("keywords");
             $table->string("poster");
+            $table->string("thumbnail");
             $table->date("releaseDate");
             $table->enum("type", ["TV SHOW", "Film"]);
             $table->timestamps();

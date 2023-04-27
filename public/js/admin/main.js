@@ -2,7 +2,6 @@
 $(function() {
 	"use strict";
 
-
 // app dropdown
 if($(".app-container").length) new PerfectScrollbar(".app-container")
 
@@ -100,11 +99,21 @@ $("#ShadowTheme").on("click", function() {
 
 
 $(".dark-mode").click(function () {
-	$("html").attr("data-bs-theme" , function(i, v){
-	  return v === 'dark' ? 'semi-dark' : 'dark';
-	})
+	$("html").attr("data-bs-theme" , function(i, v) {
+		const theme = v === 'dark' ? 'semi-dark' : 'dark';
+
+		localStorage.setItem("theme", theme);
+	  	return theme;
+	});
+
 })
 
+
+
+$(".dark-mode span").text(function(){
+	const v = localStorage.getItem("theme");
+	return v === 'dark' ? 'light_mode' : 'dark_mode'
+})
 
 
 });

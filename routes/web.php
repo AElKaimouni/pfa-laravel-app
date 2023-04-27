@@ -54,6 +54,10 @@ Route::middleware(["auth:0"])->group(function () {
 // Protected Routes
 Route::middleware(["auth:1"])->group(function () {
 
+    Route::post("/unfavorite", "App\Http\Controllers\FavoriteController@unfavorite")->middleware(["verified"]);
+
+    Route::post("/favorite", "App\Http\Controllers\FavoriteController@favorite")->middleware(["verified"]);
+
     Route::get("/profile", "App\Http\Controllers\UserController@profile")->middleware(["verified"]);
 
     Route::post("/profile", "App\Http\Controllers\UserController@edit_profile")->middleware(["verified"]);
