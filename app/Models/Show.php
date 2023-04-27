@@ -40,6 +40,8 @@ class Show extends Model {
     public function isFavorite() {
         $user = Auth::user();
 
+        if(!$user) return false;
+
         $favorite = $this -> favorites() -> where("user_id", $user->id)->first();
 
         if($favorite) return true;
