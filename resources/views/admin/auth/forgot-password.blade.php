@@ -3,7 +3,7 @@
 @section("title", "Login Page - PFA")
 
 @section('content')
-    <img src="/images/logo-icon.png" class="mb-4" width="45" alt="">
+    <img src="/images/logo-mini.svg" class="mb-4" width="45" alt="">
     @include("admin.comps.messages")
     <h4 class="fw-bold">Forgot Password?</h4>
     <p class="mb-0">Enter your registered email to reset the password</p>
