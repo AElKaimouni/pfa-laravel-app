@@ -4,6 +4,7 @@
 /public/avatars
 /public/posters
 /public/thumbnails
+/public/ethumbnails
 /storage/*.key
 /vendor
 .env

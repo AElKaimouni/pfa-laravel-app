@@ -127,7 +127,7 @@ class UserController extends Controller
         if($success) {
             if($mode === "admin") return redirect("/admin");
 
-            return redirect("/");
+            return back();
         }
         
         return redirect($mode !== "admin" ? "/login" : "/admin/login")->withErrors(["Unvalid Credentials"]);

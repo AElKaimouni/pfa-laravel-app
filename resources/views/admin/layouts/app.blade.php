@@ -101,14 +101,6 @@
     <script src="/js/admin/bootstrap.bundle.min.js"></script>
     <script src="/js/admin/main.js"></script>
 
-    @if(env("APP_ENV") === "local")
-        <script>
-            $("img").each(function() {
-                if($(this).attr("src"))
-                $(this).attr("src", "https://www.elkaimouni.live/" + $(this).attr("src"))
-            })
-        </script>
-    @endif
     @yield('scripts')
   </body>
 </html>

@@ -37,6 +37,14 @@
                     <div class="menu-title">Shows</div>
                 </a>
             </li>
+            <li>
+                <a href="/admin/episodes">
+                    <div class="parent-icon">
+                        <span class="material-symbols-outlined">play_circle</span>
+                    </div>
+                    <div class="menu-title">Episodes</div>
+                </a>
+            </li>
         </ul>
         <!--end navigation-->
     </div>

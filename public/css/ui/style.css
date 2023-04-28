@@ -4556,10 +4556,8 @@ ul {
 }
 .topbar-filter select {
   width: 215px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   /* Firefox */
-  background: url('../../images/uploads/drop-icon.png') no-repeat right 20px center;
+  background: none;
   border-left: 1px solid #405266;
   border-right: 1px solid #405266;
   border-top: none;

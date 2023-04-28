@@ -44,7 +44,7 @@
 				<div class="movie-single-ct main-content">
 					<h1 style="white-space: nowrap;" class="bd-hd">{{ $show["title"] }} <span>{{ date("Y", strtotime($show["releaseDate"])); }}</span></h1>
 					<div class="social-btn">
-						<a href="#" class="parent-btn" id="favorite-btn">
+						<a href="#" class="parent-btn @guest loginLink @endguest" @auth id="favorite-btn" @endauth>
 							<div style="display: none;" class="loader">
 								<span></span>
 							</div>

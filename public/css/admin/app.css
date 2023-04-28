@@ -70,3 +70,28 @@
 th {
     white-space: nowrap;
 }
+
+
+.video-upload video {
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: 100%;
+}
+
+.video-uplaod-clear {
+    padding: 5px;
+    background: var(--bs-danger);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.25em;
+    width: 2.25em;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 3;
+}

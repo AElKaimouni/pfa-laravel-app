@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Mail;
 // Public Routes
 Route::middleware(["auth:0"])->group(function () {
 
+    Route::get("/shows", "App\Http\Controllers\ShowController@shows");
+
     Route::get("/shows/{showID}", "App\Http\Controllers\ShowController@show");
 
     Route::get("/", "App\Http\Controllers\PageController@HomePage");
@@ -58,6 +60,8 @@ Route::middleware(["auth:1"])->group(function () {
 
     Route::post("/favorite", "App\Http\Controllers\FavoriteController@favorite")->middleware(["verified"]);
 
+    Route::get("/profile/favorite", "App\Http\Controllers\ShowController@favorites")->middleware(["verified"]);
+
     Route::get("/profile", "App\Http\Controllers\UserController@profile")->middleware(["verified"]);
 
     Route::post("/profile", "App\Http\Controllers\UserController@edit_profile")->middleware(["verified"]);
@@ -95,4 +99,15 @@ Route::middleware(["auth:3", "admin.app"])->group(function () {
     Route::get("/admin/shows/delete/{showID}", "App\Http\Controllers\ShowController@delete");
     Route::get("/admin/shows/edit/{showID}", "App\Http\Controllers\ShowController@edit");
     Route::post("/admin/shows/edit/{showID}", "App\Http\Controllers\ShowController@update");
+
+    Route::get("/admin/episodes", "App\Http\Controllers\EpisodeController@index");
+    Route::get("/admin/episodes/add", "App\Http\Controllers\EpisodeController@add");
+    Route::post("/admin/episodes/add", "App\Http\Controllers\EpisodeController@create");
+    Route::get("/admin/episodes/delete/{showID}", "App\Http\Controllers\EpisodeController@delete");
+    Route::get("/admin/episodes/edit/{showID}", "App\Http\Controllers\EpisodeController@edit");
+    Route::post("/admin/episodes/edit/{showID}", "App\Http\Controllers\EpisodeController@update");
+
+    Route::get('/videos/{videoID}', "App\Http\Controllers\EpisodeController@video");
+    Route::post('/video', "App\Http\Controllers\EpisodeController@uploadVideo");
 });
+

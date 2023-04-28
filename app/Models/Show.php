@@ -55,4 +55,8 @@ class Show extends Model {
             "favorite" =>  $this->isFavorite()
         ]);
     }
+
+    public function genre($genre) {
+        return $this->hasOne(Genre::class)->where("name", $genre);
+    }
 }

@@ -1,7 +1,7 @@
 <div class="user-information">
     <div class="user-img">
         <a href="#">
-            <img id="user-avatar" src="@if($avatar)/avatars/{{ $avatar }}@else/images/uploads/user-img.png @endif" alt="">
+            <img id="user-avatar" src="@if($avatar){{ $base }}/avatars/{{ $avatar }}@else/images/uploads/user-img.png @endif" alt="">
             <br>
         </a>
     </div>
@@ -9,7 +9,7 @@
         <p>Account Details</p>
         <ul>
             <li @if($active === "profile") class="active" @endif><a href="/profile">Profile</a></li>
-            <li><a href="userfavoritelist.html">Favorite movies</a></li>
+            <li @if($active === "favorite") class="active" @endif><a href="/profile/favorite">Favorite movies</a></li>
             <li><a href="userrate.html">Rated movies</a></li>
         </ul>
     </div>

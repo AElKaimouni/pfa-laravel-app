@@ -7,6 +7,7 @@ use App\Models\Show;
 use App\Models\Genre;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class ShowController extends Controller {
@@ -104,7 +105,7 @@ class ShowController extends Controller {
 
         $show->delete();
 
-        return redirect("/admin/shows") -> with("status", "Client has been deleted successfuly");
+        return redirect("/admin/shows") -> with("status", "Episode has been deleted successfuly");
     }
 
     public function update($showID, Request $request) {
@@ -154,6 +155,63 @@ class ShowController extends Controller {
         return view("shows/single")->with([
             "show" => $show->populate(),
             "user" => $user
+        ]);
+    }
+
+    public function shows(Request $request) {
+        $search = $request->input("search");
+        $page = $request->input("page") ?: 0;
+        $max = $request->input("max") ?: 12;
+        $target = $request->input("target");
+        $genre = $request->input("genre");
+
+        $query = Show::latest()->select("id", "poster", "title");
+
+        if($genre) $query = $query->whereHas("genres", function ($q) use($genre) {
+            $q->where("name", $genre);
+        });
+
+        if($target) $query = $query->where("type", $target);
+        if($search) $query = $query->where("title", "like", "%" . $request->input("search") . "%");
+
+        $count = $query->count();
+
+        $shows =  $query->skip($page * $max)->take($max)->get();
+        $genres = Genre::list();
+        
+        return view("shows/index")->with([
+            "count" => $count,
+            "shows" => $shows,
+            "search" => $search,
+            "page" => $page,
+            "max" => $max,
+            "target" => $target,
+            "genres" => $genres,
+            "genre" => $genre
+        ]);
+    }
+
+    public function favorites(Request $request) {
+        $user = Auth::user();
+        $page = $request->input("page") ?: 0;
+        $max = $request->input("max") ?: 12;
+
+        $query = Show::whereHas("favorites", function ($q) use($user) {
+            $q->where("user_id", $user->id);
+        })->latest()->select("id", "poster", "title", "releaseDate", "description", "runTime", "rating");
+
+        $count = $query->count();
+
+        $shows =  $query->skip($page * $max)->take($max)->get();
+        
+        return view("profile.favorite")->with([
+            "count" => $count,
+            "shows" => $shows,
+            "page" => $page,
+            "max" => $max,
+            "f_name" => $user -> f_name,
+            "l_name" => $user -> l_name,
+            "avatar" => $user -> avatar,
         ]);
     }
 }
