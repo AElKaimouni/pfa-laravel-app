@@ -2,10 +2,10 @@
     <div class="container">
         <div class="flex-parent-ft">
             <div class="flex-child-ft item1">
-                <a href="index.html"><img class="logo" src="/images/logo1.png" alt=""></a>
+                <a href="index.html"><img class="logo" src="/images/logo.svg" alt=""></a>
                 <p>5th Avenue st, manhattan<br>
                 New York, NY 10001</p>
-                <p>Call us: <a href="#">(+01) 202 342 6789</a></p>
+                <p>Call us: <a href="#">(+212) 619 214 446</a></p>
             </div>
             <div class="flex-child-ft item2">
                 <h4>Resources</h4>
@@ -47,7 +47,7 @@
     </div>
     <div class="ft-copyright">
         <div class="ft-center">
-            <p>© 2017 Blockbuster. All Rights Reserved. Designed by leehari.</p>
+            <p>© 2023 El Kaimouni. All Rights Reserved. Designed by A_El_Kaimouni.</p>
         </div>
     </div>
 </footer>

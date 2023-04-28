@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="slider sliderv2">
+<div class="slider sliderv2" style="background-image: url({{ $base }}/thumbnails/{{ $latest[0]["thumbnail"] }})">
 	<div class="container">
 		<div class="row">
 	    	<div class="slider-single-item">
@@ -135,10 +135,10 @@
 												<img src="{{ $base }}/posters/{{ $show["poster"] }}" alt="">
 											</div>
 											<div class="hvr-inner">
-												<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+												<a  href="shows/{{ $show["id"] }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 											</div>
 											<div class="title-in">
-												<h6 style="max-width: 95%;"><a href="#">{{ $show["title"] }}</a></h6>
+												<h6 style="max-width: 95%;"><a href="shows/{{ $show["id"] }}">{{ $show["title"] }}</a></h6>
 												<p><i class="ion-android-star"></i><span>7.4</span> /10</p>
 											</div>
 										</div>

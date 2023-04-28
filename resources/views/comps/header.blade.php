@@ -11,7 +11,7 @@
                             <span></span>
                         </div>
                     </div>
-                    <a href="index.html"><img class="logo" src="/images/logo1.png" alt="" width="119" height="58"></a>
+                    <a href="/"><img class="logo" src="/images/logo.svg" alt="" width="119" height="58"></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
@@ -26,11 +26,16 @@
                         </li>
                         <li class="dropdown first">
                             <a class="btn btn-default lv1" href="/shows">
-                                TV SHOWS
+                                SHOWS
                             </a>
                         </li>
                         <li class="dropdown first">
-                            <a class="btn btn-default lv1" href="/movies">
+                            <a class="btn btn-default lv1" href="/shows?target=TV+SHOW">
+                                TV SERIES
+                            </a>
+                        </li>
+                        <li class="dropdown first">
+                            <a class="btn btn-default lv1" href="/movies?target=Film">
                                 MOVIES
                             </a>
                         </li>
@@ -57,12 +62,12 @@
         </nav>
         
         <!-- top search form -->
-        <div class="top-search">
-            <select>
-                <option value="united">TV show</option>
-                <option value="saab">Others</option>
+        <form class="top-search" type="POST" action="/shows">
+            <select name="target">
+                <option value="TV SHOW">TV show</option>
+                <option value="Film">Movies</option>
             </select>
-            <input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
-        </div>
+            <input name="search" type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
+        </form>
     </div>
 </header>
