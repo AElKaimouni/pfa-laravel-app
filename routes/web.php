@@ -82,7 +82,7 @@ Route::middleware(["auth:1"])->group(function () {
 // Paid Routes
 Route::middleware(["auth:2"])->group(function () {
     Route::view("/watch", "watch");
-    
+    Route::post('/video', "App\Http\Controllers\EpisodeController@uploadVideo");
 });
 
 
@@ -108,6 +108,6 @@ Route::middleware(["auth:3", "admin.app"])->group(function () {
     Route::post("/admin/episodes/edit/{showID}", "App\Http\Controllers\EpisodeController@update");
 
     Route::get('/videos/{videoID}', "App\Http\Controllers\EpisodeController@video");
-    Route::post('/video', "App\Http\Controllers\EpisodeController@uploadVideo");
+    
 });
 

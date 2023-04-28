@@ -88,7 +88,7 @@
                                     <td>
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="product-box">
-                                                <img style="width: unset;" src="/ethumbnails/{{ $episode["thumbnail"] }}" alt="">
+                                                <img style="width: unset;" src="{{ $base }}/ethumbnails/{{ $episode["thumbnail"] }}" alt="">
                                             </div>
                                             <div class="product-info">
                                                 <a href="/admin/shows/edit/{{ $episode["show_id"] }}" class="product-title">

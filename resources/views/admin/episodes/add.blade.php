@@ -55,7 +55,7 @@
                         <h5>170 x 96</h5>
                         <h5 class="mb-3">Upload Thumbnail</h5>
                     </div>
-                    <img @isset($episode) src="/ethumbnails/{{ $episode["thumbnail"] }}" @endisset id="tumbnail-upload-img" />
+                    <img @isset($episode) src="{{ $base }}/ethumbnails/{{ $episode["thumbnail"] }}" @endisset id="tumbnail-upload-img" />
                     <input id="tumbnail-upload" type="file" name="thumbnail" accept=".jpg, .png, .webp, image/jpeg, image/png, image/webp" multiple>
                 </div>
             </div>
@@ -97,35 +97,13 @@
                             restart_alt
                         </span>
                     </button>
-                    <video id="videoPreview" @if(!isset($episode) ||  !$episode["video"]) style="display: none;" @else src="/videos/{{ $episode["video"] }}" @endif width="100%" controls>
+                    <video id="videoPreview" @if(!isset($episode) ||  !$episode["video"]) style="display: none;" @else src="{{ $base }}videos/{{ $episode["video"] }}" @endif width="100%" controls>
 
                     </video>
                     <input type="hidden" id="video-input" name="video" @if(isset($episode)) value="{{ $episode["video"] }}" @endif />
                     {{-- <input id="video-upload" type="file" name="video" accept="video/*"> --}}
                 </div>
             </div>
-            {{-- <div class="container pt-4">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header text-center">
-                                <h5>Upload File</h5>
-                            </div>
-
-                            <div class="card-body">
-                                <div id="upload-container" class="text-center">
-                                    <button type="button" id="browseFile" class="btn btn-primary">Brows File</button>
-                                </div>
-                                
-                            </div>
-
-                            <div class="card-footer p-4" style="display: none">
-                                <video id="videoPreview" src="" controls style="width: 100%; height: auto"></video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </div>
 
@@ -218,19 +196,7 @@
                 } else $(this).siblings("div").addClass("active");
             })
 
-            $("#video-upload").on("change", function(evt) {
-                var $source = $('#video_here');
-                const [file] = this.files;
-                if(file) {
-                    $source[0].src = URL.createObjectURL(file);
-                    $source.parent()[0].load();
-                    $(this).siblings("video").show().siblings("button").show().siblings("div").removeClass("active");
-                } else $(this).siblings("div").addClass("active").siblings("video").hide().siblings("button").hide();
-            });
 
-            $("#video-upload-btn").on("click", function() {
-                $("#video-upload").siblings("div").addClass("active").siblings("video").hide().siblings("button").hide();
-            })
         });
     </script>
 
