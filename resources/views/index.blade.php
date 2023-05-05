@@ -74,7 +74,7 @@
 	</div>
 </div>
 
-<div class="movie-items  full-width">
+<div class="movie-items  full-width"style="padding-bottom: 0;">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="title-hd">
@@ -106,7 +106,8 @@
 		</div>
 	</div>
 </div>
-<div class="movie-items  full-width" style="background-color: #0c0218;">
+
+<div class="movie-items  full-width" style="background-color: #0c0218;padding-bottom: 0;">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="title-hd">
@@ -142,6 +143,7 @@
 		</div>
 	</div>
 </div>
+
 <div class="movie-items  full-width">
 	<div class="row">
 		<div class="col-md-12">
@@ -179,4 +181,5 @@
 		</div>
 	</div>
 </div>
+
 @endsection

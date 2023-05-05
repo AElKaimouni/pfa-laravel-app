@@ -4046,7 +4046,7 @@ ul {
 .latestnew.full-width,
 .full-width {
   padding: 70px 100px;
-  padding-bottom: 0;
+  
 }
 @media (max-width: 767px) {
   .movie-items.full-width,
