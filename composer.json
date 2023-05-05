@@ -26,9 +26,10 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
-        },
-        "getid3": "vendor/james-heinrich/getid3/getid3/getid3.php"
+            "Database\\Seeders\\": "database/seeders/",
+            "getid3\\": "vendor/james-heinrich/getid3/getid3/getid3.php"
+
+        }
     },
     "autoload-dev": {
         "psr-4": {
