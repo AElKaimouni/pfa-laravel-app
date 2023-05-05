@@ -53,10 +53,10 @@
 				<div class="topbar-filter">
                     <label>Shows per page:</label>
                     <select id="max-items-input">
-                        <option value="24" @if($max == 24) selected @endif>24 Epsiodes</option>
-                        <option value="36" @if($max == 36) selected @endif>36 Epsiodes</option>
-                        <option value="72" @if($max == 72) selected @endif>72 Epsiodes</option>
-                        <option value="144" @if($max == 144) selected @endif>144 Epsiodes</option>
+                        <option value="25" @if($max == 25) selected @endif>25 Epsiodes</option>
+                        <option value="50" @if($max == 50) selected @endif>50 Epsiodes</option>
+                        <option value="75" @if($max == 75) selected @endif>75 Epsiodes</option>
+                        <option value="100" @if($max == 100) selected @endif>100 Epsiodes</option>
                     </select>
                     <div class="pagination2">
                         @php
