@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="slider sliderv2" style="background-image: url({{ $base }}/thumbnails/{{ $latest[0]["thumbnail"] }})">
+<div class="slider sliderv2" style="background-image: url(/images/Background.png)">
 	<div class="container">
 		<div class="row">
 	    	<div class="slider-single-item">
@@ -78,16 +78,36 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="title-hd">
+				<h2>Latest Episodes</h2>
+				<a href="/episodes" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
+			</div>
+			<div class="tabs">
+			    <div class="tab-content">
+			        <div id="tab1-h2" class="tab active">
+			            <div class="mvsingle-item media-item">
+							@foreach ($latestEpsidoes as $episode)
+								<div class="vd-item" style="width: 200px;">
+									<div class="vd-it">
+										<img style="height: calc(200px * 96/170);" class="vd-img" src="{{ $base }}/ethumbnails//{{ $episode["thumbnail"] }}" alt="">
+										<a class="fancybox-media hvr-grow"  href="/episodes/{{ $episode["id"] }}">
+											<i class="ion-play"></i>
+										</a>
+									</div>
+									<div class="vd-infor">
+										<h6> <a href="#">{{ $episode["title"] }}</a></h6>
+										<p class="time">{{ $episode["duration"] }}</p>
+									</div>
+								</div>
+							@endforeach
+						</div>
+			        </div>
+			    </div>
+			</div>
+			<div class="title-hd">
 				<h2>Latest TV SHOWS</h2>
 				<a href="#" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
 			</div>
 			<div class="tabs">
-				{{-- <ul class="tab-links">
-					<li class="active"><a href="#tab1-h2">#Popular</a></li>
-					<li><a href="javascript:;"> #Coming soon</a></li>
-					<li><a href="javascript:;">  #Top rated  </a></li>
-					<li><a href="javascript:;"> #Most reviewed</a></li>                        
-				</ul> --}}
 			    <div class="tab-content">
 			        <div id="tab1-h2" class="tab active">
 			            <div class="row">
@@ -118,12 +138,6 @@
 				<a href="#" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
 			</div>
 			<div class="tabs">
-				{{-- <ul class="tab-links">
-					<li class="active"><a href="#tab1-h2">#Popular</a></li>
-					<li><a href="javascript:;"> #Coming soon</a></li>
-					<li><a href="javascript:;">  #Top rated  </a></li>
-					<li><a href="javascript:;"> #Most reviewed</a></li>                        
-				</ul> --}}
 			    <div class="tab-content">
 			        <div id="tab1-h2" class="tab active">
 			            <div class="row">

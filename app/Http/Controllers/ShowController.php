@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Show;
 use App\Models\Genre;
+use App\Models\Episode;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
@@ -151,10 +152,14 @@ class ShowController extends Controller {
     public function show($showID) {
         $show = Show::find($showID);
         $user = Auth::user();
+        $episodes = Episode::show_episodes($show->id)->orderBy("epn", "DESC")->get();
+        $episodesCount = Episode::show_episodes($show->id)->count();
 
         return view("shows/single")->with([
             "show" => $show->populate(),
-            "user" => $user
+            "user" => $user,
+            "episodes" => $episodes,
+            "episodesCount" => $episodesCount
         ]);
     }
 

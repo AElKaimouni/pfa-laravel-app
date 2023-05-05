@@ -3,7 +3,7 @@
 @section("title", "Home Page - PFA")
 
 @section('content')
-<div class="hero user-hero">
+<div class="hero common-hero user-hero" style="background-image: url(/images/Background.png)">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">

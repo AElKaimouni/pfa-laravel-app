@@ -90,7 +90,7 @@
                                     <td>
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="product-box">
-                                                <img style="width: unset;" src="/posters/{{ $show["poster"] }}" alt="">
+                                                <img style="width: unset;" src="{{ $base }}/posters/{{ $show["poster"] }}" alt="">
                                             </div>
                                             <div class="product-info">
                                                 <a href="javascript:;" class="product-title">{{ \Illuminate\Support\Str::limit($show["title"], 30, $end='...') }}</a>

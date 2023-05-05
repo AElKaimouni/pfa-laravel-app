@@ -30,12 +30,17 @@
                             </a>
                         </li>
                         <li class="dropdown first">
+                            <a class="btn btn-default lv1" href="/episodes">
+                                LATEST EPISODES
+                            </a>
+                        </li>
+                        <li class="dropdown first">
                             <a class="btn btn-default lv1" href="/shows?target=TV+SHOW">
                                 TV SERIES
                             </a>
                         </li>
                         <li class="dropdown first">
-                            <a class="btn btn-default lv1" href="/movies?target=Film">
+                            <a class="btn btn-default lv1" href="/shows?target=Film">
                                 MOVIES
                             </a>
                         </li>

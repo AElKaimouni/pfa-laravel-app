@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\File;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
+use getid3;
 
 class EpisodeController extends Controller {
 
@@ -50,19 +51,23 @@ class EpisodeController extends Controller {
             "title" => "required",
             "description" => "required",
             "show_id" => "required",
-            "epn" => ["required", Rule::unique('episodes')->where(function ($query) use ($request) {
+            "epn" => ["required", Rule::unique("episodes")->where(function ($query) use ($request) {
                 return $query->where("show_id", $request->input("show_id"));
             }),],
             "thumbnail" => "required|image|mimes:jpg,png,jpeg,gif,svg,webp",
             "video" => "required"
         ]);
 
-
         $thumbName = time().".".$request->thumbnail->getClientOriginalExtension();
         $request->thumbnail->move(public_path("ethumbnails"), $thumbName);
 
+        $getID3 = new \getID3;
+        $file = $getID3->analyze(storage_path("app/videos/" . $request->video));
+        $duration = date("H:i:s", $file["playtime_seconds"]);
+
         $episode = new Episode(array_merge($request->except(["thumbnail"]), [
-            "thumbnail" => $thumbName
+            "thumbnail" => $thumbName,
+            "duration" => $duration
         ]));
 
         $episode->save();
@@ -87,15 +92,25 @@ class EpisodeController extends Controller {
             "title" => "required",
             "description" => "required",
             "show_id" => "required",
-            "epn" => ["required", Rule::unique('episodes')->where(function ($query) use ($request, $episode) {
+            "epn" => ["required", Rule::unique("episodes")->where(function ($query) use ($request, $episode) {
                 return $query->where("id", "!=", $episode->id)->where("show_id", $request->input("show_id"));
             }),],
             "thumbnail" => "image|mimes:jpg,png,jpeg,gif,svg,webp",
             "video" => "required"
         ]);
 
+        $additional = [];
+
+
         if($request->video) {
             File::delete(storage_path("app/videos/" . $episode->video));
+
+            $getID3 = new \getID3;
+            $file = $getID3->analyze(storage_path("app/videos/" . $request->video));
+            $duration = date("H:i:s", $file["playtime_seconds"]);
+
+
+            $additional["duration"] = $duration;
         }
 
         if($request->thumbnail) {
@@ -105,11 +120,10 @@ class EpisodeController extends Controller {
             File::delete(public_path("ethumbnails") . "/" . $episode -> thumbnail);
         }
 
-        $images = [];
 
-        if($request -> thumbnail) $images["thumbnail"] = $thumbName;
+        if($request -> thumbnail) $additional["thumbnail"] = $thumbName;
 
-        $episode->update(array_merge($images, $request -> except(["thumbnail"])));
+        $episode->update(array_merge($additional, $request -> except(["thumbnail"])));
 
         return redirect("/admin/episodes")->with("status", "Episode have been updated successfuly");
     }
@@ -131,7 +145,7 @@ class EpisodeController extends Controller {
     }
 
     public function uploadVideo(Request $request) {
-        $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
+        $receiver = new FileReceiver("file", $request, HandlerFactory::classFromRequest($request));
     
         if (!$receiver->isUploaded()) {
             // file not uploaded
@@ -142,20 +156,48 @@ class EpisodeController extends Controller {
             $file = $fileReceived->getFile(); // get file
 
             $videoName = time().".".$file->getClientOriginalExtension();
-            Storage::disk('local')->put("videos/" . $videoName, file_get_contents($file));
+            Storage::disk("local")->put("videos/" . $videoName, file_get_contents($file));
     
             // delete chunked file
             unlink($file->getPathname());
             return [
-                'filename' => $videoName
+                "filename" => $videoName
             ];
         }
     
         // otherwise return percentage information
         $handler = $fileReceived->handler();
         return [
-            'done' => $handler->getPercentageDone(),
-            'status' => true
+            "done" => $handler->getPercentageDone(),
+            "status" => true
         ];
+    }
+
+    public function episodes(Request $request) {
+        $page = $request->input("page") ?: 0;
+        $max = $request->input("max") ?: 12;
+
+        $query = Episode::latest()->select("id", "thumbnail", "title", "duration");
+
+        $count = $query->count();
+
+        $episodes =  $query->skip($page * $max)->take($max)->get();
+
+        return view("/episodes/index")->with([
+            "page" => $page,
+            "max" => $max,
+            "count" => $count,
+            "episodes" => $episodes
+        ]);
+    }
+
+    public function episode($episodeID) {
+        $episode = Episode::find($episodeID);
+        $episodes = $episode->siblings()->select("thumbnail", "id", "title", "video", "duration")->get();
+
+        return view("episodes/single")->with([
+            "episodes" => $episodes,
+            "episode" => $episode,
+        ]);
     }
 }

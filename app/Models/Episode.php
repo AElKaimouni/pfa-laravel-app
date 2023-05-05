@@ -16,4 +16,12 @@ class Episode extends Model
     public function show(): BelongsTo {
         return $this->belongsTo(Show::class);
     }
+
+    public function siblings() {
+        return Episode::where("show_id", $this->show_id);
+    }
+
+    static function show_episodes($show) {
+        return Episode::where("show_id", "=", $show);
+    }
 }

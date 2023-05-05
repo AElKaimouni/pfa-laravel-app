@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Mail;
 // Public Routes
 Route::middleware(["auth:0"])->group(function () {
 
+    Route::get("/episodes", "App\Http\Controllers\EpisodeController@episodes");
+
     Route::get("/shows", "App\Http\Controllers\ShowController@shows");
 
     Route::get("/shows/{showID}", "App\Http\Controllers\ShowController@show");
@@ -81,9 +83,10 @@ Route::middleware(["auth:1"])->group(function () {
 
 // Paid Routes
 Route::middleware(["auth:2"])->group(function () {
-    Route::view("/watch", "watch");
-    Route::get('/videos/{videoID}', "App\Http\Controllers\EpisodeController@video");
+
+    Route::get("/episodes/{episodeID}", "App\Http\Controllers\EpisodeController@episode");
     
+    Route::get('/videos/{videoID}', "App\Http\Controllers\EpisodeController@video");
 });
 
 

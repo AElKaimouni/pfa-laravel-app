@@ -87,7 +87,7 @@
                     <td>
                         <a class="d-flex align-items-center gap-3" href="javascript:;">
                             <div class="customer-pic">
-                                <img src="/avatars/{{ $client["avatar"] }}" class="rounded-circle profile-avatar" width="40" height="40" alt="">
+                                <img src="{{ $base }}/avatars/{{ $client["avatar"] }}" class="rounded-circle profile-avatar" width="40" height="40" alt="">
                             </div>
                             <p class="mb-0 customer-name fw-bold">{{ $client["name"] }}</p>
                         </a>

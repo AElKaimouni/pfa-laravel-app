@@ -97,7 +97,7 @@
                             restart_alt
                         </span>
                     </button>
-                    <video id="videoPreview" @if(!isset($episode) ||  !$episode["video"]) style="display: none;" @else src="{{ $base }}videos/{{ $episode["video"] }}" @endif width="100%" controls>
+                    <video id="videoPreview" @if(!isset($episode) ||  !$episode["video"]) style="display: none;" @else src="{{ $base }}/videos/{{ $episode["video"] }}" @endif width="100%" controls>
 
                     </video>
                     <input type="hidden" id="video-input" name="video" @if(isset($episode)) value="{{ $episode["video"] }}" @endif />

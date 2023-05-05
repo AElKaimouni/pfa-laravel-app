@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string("thumbnail");
             $table->string("video");
             $table->float("epn");
+            $table -> string("duration");
 
             $table->foreign("show_id")->references("id")->on("shows");
             $table->unique(['epn', 'show_id']);

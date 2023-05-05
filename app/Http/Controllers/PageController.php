@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Episode;
 use Illuminate\Http\Request;
 use App\Models\Show;
 
@@ -17,11 +18,13 @@ class PageController extends Controller
         $latestFilms = Show::where("type", "Film")->latest()->take(10)->get()->map(function($show) {
             return $show->populate();
         });
+        $latestEpsidoes = Episode::latest()->take(20)->get();
 
         return view("index")->with([
             "latest" => $latest,
             "latestTV" => $latestTV,
-            "latestFilms" => $latestFilms
+            "latestFilms" => $latestFilms,
+            "latestEpsidoes" => $latestEpsidoes
         ]);
     }
 }

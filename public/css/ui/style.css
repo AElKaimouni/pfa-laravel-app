@@ -4899,7 +4899,7 @@ ul {
 .trailers .videos .thumb-ft {
   width: 35%;
   height: 435px;
-  padding: 30px 0;
+  padding: 45px 0;
   background-color: #0b1a2a;
   position: relative;
 }
@@ -4919,7 +4919,7 @@ ul {
   position: absolute;
 }
 .trailers .videos .thumb-ft .slick-prev {
-  top: 10px;
+  top: 20px;
   left: 45%;
 }
 .trailers .videos .thumb-ft .slick-next {
@@ -6143,22 +6143,21 @@ ul {
   width: 42px;
   height: 42px;
 }
-.movie-single .movie-single-ct .mvsingle-item {
+.mvsingle-item {
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   align-items: inherit;
   flex-wrap: wrap;
 }
 @media (max-width: 767px) {
-  .movie-single .movie-single-ct .mvsingle-item {
+  .mvsingle-item {
     padding: 30px;
   }
 }
-.movie-single .movie-single-ct .mvsingle-item img {
+.mvsingle-item img {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -6167,10 +6166,11 @@ ul {
   -moz-transition: all 0.5s ease-out;
   -o-transition: all 0.5s ease-out;
   transition: all 0.5s ease-out;
-  margin-bottom: 15px;
   position: relative;
+  object-fit: cover;
+  object-position: center;
 }
-.movie-single .movie-single-ct .mvsingle-item img:hover {
+.mvsingle-item img:hover {
   -moz-opacity: 0.7;
   -khtml-opacity: 0.7;
   -webkit-opacity: 0.7;
@@ -6182,10 +6182,10 @@ ul {
   -o-transition: all 0.5s ease-out;
   transition: all 0.5s ease-out;
 }
-.movie-single .movie-single-ct .mvsingle-item .vd-it {
+.mvsingle-item .vd-it {
   position: relative;
 }
-.movie-single .movie-single-ct .mvsingle-item .vd-it a {
+.mvsingle-item .vd-it a {
   margin: auto;
   position: absolute;
   top: 0;
@@ -6201,33 +6201,38 @@ ul {
   -webkit-align-items: center;
   -webkit-justify-content: center;
 }
-.movie-single .movie-single-ct .mvsingle-item .vd-it a img {
+
+.mvsingle-item .vd-it a:hover {
+  color: #dcf836;
+}
+.mvsingle-item .vd-it a img {
   width: initial;
 }
 @media (max-width: 767px) {
 }
-.movie-single .movie-single-ct .mvsingle-item .vd-infor {
+.mvsingle-item .vd-infor {
   margin-top: 15px;
 }
-.movie-single .movie-single-ct .mvsingle-item .vd-infor h6 a {
+.mvsingle-item .vd-infor h6 a {
   font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
   text-transform: none;
 }
-.movie-single .movie-single-ct .mvsingle-item .vd-infor p.time {
+.mvsingle-item .vd-infor p.time {
   font-family: 'Dosis', sans-serif;
   font-size: 12px;
   color: #abb7c4;
   font-weight: 400;
   text-transform: none;
 }
-.movie-single .movie-single-ct .mvsingle-item .vd-item {
+.mvsingle-item .vd-item {
   margin-bottom: 30px;
+  margin: 10px;
   width: 170px;
 }
-.movie-single .movie-single-ct .mvsingle-item .vd-item:hover h6 a {
+.mvsingle-item .vd-item:hover h6 a {
   color: #dcf836;
 }
 @media (max-width: 767px) {

@@ -28,6 +28,7 @@
         <link rel="stylesheet" href="/css/ui/style.css">
         <link rel="stylesheet" href="/css/ui/app.css">
 
+        @yield("styles")
         
     </head>
     <body>
