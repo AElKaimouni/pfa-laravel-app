@@ -100,7 +100,7 @@
                     <video id="videoPreview" @if(!isset($episode) ||  !$episode["video"]) style="display: none;" @else src="{{ $base }}/videos/{{ $episode["video"] }}" @endif width="100%" controls>
 
                     </video>
-                    <input type="hidden" id="video-input" name="video" @if(isset($episode)) value="{{ $episode["video"] }}" @endif />
+                    <input type="hidden" id="video-input" name="video" />
                     {{-- <input id="video-upload" type="file" name="video" accept="video/*"> --}}
                 </div>
             </div>

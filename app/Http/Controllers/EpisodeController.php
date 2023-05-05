@@ -96,7 +96,6 @@ class EpisodeController extends Controller {
                 return $query->where("id", "!=", $episode->id)->where("show_id", $request->input("show_id"));
             }),],
             "thumbnail" => "image|mimes:jpg,png,jpeg,gif,svg,webp",
-            "video" => "required"
         ]);
 
         $additional = [];
