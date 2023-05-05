@@ -108,7 +108,7 @@ class EpisodeController extends Controller {
             $file = $getID3->analyze(storage_path("app/videos/" . $request->video));
             $duration = date("H:i:s", $file["playtime_seconds"]);
 
-
+            $additional["video"] = $request->video;
             $additional["duration"] = $duration;
         }
 
@@ -122,7 +122,7 @@ class EpisodeController extends Controller {
 
         if($request -> thumbnail) $additional["thumbnail"] = $thumbName;
 
-        $episode->update(array_merge($additional, $request -> except(["thumbnail"])));
+        $episode->update(array_merge($additional, $request -> except(["thumbnail", "video"])));
 
         return redirect("/admin/episodes")->with("status", "Episode have been updated successfuly");
     }
