@@ -103,6 +103,12 @@
 			        </div>
 			    </div>
 			</div>
+		</div>
+	</div>
+</div>
+<div class="movie-items  full-width" style="background-color: #0c0218;">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="title-hd">
 				<h2>Latest TV SHOWS</h2>
 				<a href="#" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
@@ -133,6 +139,13 @@
 			        </div>
 			    </div>
 			</div>
+		</div>
+	</div>
+</div>
+<div class="movie-items  full-width">
+	<div class="row">
+		<div class="col-md-12">
+
 			<div class="title-hd">
 				<h2>Latest FILMS</h2>
 				<a href="#" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
