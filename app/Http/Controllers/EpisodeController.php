@@ -174,7 +174,7 @@ class EpisodeController extends Controller {
 
     public function episodes(Request $request) {
         $page = $request->input("page") ?: 0;
-        $max = $request->input("max") ?: 12;
+        $max = $request->input("max") ?: 24;
 
         $query = Episode::latest()->select("id", "thumbnail", "title", "duration");
 

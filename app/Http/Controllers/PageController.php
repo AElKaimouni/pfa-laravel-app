@@ -18,7 +18,7 @@ class PageController extends Controller
         $latestFilms = Show::where("type", "Film")->latest()->take(10)->get()->map(function($show) {
             return $show->populate();
         });
-        $latestEpsidoes = Episode::latest()->take(20)->get();
+        $latestEpsidoes = Episode::latest()->take(15)->get();
 
         return view("index")->with([
             "latest" => $latest,
