@@ -9,9 +9,10 @@
     <p class="error-message text-white text-uppercase">You don't have permission to access on this server</p>
     
     <div class="mt-4 d-flex align-items-center justify-content-center gap-3">
-        <a href="/admin" class="btn btn-danger rounded-5 px-4">
-            <i class="bi bi-house-fill me-2"></i>Go To Home
+        <a href="/logout" class="btn btn-danger rounded-5 px-4">
+            <i class="bi bi-house-fill me-2"></i>Logout
         </a>
+
         {{-- <a href="javascript:void();" class="btn btn-outline-light rounded-5 px-4">
             <i class="bi bi-arrow-left me-2"></i>Previous Page
         </a> --}}

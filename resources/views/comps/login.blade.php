@@ -1,9 +1,12 @@
 <div  @if($wrapper) class="login-wrapper" id="login-content" @endif >
     <div class="login-content">
         <a href="#" class="close">x</a>
-
+        <div class="text-center" style="margin-bottom: 1em">
+        <a href="/" ><img class="logo" src="/images/logo-black.svg" width="150" alt=""></a>
+        </div>
+        
         <h3>Login</h3>
-        <form method="post" action="/login/client">
+        <form method="post" action="/login">
             @csrf <!-- {{ csrf_field() }} -->
             <div class="row">
                 <label for="username">

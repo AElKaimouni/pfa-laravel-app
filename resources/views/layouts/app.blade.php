@@ -32,6 +32,8 @@
         
     </head>
     <body>
+
+        @include("comps.messages")
         
         @include("comps.loader")
 

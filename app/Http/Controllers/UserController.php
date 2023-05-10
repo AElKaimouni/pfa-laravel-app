@@ -116,7 +116,7 @@ class UserController extends Controller
      * 
      * @return Route Home page if successed if not login
     */
-    static function login(Request $request, $mode) {
+    static function login(Request $request, ) {
         $request->validate([
             "email" => "required|email",
             "password" => "required",
@@ -125,12 +125,11 @@ class UserController extends Controller
         $success = Auth::attempt($request->only("email", "password"), $request -> input("remember"));
 
         if($success) {
-            if($mode === "admin") return redirect("/admin");
 
             return back();
         }
         
-        return redirect($mode !== "admin" ? "/login" : "/admin/login")->withErrors(["Unvalid Credentials"]);
+        return back()->withErrors(["Unvalid Credentials"]);
     }
 
     /**
@@ -138,13 +137,11 @@ class UserController extends Controller
      * 
      * @return View login
      */
-    static function logout($mode) {
+    static function logout() {
         
         Auth::logout();
         
-        if($mode === "admin") return redirect("/admin/login");
-
-        return redirect("/login");
+        return back();
     }
 
     /** 
@@ -164,11 +161,10 @@ class UserController extends Controller
         $user = Auth::user();
 
         if($level > 0 && !($user instanceof User)) {
-            echo "$level > 0 && !(user instanceof User)";
 
-            if($level === 3) return redirect("/admin/login");
+            if($level === 3) return response()->view("admin.auth.login");
 
-            return redirect("/login");
+            return response()->view("auth.login");
         } else if ($level > 0 && $user instanceof User) {
 
             if($level === 2 && !$user->hasValidSubscription()) {
@@ -178,7 +174,7 @@ class UserController extends Controller
     
             if($level === 3 && $user["role"] !== "admin") {
 
-                return redirect("/admin/403");
+                return response()->view("admin.errors.403");
             }
         }
 

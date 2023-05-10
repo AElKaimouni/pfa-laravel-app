@@ -3,14 +3,15 @@
 @section("title", "Login Page - PFA")
 
 @section('content')
-    <img src="/images/logo-mini.svg" class="mb-4" width="45" alt="">
+<div class="text-center">
+    <img src="/images/logo-blue.svg" class="mb-4" height="90" alt="">
     @include("admin.comps.messages")
     <h4 class="fw-bold">Admin Login</h4>
     <p class="mb-0">Enter your credentials to login your account</p>
-
+</div>
 
     <div class="form-body mt-4">
-    <form method="post" action="/login/admin" class="row g-3">
+    <form method="post" action="/login" class="row g-3">
         @csrf <!-- {{ csrf_field() }} -->
         <div class="col-12">
             <label for="inputEmailAddress" class="form-label">Email</label>

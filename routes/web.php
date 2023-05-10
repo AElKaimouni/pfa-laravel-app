@@ -34,9 +34,9 @@ Route::middleware(["auth:0"])->group(function () {
 
     Route::post("/register", "App\Http\Controllers\UserController@register");
 
-    Route::post("/login/{mode}", "App\Http\Controllers\UserController@login");
+    Route::post("/login", "App\Http\Controllers\UserController@login");
 
-    Route::get("/logout/{mode}", "App\Http\Controllers\UserController@logout");
+    Route::get("/logout", "App\Http\Controllers\UserController@logout");
 
     Route::get("/logout", "App\Http\Controllers\UserController@logout");
 
