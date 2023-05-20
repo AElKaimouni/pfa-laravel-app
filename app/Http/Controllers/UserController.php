@@ -105,7 +105,7 @@ class UserController extends Controller
         );
      
         return $status === Password::PASSWORD_RESET
-                    ? view("auth.login")->with("status", __($status))
+                    ? redirect("/login")->with("status", __($status))
                     : back()->withErrors(["email" => [__($status)]]);
     }
 
@@ -117,6 +117,9 @@ class UserController extends Controller
      * @return Route Home page if successed if not login
     */
     static function login(Request $request, ) {
+
+        if(Auth::user()) return redirect("/");
+
         $request->validate([
             "email" => "required|email",
             "password" => "required",
