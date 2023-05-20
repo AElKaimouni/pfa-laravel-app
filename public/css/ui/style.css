@@ -7317,7 +7317,7 @@ p.ceb-single {
   bottom: 0;
   background-color: #020d18;
   /* change if the mask should have another color then white */
-  z-index: 99999;
+  z-index: 999999999;
   text-align: center;
   /* makes sure it stays on top */
 }
