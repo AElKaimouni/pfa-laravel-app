@@ -168,13 +168,13 @@ class ShowController extends Controller {
         $episodes = Episode::show_episodes($show->id)->orderBy("epn", "DESC")->skip($e_page * $e_max)->limit($e_max)->get();
         $episodesCount = Episode::show_episodes($show->id)->count();
 
-        $reviewQuery = Review::show_reviews($show->id)->where("user_id", "!=", $user->id);
+        $reviewQuery = Review::show_reviews($show->id)->where("user_id", "!=", $user ? $user->id : "");
         $reviews = $reviewQuery->skip($r_page * $r_max)->limit($r_max)->get();
         $reviewsCount = Review::show_reviews($show->id)->count();
 
         $latestReview = Review::latest()->first();
 
-        $userReview = Review::userReview($showID);
+        $userReview = $user ? Review::userReview($showID) : null;
 
         return view("shows/single")->with([
             "show" => $show->populate(),
