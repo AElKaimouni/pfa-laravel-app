@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Show;
 use App\Models\Genre;
+use App\Models\Review;
 use App\Models\Episode;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
@@ -97,8 +98,14 @@ class ShowController extends Controller {
     public function delete($showID) {
         $show = Show::find($showID);
 
+        $epCount = $show->episodes()->count();
+
+        if($epCount > 0) return redirect("/admin/shows") -> 
+        withErrors(["staus" => "Please remove this show episodes before trying to remove it."]);
+
         $show->genres()->delete();
         $show->favorites()->delete();
+        $show->reviews()->delete();
 
         File::delete(public_path("posters") . "/" . $show -> poster);
         if($show -> thumbnail)
@@ -106,7 +113,7 @@ class ShowController extends Controller {
 
         $show->delete();
 
-        return redirect("/admin/shows") -> with("status", "Episode has been deleted successfuly");
+        return redirect("/admin/shows") -> with("status", "Show has been deleted successfuly");
     }
 
     public function update($showID, Request $request) {
@@ -149,17 +156,39 @@ class ShowController extends Controller {
         return redirect("/admin/shows")->with("status", "Show have been updated successfuly");
     }
 
-    public function show($showID) {
+    public function show($showID, Request $request) {
+        $e_page = $request->input("epage");
+        $e_max = $request->input("emax") ?: 25;
+        $r_page = $request->input("rpage");
+        $r_max = $request->input("rmax") ?: 10;
+
         $show = Show::find($showID);
         $user = Auth::user();
-        $episodes = Episode::show_episodes($show->id)->orderBy("epn", "DESC")->get();
+
+        $episodes = Episode::show_episodes($show->id)->orderBy("epn", "DESC")->skip($e_page * $e_max)->limit($e_max)->get();
         $episodesCount = Episode::show_episodes($show->id)->count();
+
+        $reviewQuery = Review::show_reviews($show->id)->where("user_id", "!=", $user->id);
+        $reviews = $reviewQuery->skip($r_page * $r_max)->limit($r_max)->get();
+        $reviewsCount = (clone $reviewQuery)->count();
+
+        $latestReview = Review::latest()->first();
+
+        $userReview = Review::userReview($showID);
 
         return view("shows/single")->with([
             "show" => $show->populate(),
             "user" => $user,
             "episodes" => $episodes,
-            "episodesCount" => $episodesCount
+            "episodesCount" => $episodesCount,
+            "reviews" => $reviews,
+            "reviewsCount" => $reviewsCount,
+            "e_page" => $e_page,
+            "e_max" => $e_max,
+            "r_page" => $r_page,
+            "r_max" => $r_max,
+            "userReview" => $userReview,
+            "latestReview" => $latestReview
         ]);
     }
 
@@ -212,6 +241,28 @@ class ShowController extends Controller {
         return view("profile.favorite")->with([
             "count" => $count,
             "shows" => $shows,
+            "page" => $page,
+            "max" => $max,
+            "f_name" => $user -> f_name,
+            "l_name" => $user -> l_name,
+            "avatar" => $user -> avatar,
+        ]);
+    }
+
+    public function rated(Request $request) {
+        $user = Auth::user();
+        $page = $request->input("page") ?: 0;
+        $max = $request->input("max") ?: 12;
+
+        $query = Review::where("user_id", "=", $user->id)->latest();
+
+        $count = $query->count();
+
+        $reviews =  $query->skip($page * $max)->take($max)->get();
+        
+        return view("profile.rated")->with([
+            "count" => $count,
+            "reviews" => $reviews,
             "page" => $page,
             "max" => $max,
             "f_name" => $user -> f_name,

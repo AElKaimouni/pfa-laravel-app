@@ -6117,6 +6117,7 @@ ul {
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
   border-radius: 30px;
+  margin-right: 25px;
 }
 .movie-single .movie-single-ct .tab.review .mv-user-review-item {
   border-bottom: 1px solid #233a50;
@@ -6127,7 +6128,7 @@ ul {
     padding: 20px;
   }
 }
-.movie-single .movie-single-ct .tab.review .mv-user-review-item .user-infor {
+.mv-user-review-item .user-infor {
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
@@ -6136,13 +6137,14 @@ ul {
   justify-content: flex-start;
   align-items: inherit;
 }
-.movie-single .movie-single-ct .tab.review .mv-user-review-item .user-infor img {
+.mv-user-review-item .user-infor img {
   margin-right: 30px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
   width: 42px;
   height: 42px;
+  object-fit: cover;
 }
 .mvsingle-item {
   display: -webkit-flex;
@@ -6854,7 +6856,7 @@ p.ceb-single {
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 999;
+  z-index: 999999;
   -moz-opacity: 0;
   -khtml-opacity: 0;
   -webkit-opacity: 0;
@@ -7858,7 +7860,6 @@ header .navbar-default .navbar-nav li a:hover {
   color: #dcf836;
 }
 header .navbar-default .navbar-nav li a i {
-  float: right;
   right: 0;
   margin-top: 3px;
 }

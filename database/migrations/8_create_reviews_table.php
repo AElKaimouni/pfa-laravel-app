@@ -7,25 +7,24 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
 
     public function up() {
-
-        Schema::create("episodes", function (Blueprint $table) {
+        Schema::create("reviews", function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
             $table->string("title");
-            $table->longText("description");
+            $table->longText("comment");
+            $table->float("rating");
+
             $table->unsignedBigInteger("show_id");
-            $table->string("thumbnail");
-            $table->string("video");
-            $table->float("epn");
-            $table -> string("duration");
+            $table->unsignedBigInteger("user_id");
 
             $table->foreign("show_id")->references("id")->on("shows");
-            $table->unique(["epn", "show_id"]);
+            $table->foreign("user_id")->references("id")->on("users");
+
+            $table->unique(["user_id", "show_id"]);
         });
     }
-
     public function down() {
-        Schema::dropIfExists("episodes");
+        Schema::dropIfExists("reviews");
     }
 };

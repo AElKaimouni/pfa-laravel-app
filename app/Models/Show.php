@@ -12,6 +12,10 @@ class Show extends Model {
     protected $table = "shows";
     protected $guarded = [];
 
+    public function episodes(): HasMany {
+        return $this->hasMany(Episode::class);
+    }
+
     public function genres(): HasMany {
         return $this->hasMany(Genre::class);
     }
@@ -49,14 +53,26 @@ class Show extends Model {
         return false;
     }
 
-    public function populate() {
-        return array_merge($this->toArray(), [
-            "genres" => $this->getGenres(),
-            "favorite" =>  $this->isFavorite()
-        ]);
-    }
-
     public function genre($genre) {
         return $this->hasOne(Genre::class)->where("name", $genre);
+    }
+
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
+
+    public function rating() {
+        return $this->reviews->avg("rating");
+    }
+
+    public function populate() {
+        $rating = $this->rating();
+        
+        return array_merge($this->toArray(), [
+            "genres" => $this->getGenres(),
+            "favorite" =>  $this->isFavorite(),
+            "userRating" => $rating ? number_format($rating, 1, ".", "") : "Na",
+            "userRating_num" => $rating
+        ]);
     }
 }

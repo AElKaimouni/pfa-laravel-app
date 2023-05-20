@@ -58,6 +58,12 @@ Route::middleware(["auth:0"])->group(function () {
 // Protected Routes
 Route::middleware(["auth:1"])->group(function () {
 
+    Route::get("/profile/rated", "App\Http\Controllers\ShowController@rated")->middleware(["verified"]);
+
+    Route::post("/review/update", "App\Http\Controllers\ReviewController@update")->middleware(["verified"]);
+
+    Route::post("/review", "App\Http\Controllers\ReviewController@review")->middleware(["verified"]);
+
     Route::post("/unfavorite", "App\Http\Controllers\FavoriteController@unfavorite")->middleware(["verified"]);
 
     Route::post("/favorite", "App\Http\Controllers\FavoriteController@favorite")->middleware(["verified"]);

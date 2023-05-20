@@ -58,4 +58,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function subscription() {
         return $this->hasOne(Subscription::class)->whereRaw("Date(expire_date) > CURDATE()");
     }
+
+    public function subscriptions() {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function favorites() {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
 }

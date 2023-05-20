@@ -6,4 +6,9 @@ $(function(){
             $("#user-avatar").attr("src", URL.createObjectURL(file));
         }
     })
+
+    $(".toast").fadeIn();
+    window.setTimeout(function() {
+        $(".toast").fadeOut();
+    }, 3000)
 })

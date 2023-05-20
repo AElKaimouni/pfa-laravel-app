@@ -43,9 +43,9 @@ class UserController extends Controller
             "password" => Hash::make($data["password"])
         ]);
 
-        $user->sendEmailVerificationNotification();
+        Auth::login($user);
 
-        return redirect("/");
+        return redirect("/profile");
     }
 
     /**
@@ -283,7 +283,17 @@ class UserController extends Controller
     }
 
     public function deleteClient($clientID) {
-        User::destroy($clientID);
+        $client = User::find($clientID);
+        
+        if($client->role === "admin") return back()->withErrors([
+            "status" => "Cannot remove Admin user"
+        ]);
+
+        $client->subscriptions()->delete();
+        $client->favorites()->delete();
+        $client->reviews()->delete();
+        
+        $client->delete();
 
         return redirect("/admin/clients") -> with("status", "Client has been deleted successfuly");
     }

@@ -22,11 +22,11 @@
 	<div class="container">
 		<div class="row ipad-width">
 			<div class="col-md-3 col-sm-12 col-xs-12">
-				@include("comps.profile-sidebar", ["active" => "favorite"])
+				@include("comps.profile-sidebar", ["active" => "rated"])
 			</div>
 			<div class="col-md-9 col-sm-12 col-xs-12">
                 <div class="topbar-filter user">
-                    <p>Found <span>{{ $count }} shows</span> in total </p>
+                    <p>Found <span>{{ $count }} reviews</span> in total </p>
                     <label>Sort by:</label>
                     <select>
                         <option value="range">-- Choose option --</option>
@@ -34,40 +34,26 @@
                     </select>
                 </div>
                 <div class="flex-wrap-movielist user-fav-list">
-                    @foreach($shows as $show)
-                        <div class="movie-item-style-2">
-                            <img style="width:180px;" src="{{ $base }}/posters/{{ $show["poster"] }}" alt="">
+                    @foreach($reviews as $review)
+                        <div class="movie-item-style-2 userrate">
+                            <img style="width:180px;" src="{{ $base }}/posters/{{ $review->show["poster"] }}" alt="">
                             <div class="mv-item-infor">
-                                <h6>
-                                    <a href="/shows/{{ $show["id"] }}">{{ $show["title"] }} <span>({{ date("Y", strtotime($show["releaseDate"])); }})</span>
-                                    </a>
-                                </h6>
-                                <p class="rate">
-                                    <i class="ion-android-star"></i>
-                                    <span>8.1</span> /10
-                                </p>
-                                <p class="describe">
-                                    {{ \Illuminate\Support\Str::limit($show["description"], 150, "...") }}
-                                </p>
-                                <p class="run-time"> Run Time: {{ $show["runTime"] }}min . <span>MMPA: {{ $show["rating"] }} </span> . <span>Release: {{ date("j F Y", strtotime($show["releaseDate"])); }}</span>
-                                </p>
-                                <p>Director: <a href="#">Joss Whedon</a>
-                                </p>
-                                <p>Stars: <a href="#">Robert Downey Jr.,</a>
-                                    <a href="#">Chris Evans,</a>
-                                    <a href="#"> Chris Hemsworth</a>
-                                </p>
+                                <h6><a href="#">{{ $review->show["title"] }} <span>({{ date("Y", strtotime($review->show["releaseDate"])); }})</span></a></h6>
+                                <p class="rate"><i class="ion-android-star"></i><span>{{ number_format($review["rating"], 1, ".", "") }}</span> /10</p>
+                                <h6>{{ $review["title"] }}</h6>
+                                <p class="time sm">{{ date("j F Y h:i", strtotime($review["created_at"])); }}</p>
+                                <p>“{{ $review["comment"] }}”</p>		
                             </div>
                         </div>
                     @endforeach
                 </div>
                 <div class="topbar-filter">
-                    <label>Shows per page:</label>
+                    <label>Reviews per page:</label>
                     <select id="max-items-input">
-                        <option value="12" @if($max == 12) selected @endif>12 Shows</option>
-                        <option value="24" @if($max == 24) selected @endif>24 Shows</option>
-                        <option value="36" @if($max == 36) selected @endif>36 Shows</option>
-                        <option value="72" @if($max == 72) selected @endif>72 Shows</option>
+                        <option value="5" @if($max == 5) selected @endif>5 Review</option>
+                        <option value="10" @if($max == 10) selected @endif>10 Review</option>
+                        <option value="25" @if($max == 25) selected @endif>25 Review</option>
+                        <option value="50" @if($max == 50) selected @endif>50 Review</option>
                     </select>
                     <div class="pagination2">
                         @php

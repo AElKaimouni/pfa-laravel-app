@@ -19,29 +19,24 @@
                         <li class="hidden">
                             <a href="#page-top"></a>
                         </li>
+                        
                         <li class="dropdown first">
                             <a class="btn btn-default lv1" href="/">
                                 Home 
                             </a>
                         </li>
                         <li class="dropdown first">
-                            <a class="btn btn-default lv1" href="/shows">
-                                SHOWS
-                            </a>
-                        </li>
+							<a style="padding: 0;" class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
+							</a>
+                            <a  href="/shows">SHOWS <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+							<ul class="dropdown-menu level1">
+								<li><a href="/shows?target=TV+SHOW">TV SERIES</a></li>
+								<li><a href="/shows?target=Film">MOVIES</a></li>
+							</ul>
+						</li>
                         <li class="dropdown first">
                             <a class="btn btn-default lv1" href="/episodes">
                                 LATEST EPISODES
-                            </a>
-                        </li>
-                        <li class="dropdown first">
-                            <a class="btn btn-default lv1" href="/shows?target=TV+SHOW">
-                                TV SERIES
-                            </a>
-                        </li>
-                        <li class="dropdown first">
-                            <a class="btn btn-default lv1" href="/shows?target=Film">
-                                MOVIES
                             </a>
                         </li>
                         <li class="dropdown first">

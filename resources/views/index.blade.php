@@ -26,13 +26,15 @@
 													}
 												})($loop->index % 4);
 											@endphp
-											<span class="{{ $color }}"><a href="#">{{ $genre }}</a></span>
+											<span style="margin: 2px" class="{{ $color }}">
+												<a href="/shows?genre={{ $genre }}">{{ $genre }}</a>
+											</span>
 										@endforeach
 										{{-- <span class="blue"><a href="#">Sci-fi</a></span>
 										<span class="yell"><a href="#">Action</a></span>
 										<span class="orange"><a href="#">advanture</a></span> --}}
 									</div>
-									<h1><a href="shows/{{ $show["id"] }}">{{ $show["title"] }}<span>{{ date("Y", strtotime($show["releaseDate"])); }}</span></a></h1>
+									<h1><a href="/shows/{{ $show["id"] }}">{{ $show["title"] }}<span>{{ date("Y", strtotime($show["releaseDate"])); }}</span></a></h1>
 									<div class="social-btn">
 										<a href="#" class="parent-btn"><i class="ion-play"></i> Watch Trailer</a>
 										<a href="#" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
@@ -47,17 +49,14 @@
 										</div>		
 									</div>
 									<div class="mv-details">
-										<p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+										<p><i class="ion-android-star"></i><span>{{ $show["userRating"] }}</span> /10</p>
 										<ul class="mv-infor">
 											<li>  Run Time: {{ $show["runTime"] }}min’ </li>
 											<li>  Rated: {{ $show["rating"] }}  </li>
-											<li>  Release: {{ date("d-M-Y", strtotime($show["releaseDate"])); }}</li>
+											<li>  Release: {{ date("j F Y", strtotime($show["releaseDate"])); }}</li>
 										</ul>
 									</div>
-									<div class="btn-transform transform-vertical">
-										<div><a href="#" class="item item-1 redbtn">more detail</a></div>
-										<div><a href= "#" class="item item-2 redbtn hvrbtn">more detail</a></div>
-									</div>		
+									<a href="/shows/{{ $show["id"] }}" class="redbtn">more detail</a>
 								</div>
 							</div>
 							<div class="col-md-4 col-sm-12 col-xs-12">
@@ -84,7 +83,7 @@
 			<div class="tabs">
 			    <div class="tab-content">
 			        <div id="tab1-h2" class="tab active">
-			            <div class="mvsingle-item media-item">
+			            <div style="justify-content: center;" class="mvsingle-item media-item">
 							@foreach ($latestEpsidoes as $episode)
 								<div class="vd-item" style="width: 200px;">
 									<div class="vd-it">
@@ -130,7 +129,7 @@
 											</div>
 											<div class="title-in">
 												<h6 style="max-width: 95%;"><a href="shows/{{ $show["id"] }}">{{ $show["title"] }}</a></h6>
-												<p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+												<p><i class="ion-android-star"></i><span>{{ $show["userRating"] }}</span> /10</p>
 											</div>
 										</div>
 									</div>
@@ -168,7 +167,7 @@
 											</div>
 											<div class="title-in">
 												<h6 style="max-width: 95%;"><a href="shows/{{ $show["id"] }}">{{ $show["title"] }}</a></h6>
-												<p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+												<p><i class="ion-android-star"></i><span>{{ $show["userRating"] }}</span> /10</p>
 											</div>
 										</div>
 									</div>

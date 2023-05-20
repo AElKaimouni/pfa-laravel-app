@@ -271,3 +271,18 @@ footer {
 /* .vjs-theme-fantasy .vjs-big-play-button {
     color: #dcf836 !important;
 } */
+
+.toast {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    display: inline-block;
+    max-width: 300px;
+    z-index: 999999;
+}
+
+.no-result {
+    color: #abb7c4;
+    padding: 1em;
+    text-align: center;
+}
