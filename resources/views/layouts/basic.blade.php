@@ -37,5 +37,6 @@
         <script src="/js/ui/plugins.js"></script>
         <script src="/js/ui/plugins2.js"></script>
         <script src="/js/ui/custom.js"></script>
+        <script src="/js/ui/app.js"></script>
     </body>
 </html>
