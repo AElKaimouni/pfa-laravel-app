@@ -169,8 +169,8 @@ class ShowController extends Controller {
         $episodesCount = Episode::show_episodes($show->id)->count();
 
         $reviewQuery = Review::show_reviews($show->id)->where("user_id", "!=", $user->id);
-        $reviewsCount = (clone $reviewQuery)->count();
         $reviews = $reviewQuery->skip($r_page * $r_max)->limit($r_max)->get();
+        $reviewsCount = Review::show_reviews($show->id)->count();
 
         $latestReview = Review::latest()->first();
 
