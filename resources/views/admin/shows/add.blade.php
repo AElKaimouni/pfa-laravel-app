@@ -43,7 +43,7 @@
                         <h5>360 x 521</h5>
                         <h5 class="mb-3">Upload Poster</h5>
                     </div>
-                    <img @isset($show) src="/posters/{{ $show["poster"] }}" @endisset id="poster-upload-img" />
+                    <img @isset($show) src="{{ $base }}/posters/{{ $show["poster"] }}" @endisset id="poster-upload-img" />
                     <input id="poster-upload" type="file" name="poster" accept=".jpg, .png, .webp, image/jpeg, image/png, image/webp" multiple>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                         <h5>1920 x 806</h5>
                         <h5 class="mb-3">Upload Thumbnail</h5>
                     </div>
-                    <img @if(isset($show) && $show["thumbnail"]) src="/thumbnails/{{ $show["thumbnail"] }}" @endif id="thumbnail-upload-img" />
+                    <img @if(isset($show) && $show["thumbnail"]) src="{{ $base }}/thumbnails/{{ $show["thumbnail"] }}" @endif id="thumbnail-upload-img" />
                     <input id="thumbnail-upload" type="file" name="thumbnail" accept=".jpg, .png, .webp, image/jpeg, image/png, image/webp" multiple>
                 </div>
             </div>
@@ -116,50 +116,73 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-4">
-                        <div class="row">
-                            <div class="col-12 col-lg-6">
-                                <label for="multiple-select-directors" class="form-label">Directors</label>
-                                <select class="form-select" id="multiple-select-directors" data-placeholder="Choose anything" multiple>
-                                    <option>Christmas Island</option>
-                                    <option>South Sudan</option>
-                                    <option>Jamaica</option>
-                                    <option>Kenya</option>
-                                    <option>French Guiana</option>
-                                    <option>Mayotta</option>
-                                    <option>Liechtenstein</option>
-                                </select>
-                            </div>
-                            <div class="col-12 col-lg-6">
-                                <label for="multiple-select-writers" class="form-label">Writers</label>
-                                <select class="form-select" id="multiple-select-writers" data-placeholder="Choose anything" multiple>
-                                    <option>Christmas Island</option>
-                                    <option>South Sudan</option>
-                                    <option>Jamaica</option>
-                                    <option>Kenya</option>
-                                    <option>French Guiana</option>
-                                    <option>Mayotta</option>
-                                    <option>Liechtenstein</option>
-                                </select>
-                            </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                <div class="mb-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="multiple-select-genres" class="form-label">Related Shows</label>
+                            <select class="form-select" id="multiple-select-shows" data-placeholder="Choose anything" multiple>
+                                @foreach ($shows as $show)
+                                    <option value="{{ $show["id"] }}">{{ $show["title"] }}</option>
+                                @endforeach
+                            </select>
+                            <input name="relatedShows" type="hidden" value="" id="multiple-select-shows-input" />
                         </div>
                     </div>
-                    <div class="mb-4">
-                        <div class="row">
-                            <div class="col-12">
-                                <label for="multiple-select-actors" class="form-label">Actors</label>
-                                <select class="form-select" id="multiple-select-actors" data-placeholder="Choose anything" multiple>
-                                    <option>Christmas Island</option>
-                                    <option>South Sudan</option>
-                                    <option>Jamaica</option>
-                                    <option>Kenya</option>
-                                    <option>French Guiana</option>
-                                    <option>Mayotta</option>
-                                    <option>Liechtenstein</option>
-                                </select>
-                            </div>
+                </div>
+                <div class="mb-4">
+                    <div class="row">
+                        
+                        <div class="col-12 col-lg-6">
+                            <label for="multiple-select-directors" class="form-label">Directors</label>
+                            <select class="form-select" id="multiple-select-directors" data-placeholder="Choose anything" multiple>
+                                <option>Christmas Island</option>
+                                <option>South Sudan</option>
+                                <option>Jamaica</option>
+                                <option>Kenya</option>
+                                <option>French Guiana</option>
+                                <option>Mayotta</option>
+                                <option>Liechtenstein</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="multiple-select-writers" class="form-label">Writers</label>
+                            <select class="form-select" id="multiple-select-writers" data-placeholder="Choose anything" multiple>
+                                <option>Christmas Island</option>
+                                <option>South Sudan</option>
+                                <option>Jamaica</option>
+                                <option>Kenya</option>
+                                <option>French Guiana</option>
+                                <option>Mayotta</option>
+                                <option>Liechtenstein</option>
+                            </select>
                         </div>
                     </div>
+                </div>
+                <div class="mb-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="multiple-select-actors" class="form-label">Actors</label>
+                            <select class="form-select" id="multiple-select-actors" data-placeholder="Choose anything" multiple>
+                                <option>Christmas Island</option>
+                                <option>South Sudan</option>
+                                <option>Jamaica</option>
+                                <option>Kenya</option>
+                                <option>French Guiana</option>
+                                <option>Mayotta</option>
+                                <option>Liechtenstein</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -189,6 +212,7 @@
             }
 
             setupSelectInput("#multiple-select-genres");
+            setupSelectInput("#multiple-select-shows");
 
             $( "#multiple-select-directors" ).select2(settings);
             $( "#multiple-select-writers" ).select2(settings);

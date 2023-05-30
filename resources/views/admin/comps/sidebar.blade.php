@@ -45,6 +45,16 @@
                     <div class="menu-title">Episodes</div>
                 </a>
             </li>
+            <li>
+                <a href="/admin/celebrities">
+                    <div class="parent-icon">
+                        <span class="material-symbols-outlined">
+                            video_camera_front
+                        </span>
+                    </div>
+                    <div class="menu-title">Celebrities</div>
+                </a>
+            </li>
         </ul>
         <!--end navigation-->
     </div>

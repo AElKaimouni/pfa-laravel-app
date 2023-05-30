@@ -592,10 +592,10 @@
 					       	 	<div id="moviesrelated" class="tab">
 					       	 		<div class="row">
 					       	 			<h3>Related Movies To</h3>
-					       	 			<h2>Skyfall: Quantum of Spectre</h2>
-					       	 			<div class="topbar-filter">
-											<p>Found <span>12 movies</span> in total</p>
-											<label>Sort by:</label>
+					       	 			<h2>{{ $show["title"] }}</h2>
+										<div class="topbar-filter">
+											<p>Found <span>{{ $relatedCount }} movies</span> in total</p>
+											<label>Filter by:</label>
 											<select>
 												<option value="popularity">Popularity Descending</option>
 												<option value="popularity">Popularity Ascending</option>
@@ -605,72 +605,49 @@
 												<option value="date">Release date Ascending</option>
 											</select>
 										</div>
-										<div class="movie-item-style-2">
-											<img src="/images/uploads/mv1.jpg" alt="">
-											<div class="mv-item-infor">
-												<h6><a href="#">oblivion <span>(2012)</span></a></h6>
-												<p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
-												<p class="describe">Earth's mightiest heroes must come together and learn to fight as a team if they are to stop the mischievous Loki and his alien army from enslaving humanity...</p>
-												<p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-												<p>Director: <a href="#">Joss Whedon</a></p>
-												<p>Stars: <a href="#">Robert Downey Jr.,</a> <a href="#">Chris Evans,</a> <a href="#">  Chris Hemsworth</a></p>
+										@foreach ($relateds as $related)
+											<div class="movie-item-style-2">
+												<img src="{{ $base }}/posters/{{ $related->related["poster"] }}" alt="">
+												<div class="mv-item-infor">
+													<h6><a href="#">{{ $related->related["title"] }} <span>({{ date("Y", strtotime($related->related["releaseDate"])); }})</span></a></h6>
+													<p class="rate"><i class="ion-android-star"></i><span>{{ $related->related->rating() }}</span> /10</p>
+													<p class="describe">{{ $related->related["description"] }}</p>
+													<p class="run-time"> Run Time: {{ $related->related["runTime"] }}’    .     <span>MMPA: {{ $related->related["rating"] }} </span>    .     <span>Release: {{ date("j F Y", strtotime($related->related["created_at"])) }}</span></p>
+													<p>Director: <a href="#">Joss Whedon</a></p>
+													<p>Stars: <a href="#">Robert Downey Jr.,</a> <a href="#">Chris Evans,</a> <a href="#">  Chris Hemsworth</a></p>
+												</div>
 											</div>
-										</div>
-										<div class="movie-item-style-2">
-											<img src="/images/uploads/mv2.jpg" alt="">
-											<div class="mv-item-infor">
-												<h6><a href="#">into the wild <span>(2014)</span></a></h6>
-												<p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
-												<p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
-												<p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-												<p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
-												<p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
-											</div>
-										</div>
-										<div class="movie-item-style-2">
-											<img src="/images/uploads/mv3.jpg" alt="">
-											<div class="mv-item-infor">
-												<h6><a href="#">blade runner  <span>(2015)</span></a></h6>
-												<p class="rate"><i class="ion-android-star"></i><span>7.3</span> /10</p>
-												<p class="describe">Armed with a super-suit with the astonishing ability to shrink in scale but increase in strength, cat burglar Scott Lang must embrace his inner hero and help...</p>
-												<p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-												<p>Director: <a href="#">Peyton Reed</a></p>
-												<p>Stars: <a href="#">Paul Rudd,</a> <a href="#"> Michael Douglas</a></p>
-											</div>
-										</div>
-										<div class="movie-item-style-2">
-											<img src="/images/uploads/mv4.jpg" alt="">
-											<div class="mv-item-infor">
-												<h6><a href="#">Mulholland pride<span> (2013)  </span></a></h6>
-												<p class="rate"><i class="ion-android-star"></i><span>7.2</span> /10</p>
-												<p class="describe">When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.</p>
-												<p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-												<p>Director: <a href="#">Shane Black</a></p>
-												<p>Stars: <a href="#">Robert Downey Jr., </a> <a href="#">  Guy Pearce,</a><a href="#">Don Cheadle</a></p>
-											</div>
-										</div>
-										<div class="movie-item-style-2">
-											<img src="/images/uploads/mv5.jpg" alt="">
-											<div class="mv-item-infor">
-												<h6><a href="#">skyfall: evil of boss<span> (2013)  </span></a></h6>
-												<p class="rate"><i class="ion-android-star"></i><span>7.0</span> /10</p>
-												<p class="describe">When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.</p>
-												<p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-												<p>Director: <a href="#">Alan Taylor</a></p>
-												<p>Stars: <a href="#">Chris Hemsworth,  </a> <a href="#">  Natalie Portman,</a><a href="#">Tom Hiddleston</a></p>
-											</div>
-										</div>
+										@endforeach
 										<div class="topbar-filter">
 											<label>Movies per page:</label>
-											<select>
-												<option value="range">5 Movies</option>
-												<option value="saab">10 Movies</option>
+											<select id="max-items-input">
+												<option value="5" @if($re_max == 5) selected @endif>5 Movies</option>
+												<option value="10" @if($re_max == 10) selected @endif>10 Movies</option>
+												<option value="20" @if($re_max == 20) selected @endif>20 Movies</option>
+												<option value="50" @if($re_max == 50) selected @endif>50 Movies</option>
 											</select>
 											<div class="pagination2">
-												<span>Page 1 of 2:</span>
-												<a class="active" href="#">1</a>
-												<a href="#">2</a>
-												<a href="#"><i class="ion-arrow-right-b"></i></a>
+												@php
+													$re_pages = ceil($relatedCount / $re_max);
+												@endphp
+												<span>Page {{ $r_page + 1 }} of {{ $re_pages }}:</span>
+
+												@if($r_page > 0)
+													<a href="?r_page={{ $r_page - 1 }}&re_max={{ $re_max }}">
+														<i class="ion-arrow-left-b"></i>
+													</a>
+												@endif
+												
+
+												@for($p = 1; $p <= $re_pages; $p++)
+													<a @if($p - 1 == $r_page)class="active"@endif href="?r_page={{ $p - 1 }}&re_max={{ $re_max }}">{{ $p }}</a>
+												@endfor
+
+												@if($r_page < $re_pages - 1)
+													<a href="?r_page={{ $r_page + 1 }}&re_max={{ $re_max }}">
+														<i class="ion-arrow-right-b"></i>
+													</a>
+												@endif
 											</div>
 										</div>
 					       	 		</div>

@@ -37,6 +37,21 @@ class Show extends Model {
         })->toArray();
     }
 
+    public function relateds(): HasMany {
+        return $this->hasMany(Related::class);
+    }
+
+    public function editRelateds($relateds) {
+        $this -> relateds()->delete();
+            
+        $this -> relateds() -> createMany(array_map(function($related) {
+            return [
+                "related_id" => $related,
+                "show_id" => $this->id
+            ];
+        }, explode(",", $relateds)));
+    }
+
     public function favorites(): HasMany {
         return $this->hasMany(Favorite::class);
     }
@@ -62,17 +77,18 @@ class Show extends Model {
     }
 
     public function rating() {
-        return $this->reviews->avg("rating");
+        $rating =  $this->reviews->avg("rating");
+
+        return $rating ? number_format($rating, 1, ".", "") : "Na";
     }
 
     public function populate() {
-        $rating = $this->rating();
         
         return array_merge($this->toArray(), [
             "genres" => $this->getGenres(),
             "favorite" =>  $this->isFavorite(),
-            "userRating" => $rating ? number_format($rating, 1, ".", "") : "Na",
-            "userRating_num" => $rating
+            "userRating" => $this->rating(),
+            "userRating_num" => $this->reviews->avg("rating")
         ]);
     }
 }

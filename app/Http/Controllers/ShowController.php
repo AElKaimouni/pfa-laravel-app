@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Show;
 use App\Models\Genre;
+use App\Models\Related;
 use App\Models\Review;
 use App\Models\Episode;
 use Illuminate\Support\Facades\File;
@@ -46,18 +47,24 @@ class ShowController extends Controller {
     }
 
     public function add(Request $request) {
+        $shows = Show::select("title", "id")->get();
         $genres = Genre::list();
 
-        return view("admin/shows/add")->with("genres", $genres);
+        return view("admin/shows/add")->with([
+            "genres" => $genres,
+            "shows" => $shows
+        ]);
     }
 
     public function edit($showID) {
         $show = Show::find($showID);
+        $shows = Show::select("title", "id")->where("id", "!=", $show["id"])->get();
         $genres = Genre::list();
 
         return view("admin/shows/add", [
             "show" => $show->populate(),
-            "genres" => $genres
+            "genres" => $genres,
+            "shows" => $shows
         ]);
     }
 
@@ -71,6 +78,7 @@ class ShowController extends Controller {
             "releaseDate" => "required|date",
             "keywords" => "required",
             "genres" => "required",
+            "relatedShows" => "required",
             "poster" => "required|image|mimes:jpg,png,jpeg,gif,svg,webp",
             "thumbnail" => "image|mimes:jpg,png,jpeg,gif,svg,webp"
         ]);
@@ -83,7 +91,7 @@ class ShowController extends Controller {
             $request->thumbnail->move(public_path("thumbnails"), $thumbName);
         }
 
-        $show = new Show(array_merge($request->except(["poster", "genres", "thumbnail"]), [
+        $show = new Show(array_merge($request->except(["poster", "genres", "thumbnail", "relatedShows"]), [
             "poster" => $posterName,
             "thumbnail" => $thumbName
         ]));
@@ -91,6 +99,7 @@ class ShowController extends Controller {
         $show->save();
 
         $show->editGenres($request->genres);
+        $show->editRelateds($request->relatedShows);
 
         return redirect("admin/shows") -> with("status", "Show has been created successfuly");
     }
@@ -126,6 +135,7 @@ class ShowController extends Controller {
             "releaseDate" => "required|date",
             "keywords" => "required",
             "genres" => "required",
+            "relatedShows" => "required",
             "poster" => "image|mimes:jpg,png,jpeg,gif,svg,webp",
             "thumbnail" => "image|mimes:jpg,png,jpeg,gif,svg,webp"
         ]);
@@ -146,12 +156,13 @@ class ShowController extends Controller {
         }
 
         $show->editGenres($request->genres);
+        $show->editRelateds($request->relatedShows);
         $images = [];
 
         if($request -> poster) $images["poster"] = $posterName;
         if($request -> thumbnail) $images["thumbnail"] = $thumbName;
 
-        $show->update(array_merge($images, $request -> except(["poster", "genres", "thumbnail"])));
+        $show->update(array_merge($images, $request -> except(["poster", "genres", "thumbnail", "relatedShows"])));
 
         return redirect("/admin/shows")->with("status", "Show have been updated successfuly");
     }
@@ -161,6 +172,8 @@ class ShowController extends Controller {
         $e_max = $request->input("emax") ?: 25;
         $r_page = $request->input("rpage");
         $r_max = $request->input("rmax") ?: 10;
+        $re_page = $request->input("repage");
+        $re_max = $request->input("remax") ?: 10;
 
         $show = Show::find($showID);
         $user = Auth::user();
@@ -172,7 +185,10 @@ class ShowController extends Controller {
         $reviews = $reviewQuery->skip($r_page * $r_max)->limit($r_max)->get();
         $reviewsCount = Review::show_reviews($show->id)->count();
 
-        $latestReview = Review::latest()->first();
+        $relateds = $show->relateds()->skip($re_page * $re_max)->limit($re_max)->get();
+        $relatedCount = $show->relateds()->count();
+
+        $latestReview = Review::show_reviews($show->id)->latest()->first();
 
         $userReview = $user ? Review::userReview($showID) : null;
 
@@ -187,8 +203,12 @@ class ShowController extends Controller {
             "e_max" => $e_max,
             "r_page" => $r_page,
             "r_max" => $r_max,
+            "re_page" => $re_page,
+            "re_max" => $re_max,
             "userReview" => $userReview,
-            "latestReview" => $latestReview
+            "latestReview" => $latestReview,
+            "relateds" => $relateds,
+            "relatedCount" => $relatedCount
         ]);
     }
 
