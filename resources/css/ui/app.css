@@ -280,3 +280,14 @@ footer {
     padding: 1em;
     text-align: center;
 }
+
+.celebrity-avatar {
+    height: 400px;
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.celebrity-avatar img {
+    
+}

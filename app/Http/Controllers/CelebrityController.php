@@ -115,4 +115,38 @@ class CelebrityController extends Controller {
 
         return redirect("/admin/celebrities") -> with("status", "Celebrity has been deleted successfuly");
     }
+
+    public function celebrities(Request $request) {
+        $search = $request->input("search");
+        $page = $request->input("page") ?: 0;
+        $max = $request->input("max") ?: 12;
+        $target = $request->input("target");
+
+        $query = Celebrity::latest()->select("id", "avatar", "fullName", "country", "role");
+
+
+        if($target) $query = $query->where("role", $target);
+        if($search) $query = $query->where("fullName", "like", "%" . $request->input("search") . "%");
+
+        $count = $query->count();
+
+        $celebrities =  $query->skip($page * $max)->take($max)->get();
+        
+        return view("celebrities.index")->with([
+            "count" => $count,
+            "celebrities" => $celebrities,
+            "search" => $search,
+            "page" => $page,
+            "max" => $max,
+            "target" => $target
+        ]);
+    }
+
+    public function celebrity($celebrityID) {
+        $celebrity = Celebrity::find($celebrityID);
+
+        return view("celebrities.single")->with([
+            "celebrity" => $celebrity
+        ]);
+    }
 }

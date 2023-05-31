@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Mail;
 // Public Routes
 Route::middleware(["auth:0"])->group(function () {
 
+    Route::get("/celebrities", "App\Http\Controllers\CelebrityController@celebrities");
+    Route::get("/celebrities/{celebrityID}", "App\Http\Controllers\CelebrityController@celebrity");
+
     Route::get("/episodes", "App\Http\Controllers\EpisodeController@episodes");
 
     Route::get("/shows", "App\Http\Controllers\ShowController@shows");

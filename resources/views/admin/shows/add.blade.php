@@ -204,14 +204,15 @@
                 tags: true
             };
 
-            function setupSelectInput(id) {
+            function setupSelectInput(id, tags = false) {
+                settings.tags = tags;
                 $(id).select2(settings);
                 $(id).on("change", function (e) {
                     $(id + "-input").attr("value", $(id).select2("data").map(item => item.id).join(","))
                 });
             }
 
-            setupSelectInput("#multiple-select-genres");
+            setupSelectInput("#multiple-select-genres", true);
             setupSelectInput("#multiple-select-shows");
 
             $( "#multiple-select-directors" ).select2(settings);

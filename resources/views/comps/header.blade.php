@@ -40,6 +40,11 @@
                             </a>
                         </li>
                         <li class="dropdown first">
+                            <a class="btn btn-default lv1" href="/celebrities">
+                                CELEBRITIES
+                            </a>
+                        </li>
+                        <li class="dropdown first">
                             <a class="btn btn-default lv1" href="/subscription">
                                 SUBSCRIPTION 
                             </a>
