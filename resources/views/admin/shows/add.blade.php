@@ -103,19 +103,7 @@
                         <h5 class="mb-3">Show Description</h5>
                         <textarea name="description" class="form-control" cols="4" rows="6" placeholder="write a description here..">@isset($show){{ $show["description"] }}@endisset</textarea>
                     </div>
-                    <div class="mb-4">
-                        <div class="row">
-                            <div class="col-12 col-lg-6">
-                                <label for="multiple-select-genres" class="form-label">Genres</label>
-                                <select class="form-select" id="multiple-select-genres" data-placeholder="Choose anything" multiple> @foreach ($genres as $genre) <option @if(isset($show) && in_array($genre, $show["genres"]))selected @endif>{{ $genre }}</option> @endforeach </select>
-                                <input name="genres" type="hidden" value="@isset($show){{ join(",", $show["genres"]) }}@endisset" id="multiple-select-genres-input" />
-                            </div>
-                            <div class="col-12 col-lg-6">
-                                <label class="form-label">Key Words</label>
-                                <input name="keywords" type="text" class="form-control" data-role="tagsinput" @isset($show) value="{{ $show["keywords"] }}" @endisset>
-                            </div>
-                        </div>
-                    </div>
+                    
                     
                 </div>
             </div>
@@ -125,64 +113,114 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                <div class="mb-4">
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="multiple-select-genres" class="form-label">Related Shows</label>
-                            <select class="form-select" id="multiple-select-shows" data-placeholder="Choose anything" multiple>
-                                @foreach ($shows as $show)
-                                    <option value="{{ $show["id"] }}">{{ $show["title"] }}</option>
-                                @endforeach
-                            </select>
-                            <input name="relatedShows" type="hidden" value="" id="multiple-select-shows-input" />
+                    <div class="mb-4">
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <label for="multiple-select-genres" class="form-label">Genres</label>
+                                <select class="form-select" id="multiple-select-genres" data-placeholder="Choose anything" multiple>
+                                    @foreach ($genres as $genre)
+                                        <option 
+                                            @if(isset($show) && in_array($genre, $show["genres"]))selected @endif
+                                        >{{ $genre }}</option>
+                                    @endforeach
+                                </select>
+                                <input name="genres" type="hidden" value="@isset($show){{ join(",", $show["genres"]) }}@endisset" id="multiple-select-genres-input" />
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label class="form-label">Key Words</label>
+                                <input name="keywords" type="text" class="form-control" data-role="tagsinput" @isset($show) value="{{ $show["keywords"] }}" @endisset>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="mb-4">
-                    <div class="row">
-                        
-                        <div class="col-12 col-lg-6">
-                            <label for="multiple-select-directors" class="form-label">Directors</label>
-                            <select class="form-select" id="multiple-select-directors" data-placeholder="Choose anything" multiple>
-                                <option>Christmas Island</option>
-                                <option>South Sudan</option>
-                                <option>Jamaica</option>
-                                <option>Kenya</option>
-                                <option>French Guiana</option>
-                                <option>Mayotta</option>
-                                <option>Liechtenstein</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <label for="multiple-select-writers" class="form-label">Writers</label>
-                            <select class="form-select" id="multiple-select-writers" data-placeholder="Choose anything" multiple>
-                                <option>Christmas Island</option>
-                                <option>South Sudan</option>
-                                <option>Jamaica</option>
-                                <option>Kenya</option>
-                                <option>French Guiana</option>
-                                <option>Mayotta</option>
-                                <option>Liechtenstein</option>
-                            </select>
+                    <div class="mb-4">
+                        <div class="row">
+                            <div class="col-12">
+
+                                <label for="multiple-select-shows" class="form-label">Related Shows</label>
+                                <select class="form-select" id="multiple-select-shows" data-placeholder="Choose anything" multiple>
+                                    @foreach ($shows as $show)
+                                        <option 
+                                            @if(isset($relateds) && in_array($show->id, $relateds))selected @endif
+                                            value="{{ $show["id"] }}"
+                                        >{{ $show["title"] }}</option>
+                                    @endforeach
+                                </select>
+                                <input name="relatedShows" type="hidden"
+                                    value="@isset($relateds){{ join(",", $relateds) }}@endisset"
+                                    id="multiple-select-shows-input"
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="mb-4">
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="multiple-select-actors" class="form-label">Actors</label>
-                            <select class="form-select" id="multiple-select-actors" data-placeholder="Choose anything" multiple>
-                                <option>Christmas Island</option>
-                                <option>South Sudan</option>
-                                <option>Jamaica</option>
-                                <option>Kenya</option>
-                                <option>French Guiana</option>
-                                <option>Mayotta</option>
-                                <option>Liechtenstein</option>
-                            </select>
+                    <div class="mb-4 product-table" id="celebrities">
+                        <table class="table align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Full Name</th>
+                                    <th>Role</th>
+                                    <th>country</th>
+                                    <th>Birth Day</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @isset($showCelebrities)
+                                    @foreach ($showCelebrities as $celebrity)
+                                        <tr>
+                                            <td>{{ $celebrity->celebrity["id"] }}</td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="product-box">
+                                                        <img style="width: unset;" src="{{ $base }}/cavatars/{{ $celebrity->celebrity["avatar"] }}" alt="">
+                                                    </div>
+                                                    <div class="product-info">
+                                                        <a href="javascript:;" class="product-title">{{ \Illuminate\Support\Str::limit($celebrity->celebrity["fullName"], 30, $end='...') }}</a>
+                                                        <p class="mb-0 product-category">{{ $celebrity->celebrity["role"] }}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td style="text-transform: capitalize;">{{ $celebrity["role"] }}</td>
+                                            <td>{{ $celebrity->celebrity["country"] }}</td>
+                                            <td>{{ date("j F Y", strtotime($celebrity->celebrity["birthDay"])) }}</td>
+                                            <td>
+                                                <span data-id="{{ $celebrity["celebrity_id"] }}" class="celebrity-delete-btn btn btn-outline-danger material-symbols-outlined p-1" style="width: 36px" >
+                                                    delete
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endisset
+                            </tbody>
+                        </table>
+                        @isset($showCelebrities)
+                            @foreach ($showCelebrities as $celebrity)
+                                <input id="celebtiry-input-{{ $celebrity["celebrity_id"] }}" type="hidden" name="celebrities[{{ $celebrity["celebrity_id"] }}]" value="{{ $celebrity["role"] }}"/>
+                            @endforeach
+                        @endisset
+                    </div>
+                    <div class="mb-4">
+                        <div class="row">
+                            <div class="col-5">
+                                <label for="single-select-field" class="form-label">Celebrity</label>
+									<select class="form-select" id="single-select-field" data-placeholder="Choose one thing">
+										@foreach ($celebrities as $celebrity)
+                                            <option value="{{ $celebrity["id"] }}">
+                                                {{ $celebrity["fullName"] }}
+                                            </option>
+                                        @endforeach
+									</select>
+                            </div>
+                            <div class="col-5">
+                                <label class="form-label">Role</label>
+                                <input id="actors-role" class="form-control" type="text" />
+                            </div>
+                            <div class="col-2">
+                                <label style="opacity: 0" class="form-label">x</label>
+                                <button type="button" id="actors-submit" style="display: block; width: 100%" class="btn btn-primary">Add</button>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -215,9 +253,72 @@
             setupSelectInput("#multiple-select-genres", true);
             setupSelectInput("#multiple-select-shows");
 
-            $( "#multiple-select-directors" ).select2(settings);
-            $( "#multiple-select-writers" ).select2(settings);
-            $( "#multiple-select-actors" ).select2(settings);
+            var actorsSelect = $("#single-select-field");
+            var actorsSubmit = $("#actors-submit");
+            var actorsRole = $("#actors-role");
+            var container = $("#celebrities");
+            var table = $("#celebrities table tbody");
+            var celebrities = @php echo json_encode($celebrities); @endphp;
+
+            actorsSelect.select2( {
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data( 'placeholder' ),
+            } );
+
+            actorsRole.on("change", function() {
+                if(actorsRole[0].value) actorsRole.removeAttribute("disabled");
+                else actorsRole.setAttribute("disabled");
+            });
+
+            table.on("click", ".celebrity-delete-btn", function() {
+                var id = $(this).data("id");
+
+                $(this).closest("tr").remove();
+                $("#celebtiry-input-" + id).remove();
+            });
+
+            actorsSubmit.on("click", function() {
+                var data = {
+                    celebrity: actorsSelect.select2("data")[0].id,
+                    role: actorsRole[0].value
+                };
+
+                if(data.role) {
+                    var celebrity = celebrities.find(c => c.id == data.celebrity);
+                    var input = document.createElement("input");
+                    var item = table.append(`<tr>
+                        <td>${data.celebrity}</td>
+                        <td>
+                            <div class='d-flex align-items-center gap-3'>
+                                <div class='product-box'>
+                                    <img style='width: unset;' src='{{ $base }}/cavatars/${celebrity.avatar}' alt=''>
+                                </div>
+                                <div class='product-info'>
+                                    <a href='javascript:;' class='product-title'>${celebrity.fullName}</a>
+                                    <p class='mb-0 product-category'>${celebrity.role}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td style='text-transform: capitalize;'>${data.role}</td>
+                        <td>${celebrity.country}</td>
+                        <td>${celebrity.birthDay}</td>
+                        <td>
+                            <span data-id="${data.celebrity}" class="celebrity-delete-btn btn btn-outline-danger material-symbols-outlined p-1" style="width: 36px" >
+                                delete
+                            </span>
+                        </td>
+                    </tr>`)
+                    
+                    input.setAttribute("type", "hidden");
+                    input.setAttribute("name", "celebrities[" + data.celebrity + "]");
+                    input.setAttribute("value", data.role);
+                    input.setAttribute("id", "celebtiry-input-" + data.celebrity);
+                    
+
+                    container.append(input);
+                }
+            });
 
             $("#poster-upload, #thumbnail-upload").on("change", function() {
                 const [file] = this.files;

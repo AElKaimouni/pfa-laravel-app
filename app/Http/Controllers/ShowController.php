@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Show;
 use App\Models\Genre;
 use App\Models\Related;
+use App\Models\Celebrity;
 use App\Models\Review;
 use App\Models\Episode;
 use Illuminate\Support\Facades\File;
@@ -49,10 +50,12 @@ class ShowController extends Controller {
     public function add(Request $request) {
         $shows = Show::select("title", "id")->get();
         $genres = Genre::list();
+        $celebrities = Celebrity::all();
 
         return view("admin/shows/add")->with([
             "genres" => $genres,
-            "shows" => $shows
+            "shows" => $shows,
+            "celebrities" => $celebrities
         ]);
     }
 
@@ -60,11 +63,17 @@ class ShowController extends Controller {
         $show = Show::find($showID);
         $shows = Show::select("title", "id")->where("id", "!=", $show["id"])->get();
         $genres = Genre::list();
+        $celebrities = Celebrity::all();
+        $showCelebrities = $show->celebrities()->get();
+        $relateds = $show->relatedsList()->toArray();
 
         return view("admin/shows/add", [
             "show" => $show->populate(),
             "genres" => $genres,
-            "shows" => $shows
+            "shows" => $shows,
+            "celebrities" => $celebrities,
+            "showCelebrities" => $showCelebrities,
+            "relateds" => $relateds
         ]);
     }
 
@@ -80,8 +89,11 @@ class ShowController extends Controller {
             "genres" => "required",
             "relatedShows" => "required",
             "poster" => "required|image|mimes:jpg,png,jpeg,gif,svg,webp",
-            "thumbnail" => "image|mimes:jpg,png,jpeg,gif,svg,webp"
+            "thumbnail" => "image|mimes:jpg,png,jpeg,gif,svg,webp",
+            "celebrities" => "array"
         ]);
+
+        
 
         $posterName = time().".".$request->poster->getClientOriginalExtension();
         $request->poster->move(public_path("posters"), $posterName);
@@ -91,15 +103,17 @@ class ShowController extends Controller {
             $request->thumbnail->move(public_path("thumbnails"), $thumbName);
         }
 
-        $show = new Show(array_merge($request->except(["poster", "genres", "thumbnail", "relatedShows"]), [
+        $show = new Show(array_merge($request->except(["poster", "genres", "thumbnail", "relatedShows", "celebrities"]), [
             "poster" => $posterName,
-            "thumbnail" => $thumbName
+            "thumbnail" => isset($thumbName) ? $thumbName : ""
         ]));
 
         $show->save();
 
         $show->editGenres($request->genres);
         $show->editRelateds($request->relatedShows);
+
+        if($request->celebrities) $show->editCelebrities($request->celebrities);
 
         return redirect("admin/shows") -> with("status", "Show has been created successfuly");
     }
@@ -115,6 +129,7 @@ class ShowController extends Controller {
         $show->genres()->delete();
         $show->favorites()->delete();
         $show->reviews()->delete();
+        $show->celebrities()->delete();
 
         File::delete(public_path("posters") . "/" . $show -> poster);
         if($show -> thumbnail)
@@ -137,7 +152,8 @@ class ShowController extends Controller {
             "genres" => "required",
             "relatedShows" => "required",
             "poster" => "image|mimes:jpg,png,jpeg,gif,svg,webp",
-            "thumbnail" => "image|mimes:jpg,png,jpeg,gif,svg,webp"
+            "thumbnail" => "image|mimes:jpg,png,jpeg,gif,svg,webp",
+            "celebrities" => "array"
         ]);
 
         $show = Show::find($showID);
@@ -162,7 +178,10 @@ class ShowController extends Controller {
         if($request -> poster) $images["poster"] = $posterName;
         if($request -> thumbnail) $images["thumbnail"] = $thumbName;
 
-        $show->update(array_merge($images, $request -> except(["poster", "genres", "thumbnail", "relatedShows"])));
+        if($request->celebrities) $show->editCelebrities($request->celebrities);
+        else $show -> celebrities() -> delete();
+
+        $show->update(array_merge($images, $request -> except(["poster", "genres", "thumbnail", "relatedShows", "celebrities"])));
 
         return redirect("/admin/shows")->with("status", "Show have been updated successfuly");
     }
@@ -184,6 +203,17 @@ class ShowController extends Controller {
         $reviewQuery = Review::show_reviews($show->id)->where("user_id", "!=", $user ? $user->id : "");
         $reviews = $reviewQuery->skip($r_page * $r_max)->limit($r_max)->get();
         $reviewsCount = Review::show_reviews($show->id)->count();
+
+        $latestCelebrities = $show->celebrities()->limit(3)->get();
+        $actors = $show->celebrities()->whereHas("celebrity", function ($celebrity)  {
+            $celebrity->where("role", "=", "actor");
+        })->get();
+        $directors = $show->celebrities()->whereHas("celebrity", function ($celebrity)  {
+            $celebrity->where("role", "=", "director");
+        })->get();
+        $writers = $show->celebrities()->whereHas("celebrity", function ($celebrity)  {
+            $celebrity->where("role", "=", "writer");
+        })->get();
 
         $relateds = $show->relateds()->skip($re_page * $re_max)->limit($re_max)->get();
         $relatedCount = $show->relateds()->count();
@@ -208,7 +238,11 @@ class ShowController extends Controller {
             "userReview" => $userReview,
             "latestReview" => $latestReview,
             "relateds" => $relateds,
-            "relatedCount" => $relatedCount
+            "relatedCount" => $relatedCount,
+            "latestCelebrities" => $latestCelebrities,
+            "actors" => $actors,
+            "writers" => $writers,
+            "directors" => $directors
         ]);
     }
 

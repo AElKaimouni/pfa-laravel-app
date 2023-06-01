@@ -296,6 +296,20 @@ footer {
        object-position: center;
 }
 
-.celebrity-avatar img {
-    
+.celebrity-mini-avatar {
+    width: 40px;
+    height: 40px;
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
+}
+
+.celebrity-show-mini-poster {
+    width: 55px;
+    height: 77px;
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
 }

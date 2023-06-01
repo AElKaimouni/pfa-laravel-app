@@ -31,6 +31,22 @@ class Show extends Model {
         }, explode(",", $genres)));
     }
 
+    public function celebrities(): HasMany {
+        return $this->hasMany(ShowCelebrity::class);
+    }
+
+    public function editCelebrities($celebrities) {
+        $this -> celebrities()->delete();
+            
+        $this -> celebrities() -> createMany(array_map(function($role, $id) {
+            return [
+                "role" => $role,
+                "show_id" => $this->id,
+                "celebrity_id" => $id
+            ];
+        }, $celebrities, array_keys($celebrities)));
+    }
+
     public function getGenres() {
         return $this->genres()->get()->map(function ($genre) {
             return $genre -> name;
@@ -39,6 +55,12 @@ class Show extends Model {
 
     public function relateds(): HasMany {
         return $this->hasMany(Related::class);
+    }
+
+    public function relatedsList() {
+        return $this->relateds()->get()->map(function ($related) {
+            return $related -> related_id;
+        });;
     }
 
     public function editRelateds($relateds) {

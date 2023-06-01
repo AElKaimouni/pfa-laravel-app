@@ -57,88 +57,20 @@
                                                     <a href="#" class="time">Full Filmography<i class="ion-ios-arrow-right"></i></a>
                                                 </div>
                                                 <!-- movie cast -->
-                                                <div class="mvcast-item">											
-                                                    <div class="cast-it">
-                                                        <div class="cast-left cebleb-film">
-                                                            <img src="images/uploads/film1.jpg" alt="">
-                                                            <div>
-                                                                <a href="#">X-Men: Apocalypse </a>
-                                                                <p class="time">Logan</p>
+                                                <div class="mvcast-item">
+                                                    @for($i = 0; $i < min(3, count($shows)); $i++)		
+                                                        <div class="cast-it">
+                                                            <div class="cast-left cebleb-film">
+                                                                <img class="celebrity-show-mini-poster" src="{{ $base }}/posters/{{ $shows[$i]->show["poster"] }}" alt="">
+                                                                <div>
+                                                                    <a href="/shows/{{ $shows[$i]->show["id"] }}">{{ $shows[$i]->show["title"] }}</a>
+                                                                    <p class="time">{{ $shows[$i]["role"] }}</p>
+                                                                </div>
+                                                                
                                                             </div>
-                                                            
+                                                            <p>{{ date("Y", strtotime($shows[$i]->show["releaseDate"])) }}</p>
                                                         </div>
-                                                        <p>...  2016</p>
-                                                    </div>
-                                                    <div class="cast-it">
-                                                        <div class="cast-left cebleb-film">
-                                                            <img src="images/uploads/film2.jpg" alt="">
-                                                            <div>
-                                                                <a href="#">Eddie the Eagle </a>
-                                                                <p class="time">Bronson Peary</p>
-                                                            </div>
-                                                        </div>
-                                                        <p>...  2015</p>
-                                                    </div>
-                                                    <div class="cast-it">
-                                                        <div class="cast-left cebleb-film">
-                                                            <img src="images/uploads/film3.jpg" alt="">
-                                                            <div>
-                                                                <a href="#">Me and Earl and the Dying Girl </a>
-                                                                <p class="time">Hugh Jackman</p>
-                                                            </div>
-                                                        </div>
-                                                        <p>...  2015</p>
-                                                    </div>
-                                                    <div class="cast-it">
-                                                        <div class="cast-left cebleb-film">
-                                                            <img src="images/uploads/film4.jpg" alt="">
-                                                            <div>
-                                                                <a href="#">Night at the Museum 3 </a>
-                                                                <p class="time">Blackbeard</p>
-                                                            </div>
-                                                        </div>
-                                                        <p>...  2014</p>
-                                                    </div>
-                                                    <div class="cast-it">
-                                                        <div class="cast-left cebleb-film">
-                                                            <img src="images/uploads/film5.jpg" alt="">
-                                                            <div>
-                                                                <a href="#">X-Men: Days of Future Past </a>
-                                                                <p class="time">Wolverine</p>
-                                                            </div>
-                                                        </div>
-                                                        <p>...  2012</p>
-                                                    </div>
-                                                    <div class="cast-it">
-                                                        <div class="cast-left cebleb-film">
-                                                            <img src="images/uploads/film6.jpg" alt="">
-                                                            <div>
-                                                                <a href="#">The Wolverine </a>
-                                                                <p class="time">Logan</p>
-                                                            </div>
-                                                        </div>
-                                                        <p>...  2011</p>
-                                                    </div>
-                                                    <div class="cast-it">
-                                                        <div class="cast-left cebleb-film">
-                                                            <img src="images/uploads/film7.jpg" alt="">
-                                                            <div>
-                                                                <a href="#">Rise of the Guardians </a>
-                                                                <p class="time">Bunny</p>
-                                                            </div>
-                                                        </div>
-                                                        <p>...  2011</p>
-                                                    </div>
-                                                    <div class="cast-it">
-                                                        <div class="cast-left cebleb-film">
-                                                            <img src="images/uploads/film8.jpg" alt="">
-                                                            <div>
-                                                                <a href="#">The Prestige </a>
-                                                                <p class="time">Robert Angier</p>
-                                                            </div>
-                                                        </div>
-                                                        <p>...  2010</p>
-                                                    </div>
+                                                    @endfor						
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-xs-12 col-sm-12">
@@ -189,100 +121,32 @@
                                             
                                             </div>
                                             <div class="topbar-filter">
-                                                <p>Found <span>14 movies</span> in total</p>
+                                                <p>Found <span>{{ $count }} movies</span> in total</p>
                                                 <label>Filter by:</label>
                                                 <select>
                                                     <option value="popularity">Popularity Descending</option>
                                                     <option value="popularity">Popularity Ascending</option>
                                                     <option value="rating">Rating Descending</option>
                                                     <option value="rating">Rating Ascending</option>
-                                                    <option value="date">Release date Descending</option>
+                                                    <option value="date" selected>Release date Descending</option>
                                                     <option value="date">Release date Ascending</option>
                                                 </select>
                                             </div>
                                             <!-- movie cast -->
                                             <div class="mvcast-item">											
-                                                <div class="cast-it">
-                                                    <div class="cast-left cebleb-film">
-                                                        <img src="images/uploads/film1.jpg" alt="">
-                                                        <div>
-                                                            <a href="#">X-Men: Apocalypse </a>
-                                                            <p class="time">Logan</p>
+                                                @foreach($shows as $show)		
+                                                    <div class="cast-it">
+                                                        <div class="cast-left cebleb-film">
+                                                            <img class="celebrity-show-mini-poster" src="{{ $base }}/posters/{{ $show->show["poster"] }}" alt="">
+                                                            <div>
+                                                                <a href="/shows/{{ $show->show["id"] }}">{{ $show->show["title"] }}</a>
+                                                                <p class="time">{{ $show["role"] }}</p>
+                                                            </div>
+                                                            
                                                         </div>
-                                                        
+                                                        <p>{{ date("Y", strtotime($show->show["releaseDate"])) }}</p>
                                                     </div>
-                                                    <p>...  2016</p>
-                                                </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left cebleb-film">
-                                                        <img src="images/uploads/film2.jpg" alt="">
-                                                        <div>
-                                                            <a href="#">Eddie the Eagle </a>
-                                                            <p class="time">Bronson Peary</p>
-                                                        </div>
-                                                    </div>
-                                                    <p>...  2015</p>
-                                                </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left cebleb-film">
-                                                        <img src="images/uploads/film3.jpg" alt="">
-                                                        <div>
-                                                            <a href="#">Me and Earl and the Dying Girl </a>
-                                                            <p class="time">Hugh Jackman</p>
-                                                        </div>
-                                                    </div>
-                                                    <p>...  2015</p>
-                                                </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left cebleb-film">
-                                                        <img src="images/uploads/film4.jpg" alt="">
-                                                        <div>
-                                                            <a href="#">Night at the Museum 3 </a>
-                                                            <p class="time">Blackbeard</p>
-                                                        </div>
-                                                    </div>
-                                                    <p>...  2014</p>
-                                                </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left cebleb-film">
-                                                        <img src="images/uploads/film5.jpg" alt="">
-                                                        <div>
-                                                            <a href="#">X-Men: Days of Future Past </a>
-                                                            <p class="time">Wolverine</p>
-                                                        </div>
-                                                    </div>
-                                                    <p>...  2012</p>
-                                                </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left cebleb-film">
-                                                        <img src="images/uploads/film6.jpg" alt="">
-                                                        <div>
-                                                            <a href="#">The Wolverine </a>
-                                                            <p class="time">Logan</p>
-                                                        </div>
-                                                    </div>
-                                                    <p>...  2011</p>
-                                                </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left cebleb-film">
-                                                        <img src="images/uploads/film7.jpg" alt="">
-                                                        <div>
-                                                            <a href="#">Rise of the Guardians </a>
-                                                            <p class="time">Bunny</p>
-                                                        </div>
-                                                    </div>
-                                                    <p>...  2011</p>
-                                                </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left cebleb-film">
-                                                        <img src="images/uploads/film8.jpg" alt="">
-                                                        <div>
-                                                            <a href="#">The Prestige </a>
-                                                            <p class="time">Robert Angier</p>
-                                                        </div>
-                                                    </div>
-                                                    <p>...  2010</p>
-                                                </div>
+                                                @endforeach	
                                             </div>
                                         </div>
                                     </div>

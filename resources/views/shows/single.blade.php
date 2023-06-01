@@ -121,28 +121,16 @@
 												<a href="#" class="time">Full Cast & Crew  <i class="ion-ios-arrow-right"></i></a>
 											</div>
 											<!-- movie cast -->
-											<div class="mvcast-item">											
-												<div class="cast-it">
-													<div class="cast-left">
-														<img src="/images/uploads/cast1.jpg" alt="">
-														<a href="#">Robert Downey Jr.</a>
+											<div class="mvcast-item">
+												@foreach ($latestCelebrities as $celebrity)
+													<div class="cast-it">
+														<div class="cast-left">
+															<img class="celebrity-mini-avatar" src="{{ $base }}/cavatars/{{ $celebrity->celebrity["avatar"] }}" alt="">
+															<a href="/celebrities/{{ $celebrity->celebrity["id"] }}">{{ $celebrity->celebrity["fullName"] }}</a>
+														</div>
+														<p>{{ $celebrity["role"] }}</p>
 													</div>
-													<p>...  Robert Downey Jr.</p>
-												</div>
-												<div class="cast-it">
-													<div class="cast-left">
-														<img src="/images/uploads/cast7.jpg" alt="">
-														<a href="#">James Spader</a>
-													</div>
-													<p>...  Ultron</p>
-												</div>
-												<div class="cast-it">
-													<div class="cast-left">
-														<img src="/images/uploads/cast9.jpg" alt="">
-														<a href="#">Don Cheadle</a>
-													</div>
-													<p>...  James Rhodes/ War Machine</p>
-												</div>
+												@endforeach								
 											</div>
 											@if($latestReview)
 												<div class="title-hd-sm">
@@ -327,132 +315,54 @@
 						        <div id="cast" class="tab">
 						        	<div class="row">
 						            	<h3>Cast & Crew of</h3>
-					       	 			<h2>Avengers: Age of Ultron</h2>
+					       	 			<h2>{{ $show["title"] }}</h2>
 										<!-- //== -->
 					       	 			<div class="title-hd-sm">
-											<h4>Directors & Credit Writers</h4>
+											<h4>Credit Directors</h4>
 										</div>
 										<div class="mvcast-item">											
-											<div class="cast-it">
-												<div class="cast-left">
-													<h4>JW</h4>
-													<a href="#">Joss Whedon</a>
+											@foreach ($directors as $celebrity)
+												<div class="cast-it">
+													<div class="cast-left">
+														<img class="celebrity-mini-avatar" src="{{ $base }}/cavatars/{{ $celebrity->celebrity["avatar"] }}" alt="">
+														<a href="/celebrities/{{ $celebrity->celebrity["id"] }}">{{ $celebrity->celebrity["fullName"] }}</a>
+													</div>
+													<p>{{ $celebrity["role"] }}</p>
 												</div>
-												<p>...  Director</p>
-											</div>
+											@endforeach	
 										</div>
 										<!-- //== -->
 										<div class="title-hd-sm">
-											<h4>Directors & Credit Writers</h4>
+											<h4>Credit Writers</h4>
 										</div>
 										<div class="mvcast-item">											
-											<div class="cast-it">
-												<div class="cast-left">
-													<h4>SL</h4>
-													<a href="#">Stan Lee</a>
+											@foreach ($writers as $celebrity)
+												<div class="cast-it">
+													<div class="cast-left">
+														<img class="celebrity-mini-avatar" src="{{ $base }}/cavatars/{{ $celebrity->celebrity["avatar"] }}" alt="">
+														<a href="/celebrities/{{ $celebrity->celebrity["id"] }}">{{ $celebrity->celebrity["fullName"] }}</a>
+													</div>
+													<p>{{ $celebrity["role"] }}</p>
 												</div>
-												<p>...  (based on Marvel comics)</p>
-											</div>
-											<div class="cast-it">
-												<div class="cast-left">
-													<h4>JK</h4>
-													<a href="#">Jack Kirby</a>
-												</div>
-												<p>...  (based on Marvel comics)</p>
-											</div>
-											<div class="cast-it">
-												<div class="cast-left">
-													<h4>JS</h4>
-													<a href="#">Joe Simon</a>
-												</div>
-												<p>...  (character created by: Captain America)</p>
-											</div>
-											<div class="cast-it">
-												<div class="cast-left">
-													<h4>JS</h4>
-													<a href="#">Joe Simon</a>
-												</div>
-												<p>...  (character created by: Thanos)</p>
-											</div>
-											<div class="cast-it">
-												<div class="cast-left">
-													<h4>RT</h4>
-													<a href="#">Roy Thomas</a>
-												</div>
-												<p>...  (character created by: Ultron, Vision)</p>
-											</div>
-											<div class="cast-it">
-												<div class="cast-left">
-													<h4>JB</h4>
-													<a href="#">John Buscema</a>
-												</div>
-												<p>...  (character created by: Ultron, Vision)</p>
-											</div>
+											@endforeach	
 										</div>
 										<!-- //== -->
 										<div class="title-hd-sm">
 											<h4>Cast</h4>
 										</div>
 										<div class="mvcast-item">											
-											<div class="cast-it">
-												<div class="cast-left">
-													<img src="/images/uploads/cast1.jpg" alt="">
-													<a href="#">Robert Downey Jr.</a>
+											@foreach ($actors as $celebrity)
+												<div class="cast-it">
+													<div class="cast-left">
+														<img class="celebrity-mini-avatar" src="{{ $base }}/cavatars/{{ $celebrity->celebrity["avatar"] }}" alt="">
+														<a href="/celebrities/{{ $celebrity->celebrity["id"] }}">{{ $celebrity->celebrity["fullName"] }}</a>
+													</div>
+													<p>{{ $celebrity["role"] }}</p>
 												</div>
-												<p>...  Robert Downey Jr.</p>
-											</div>
-											<div class="cast-it">
-												<div class="cast-left">
-													<img src="/images/uploads/cast2.jpg" alt="">
-													<a href="#">Chris Hemsworth</a>
-												</div>
-												<p>...  Thor</p>
-											</div>
-											<div class="cast-it">
-												<div class="cast-left">
-													<img src="/images/uploads/cast3.jpg" alt="">
-													<a href="#">Mark Ruffalo</a>
-												</div>
-												<p>...  Bruce Banner/ Hulk</p>
-											</div>
-											<div class="cast-it">
-												<div class="cast-left">
-													<img src="/images/uploads/cast4.jpg" alt="">
-													<a href="#">Chris Evans</a>
-												</div>
-												<p>...  Steve Rogers/ Captain America</p>
-											</div>
-											<div class="cast-it">
-												<div class="cast-left">
-													<img src="/images/uploads/cast5.jpg" alt="">
-													<a href="#">Scarlett Johansson</a>
-												</div>
-												<p>...  Natasha Romanoff/ Black Widow</p>
-											</div>
-											<div class="cast-it">
-												<div class="cast-left">
-													<img src="/images/uploads/cast6.jpg" alt="">
-													<a href="#">Jeremy Renner</a>
-												</div>
-												<p>...  Clint Barton/ Hawkeye</p>
-											</div>
-											<div class="cast-it">
-												<div class="cast-left">
-													<img src="/images/uploads/cast7.jpg" alt="">
-													<a href="#">James Spader</a>
-												</div>
-												<p>...  Ultron</p>
-											</div>
-											<div class="cast-it">
-												<div class="cast-left">
-													<img src="/images/uploads/cast9.jpg" alt="">
-													<a href="#">Don Cheadle</a>
-												</div>
-												<p>...  James Rhodes/ War Machine</p>
-											</div>
+											@endforeach	
 										</div>
 										<!-- //== -->
-										<div class="title-hd-sm">
+										{{-- <div class="title-hd-sm">
 											<h4>Produced by</h4>
 										</div>
 										<div class="mvcast-item">											
@@ -512,7 +422,7 @@
 												</div>
 												<p>...  associate producer</p>
 											</div>
-										</div>
+										</div> --}}
 						            </div>
 					       	 	</div>
 					       	 	<div id="media" class="tab">

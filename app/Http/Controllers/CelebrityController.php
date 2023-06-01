@@ -144,9 +144,13 @@ class CelebrityController extends Controller {
 
     public function celebrity($celebrityID) {
         $celebrity = Celebrity::find($celebrityID);
+        $shows = $celebrity->shows()->get();
+        $count = $celebrity->shows()->count();
 
         return view("celebrities.single")->with([
-            "celebrity" => $celebrity
+            "celebrity" => $celebrity,
+            "shows" => $shows,
+            "count" => $count
         ]);
     }
 }
