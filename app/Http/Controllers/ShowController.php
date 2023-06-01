@@ -130,6 +130,7 @@ class ShowController extends Controller {
         $show->favorites()->delete();
         $show->reviews()->delete();
         $show->celebrities()->delete();
+        $show->relateds()->delete();
 
         File::delete(public_path("posters") . "/" . $show -> poster);
         if($show -> thumbnail)
