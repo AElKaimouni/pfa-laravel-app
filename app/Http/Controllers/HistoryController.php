@@ -18,6 +18,6 @@ class HistoryController extends Controller {
 
         $history->save();
 
-        return response()->status(200);
+        return response()->json([], 200);
     }
 }
