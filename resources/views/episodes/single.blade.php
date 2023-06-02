@@ -39,6 +39,7 @@
                                     height="464"
                                     poster="{{ $base }}/ethumbnails/{{ $ep["thumbnail"] }}"
                                     data-setup="{}"
+                                    data-id="{{ $ep["id"] }}"
                                 >
                                     <source src="/videos/{{ $ep["video"] }}" type="video/mp4" />
                                     <p class="vjs-no-js">
@@ -89,6 +90,10 @@
 
                 document.title = title;
                 window.history.pushState("page", title, "/episodes/" + id);
+            });
+
+            $("video").on("play", function() {
+                alert($(this).data("id"));
             });
 
             $('.activeEpisode').trigger("click")
