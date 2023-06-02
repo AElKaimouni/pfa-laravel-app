@@ -83,7 +83,7 @@ Route::middleware(["auth:2"])->group(function () {
     
     Route::get("/videos/{videoID}", "App\Http\Controllers\EpisodeController@video");
 
-    Route::post("/episodes/hisory", "App\Http\Controllers\HistoryController@countView");
+    Route::post("/episodes/history", "App\Http\Controllers\HistoryController@countView");
 });
 
 

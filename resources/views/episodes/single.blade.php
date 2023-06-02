@@ -92,8 +92,27 @@
                 window.history.pushState("page", title, "/episodes/" + id);
             });
 
+            var watched = {};
+
             $("video").on("play", function() {
-                alert($(this).data("id"));
+                var id = $(this).data("id");
+
+                if(!watched[id]) {
+                    watched[id] = true;
+                    $.ajax({
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        type: "POST",
+                        url: "/episodes/history",
+                        data: {
+                            id: id
+                        },
+                        success: () => {
+                            
+                        },
+                    });
+                }
             });
 
             $('.activeEpisode').trigger("click")
