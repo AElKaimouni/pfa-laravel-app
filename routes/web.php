@@ -89,7 +89,7 @@ Route::middleware(["auth:2"])->group(function () {
 
 // Admin Routes
 Route::middleware(["auth:3", "admin.app"])->group(function () {
-    Route::view("/admin", "admin.index");
+    Route::get("/admin", "App\Http\Controllers\AnaliticsController@index");
 
     Route::get("/admin/clients", "App\Http\Controllers\UserController@clients");
     Route::get("/admin/clients/delete/{clientID}", "App\Http\Controllers\UserController@deleteClient");

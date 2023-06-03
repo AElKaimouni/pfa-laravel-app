@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Show extends Model {
     use HasFactory;
@@ -112,5 +113,15 @@ class Show extends Model {
             "userRating" => $this->rating(),
             "userRating_num" => $this->reviews->avg("rating")
         ]);
+    }
+
+    static function mostPopularShows() {
+        return DB::table('shows')
+            ->join('episodes', 'shows.id', '=', 'episodes.show_id')
+            ->join("history", "history.episode_id", "=", "episodes.id")
+            ->groupBy('shows.id')
+            ->select('shows.*', DB::raw('count(*) as count'))
+            ->orderBy('count', 'desc')
+            ->limit(5)->get();
     }
 }
