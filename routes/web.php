@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Mail;
 // Public Routes
 Route::middleware(["auth:0"])->group(function () {
 
+    Route::get("/loaderio-5db7f666acd0472a32715a706779b20f.txt", function() {
+        return "loaderio-5db7f666acd0472a32715a706779b20f";
+    });
+
     Route::get("/celebrities", "App\Http\Controllers\CelebrityController@celebrities");
     Route::get("/celebrities/{celebrityID}", "App\Http\Controllers\CelebrityController@celebrity");
 
