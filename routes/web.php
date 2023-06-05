@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Mail;
 Route::middleware(["auth:0"])->group(function () {
 
     Route::get("/5521088b870a098c74dd1fbf1605e8e3.txt", function() {
-        return "ldetectify";
+        response()->file(public_path("5521088b870a098c74dd1fbf1605e8e3.txt"));
     });
 
     Route::get("/loaderio-5db7f666acd0472a32715a706779b20f.txt", function() {
