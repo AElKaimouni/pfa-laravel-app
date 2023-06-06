@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("name");
             $table->string("f_name")->default("");
             $table->string("l_name")->default("");
-            $table->string("avatar")->nullable();
+            $table->string("avatar")->default("default-user-image.png");
             $table->string("email")->unique();
             $table->string("password");
             $table->enum("role", ["user", "admin"]);
