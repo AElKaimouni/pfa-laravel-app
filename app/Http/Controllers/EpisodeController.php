@@ -134,6 +134,7 @@ class EpisodeController extends Controller {
         File::delete(public_path("thumbnails") . "/" . $episode -> thumbnail);
 
         $episode->delete();
+        $episode->history()->delete();
 
         return redirect("/admin/episodes") -> with("status", "Epsiode has been deleted successfuly");
     }

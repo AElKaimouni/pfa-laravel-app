@@ -295,6 +295,7 @@ class UserController extends Controller
         $client->subscriptions()->delete();
         $client->favorites()->delete();
         $client->reviews()->delete();
+        $client->history()->delete();
         
         $client->delete();
 
