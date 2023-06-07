@@ -129,7 +129,7 @@ class Show extends Model {
 
         if($length < $limit) $res = array_merge($res->toArray(), DB::table('shows')->whereNotIn("shows.id", $res->map(function($show) {
             return $show->id;
-        }))->get()->toArray());
+        }))->limit($limit - $length)->get()->toArray());
         
         else return $res->toArray();
 

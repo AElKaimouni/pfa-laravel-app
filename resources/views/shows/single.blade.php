@@ -162,15 +162,27 @@
 						            	<div class="col-md-4 col-xs-12 col-sm-12">
 						            		<div class="sb-it">
 						            			<h6>Director: </h6>
-						            			<p><a href="#">Joss Whedon</a></p>
+						            			<p>
+													@foreach ($directors as $celebrity)
+														<a href="/celebrities/{{ $celebrity->celebrity["id"] }}"">{{ $celebrity->celebrity["fullName"] }}@if(!$loop->last),@endif</a>
+													@endforeach	
+												</p>
 						            		</div>
 						            		<div class="sb-it">
 						            			<h6>Writer: </h6>
-						            			<p><a href="#">Joss Whedon,</a> <a href="#">Stan Lee</a></p>
+						            			<p>
+													@foreach ($writers as $celebrity)
+														<a href="/celebrities/{{ $celebrity->celebrity["id"] }}">{{ $celebrity->celebrity["fullName"] }}@if(!$loop->last),@endif</a>
+													@endforeach
+												</p>
 						            		</div>
 						            		<div class="sb-it">
 						            			<h6>Stars: </h6>
-						            			<p><a href="#">Robert Downey Jr,</a> <a href="#">Chris Evans,</a> <a href="#">Mark Ruffalo,</a><a href="#"> Scarlett Johansson</a></p>
+						            			<p>
+													@foreach ($actors as $celebrity)
+														<a href="/celebrities/{{ $celebrity->celebrity["id"] }}">{{ $celebrity->celebrity["fullName"] }}@if(!$loop->last),@endif</a>
+													@endforeach
+												</p>
 						            		</div>
 						            		<div class="sb-it">
 						            			<h6>Genres:</h6>
@@ -333,7 +345,7 @@
 										</div>
 										<!-- //== -->
 										<div class="title-hd-sm">
-											<h4>Credit Writers</h4>
+											<h4>< Writers</h4>
 										</div>
 										<div class="mvcast-item">											
 											@foreach ($writers as $celebrity)
@@ -519,7 +531,7 @@
 											<div class="movie-item-style-2">
 												<img src="{{ $base }}/posters/{{ $related->related["poster"] }}" alt="">
 												<div class="mv-item-infor">
-													<h6><a href="#">{{ $related->related["title"] }} <span>({{ date("Y", strtotime($related->related["releaseDate"])); }})</span></a></h6>
+													<h6><a href="/shows/{{ $related->related["id"] }}">{{ $related->related["title"] }} <span>({{ date("Y", strtotime($related->related["releaseDate"])); }})</span></a></h6>
 													<p class="rate"><i class="ion-android-star"></i><span>{{ $related->related->rating() }}</span> /10</p>
 													<p class="describe">{{ $related->related["description"] }}</p>
 													<p class="run-time"> Run Time: {{ $related->related["runTime"] }}’    .     <span>MMPA: {{ $related->related["rating"] }} </span>    .     <span>Release: {{ date("j F Y", strtotime($related->related["created_at"])) }}</span></p>

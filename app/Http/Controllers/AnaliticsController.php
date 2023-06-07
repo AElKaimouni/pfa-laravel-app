@@ -23,7 +23,7 @@ class AnaliticsController extends Controller {
         $yearRevenue = Subscription::yearRevenue();
         $subsTypesCount = Subscription::typesCount();
 
-        $topShows = Show::mostPopularShows();
+        $topShows = Show::mostPopularShows(4);
         $topGenres = Genre::popularGeneres();
         $latestClients = User::where("role" , "=", "user")->limit(5)->latest()->get();
 

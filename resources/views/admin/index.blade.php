@@ -243,9 +243,9 @@
                                 <img src="{{ $base }}/posters/{{ $show->poster }}" alt="" width="50">
                                 <div class="flex-grow-1">
                                     <a href="/admin/shows/edit/{{ $show->id }}" class="fw-bold mb-0">{{ $show->title }}</a>
-                                    <p class="mb-2">{{ $show->count }} views</p>
+                                    <p class="mb-2">{{ isset($show->count) ? $show->count : 0 }} views</p>
                                     <div class="progress" style="height: 5px;">
-                                        <div class="progress-bar" role="progressbar" style="width: {{ 100*$show->count/$topShows[0]->count }}%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: {{ 100*(isset($show->count) ? $show->count : 0)/$topShows[0]->count }}%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
