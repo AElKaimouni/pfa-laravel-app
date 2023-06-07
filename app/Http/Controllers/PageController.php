@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Episode;
 use Illuminate\Http\Request;
 use App\Models\Show;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 class PageController extends Controller
 {
     public function HomePage() {
@@ -19,12 +20,14 @@ class PageController extends Controller
             return $show->populate();
         });
         $latestEpsidoes = Episode::latest()->take(15)->get();
+        $recomendation = User::recomendation();
 
         return view("index")->with([
             "latest" => $latest,
             "latestTV" => $latestTV,
             "latestFilms" => $latestFilms,
-            "latestEpsidoes" => $latestEpsidoes
+            "latestEpsidoes" => $latestEpsidoes,
+            "recomendation" => $recomendation
         ]);
     }
 }

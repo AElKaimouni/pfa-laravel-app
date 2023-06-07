@@ -73,6 +73,42 @@
 	</div>
 </div>
 
+<div class="movie-items  full-width" style="background-color: #0c0218;padding-bottom: 0;">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="title-hd">
+				<h2>Recommended SHOWS</h2>
+			</div>
+			<div class="tabs">
+			    <div class="tab-content">
+			        <div id="tab1-h2" class="tab active">
+			            <div class="row">
+			            	<div class="slick-multiItem2">
+								@foreach ($recomendation as $show)
+									<div class="slide-it">
+										<div class="movie-item">
+											<div class="mv-img">
+												<img src="{{ $base }}/posters/{{ $show->poster }}" alt="">
+											</div>
+											<div class="hvr-inner">
+												<a  href="shows/{{ $show->id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+											</div>
+											<div class="title-in">
+												<h6 style="max-width: 95%;"><a href="shows/{{ $show->id }}">{{ $show->title }}</a></h6>
+												<p><i class="ion-android-star"></i><span>{{ $show->userRating }}</span> /10</p>
+											</div>
+										</div>
+									</div>
+								@endforeach
+			            	</div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="movie-items  full-width"style="padding-bottom: 0;">
 	<div class="row">
 		<div class="col-md-12">

@@ -115,13 +115,24 @@ class Show extends Model {
         ]);
     }
 
-    static function mostPopularShows() {
-        return DB::table('shows')
+    static function mostPopularShows($limit = 5, $ignore = []) {
+        $res = DB::table('shows')
             ->join('episodes', 'shows.id', '=', 'episodes.show_id')
             ->join("history", "history.episode_id", "=", "episodes.id")
             ->groupBy('shows.id')
             ->select('shows.*', DB::raw('count(*) as count'))
             ->orderBy('count', 'desc')
-            ->limit(5)->get();
+            ->whereNotIn("shows.id", $ignore)
+            ->limit($limit)->get();
+
+        $length = count($res);
+
+        if($length < $limit) $res = array_merge($res->toArray(), DB::table('shows')->whereNotIn("shows.id", $res->map(function($show) {
+            return $show->id;
+        }))->get()->toArray());
+        
+        else return $res->toArray();
+
+        return $res;
     }
 }

@@ -301,4 +301,6 @@ class UserController extends Controller
 
         return redirect("/admin/clients") -> with("status", "Client has been deleted successfuly");
     }
+
+    
 }

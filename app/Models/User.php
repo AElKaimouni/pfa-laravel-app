@@ -9,6 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\VerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
+use App\Models\Genre;
+use Illuminate\Support\Facades\Auth;
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -100,5 +104,57 @@ class User extends Authenticatable implements MustVerifyEmail
             User::periodCount("first day of November", "first day of December"),
             User::periodCount("first day of December", "first day of January next year"),
         ];
+    }
+
+    static function recomendation($limit = 10) {
+        $user = Auth::user();
+
+        $recomnedation = $user ? DB::select(DB::raw(
+            "SELECT shows.* FROM shows
+            INNER JOIN show_genres ON show_genres.show_id = shows.id
+            WHERE (
+                show_genres.name IN (
+                    SELECT DISTINCT show_genres.name
+                    FROM shows
+                    INNER JOIN episodes ON shows.id = episodes.show_id
+                    INNER JOIN history ON history.episode_id = episodes.id
+                    INNER JOIN show_genres ON show_genres.show_id = shows.id
+                    WHERE history.user_id = '$user->id'
+                )
+            OR
+                shows.id IN (
+                    SELECT show_related.related_id from show_related
+                    WHERE show_related.show_id IN (
+                        SELECT shows.id
+                        FROM shows
+                        INNER JOIN episodes ON shows.id = episodes.show_id
+                        INNER JOIN history ON episodes.id = history.episode_id
+                        WHERE history.user_id = '$user->id'
+                    )
+                )
+            )
+            AND shows.id NOT IN (
+                SELECT shows.id
+                FROM shows
+                INNER JOIN episodes ON shows.id = episodes.show_id
+                INNER JOIN history ON episodes.id = history.episode_id
+                WHERE history.user_id = '$user->id'
+            )
+            GROUP BY shows.id
+            LIMIT $limit;"
+        )) : [];
+
+        $length = count($recomnedation);
+
+        if($length < $limit)
+            $recomnedation = array_merge($recomnedation, Show::mostPopularShows($limit - $length, array_map(function($show) {
+                return $show->id;
+            }, $recomnedation)));
+
+        $recomnedation = array_map(function($show) {
+            return new Show(json_decode(json_encode($show), true));
+        }, $recomnedation);
+
+        return $recomnedation;
     }
 }
