@@ -18,13 +18,13 @@ use Illuminate\Support\Facades\Mail;
 // Public Routes
 Route::middleware(["auth:0"])->group(function () {
 
-    Route::get("/5521088b870a098c74dd1fbf1605e8e3.txt", function() {
-        response()->file(public_path("5521088b870a098c74dd1fbf1605e8e3.txt"));
-    });
+    // Route::get("/5521088b870a098c74dd1fbf1605e8e3.txt", function() {
+    //     response()->file(public_path("5521088b870a098c74dd1fbf1605e8e3.txt"));
+    // });
 
-    Route::get("/loaderio-5db7f666acd0472a32715a706779b20f.txt", function() {
-        return "loaderio-5db7f666acd0472a32715a706779b20f";
-    });
+    // Route::get("/loaderio-5db7f666acd0472a32715a706779b20f.txt", function() {
+    //     return "loaderio-5db7f666acd0472a32715a706779b20f";
+    // });
 
     Route::get("/celebrities", "App\Http\Controllers\CelebrityController@celebrities");
     Route::get("/celebrities/{celebrityID}", "App\Http\Controllers\CelebrityController@celebrity");
