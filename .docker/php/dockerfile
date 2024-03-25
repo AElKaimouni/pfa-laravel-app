@@ -39,7 +39,7 @@ WORKDIR /var/www/
 USER ${USER}
 
 # Copy permission to selected user
-# COPY --chown=${USER}:${GROUP} . .
+COPY --chown=${USER}:${GROUP} . .
 
 EXPOSE 9000
 
