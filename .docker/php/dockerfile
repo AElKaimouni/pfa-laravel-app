@@ -40,7 +40,7 @@ USER ${USER}
 # Copy permission to selected user
 COPY --chown=${USER}:${GROUP} . .
 
-RUN compose install
+RUN composer install
 
 EXPOSE 9000
 
