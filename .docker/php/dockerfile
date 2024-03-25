@@ -30,6 +30,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 # Setup working directory
 WORKDIR /var/www/
 
+COPY . /var/www/
+
 # Create User and Group
 RUN groupadd -g 1000 ${GROUP} && useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USER}
 
@@ -37,7 +39,7 @@ RUN groupadd -g 1000 ${GROUP} && useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USE
 RUN chown -R ${USER} /var/www
 # RUN chmod -R 775  /var/www/vendor/
 
-COPY . /var/www/
+
 RUN composer install --no-interaction
 
 # Select User
