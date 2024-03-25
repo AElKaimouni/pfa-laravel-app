@@ -43,8 +43,8 @@ RUN chmod -R 755 /var/www/public/avatars
 # Select User
 USER ${USER}
 
-# Copy permission to selected user
-COPY --chown=${USER}:${GROUP} . .
+# # Copy permission to selected user
+# COPY --chown=${USER}:${GROUP} . .
 
 EXPOSE 9000
 
