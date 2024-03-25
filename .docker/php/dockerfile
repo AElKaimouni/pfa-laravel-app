@@ -29,17 +29,17 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 WORKDIR /var/www/
 
 # Create User and Group
-RUN groupadd -g 1000 ${GROUP} && useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USER}
+# RUN groupadd -g 1000 ${GROUP} && useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USER}
 
 # Grant Permissions
-RUN chown -R ${USER}:${GROUP} /var/www
-RUN chmod -R 755 /var/www
+# RUN chown -R ${USER}:${GROUP} /var/www
+# RUN chmod -R 755 /var/www
 
 # Select User
 USER ${USER}
 
 # Copy permission to selected user
-COPY --chown=${USER}:${GROUP} . .
+# COPY --chown=${USER}:${GROUP} . .
 
 EXPOSE 9000
 
