@@ -35,11 +35,11 @@ WORKDIR /var/www/
 RUN chown -R ${USER}:${GROUP} /var/www
 RUN chmod -R 755 /var/www
 
-RUN chown -R ${USER}:${GROUP} storage
-RUN chown -R ${USER}:${GROUP} bootstrap/cache
-
 RUN mkdir storage
 RUN mkdir bootstrap/cache -p
+
+RUN chown -R ${USER}:${GROUP} storage
+RUN chown -R ${USER}:${GROUP} bootstrap/cache
 
 RUN chmod -R 775 storage
 RUN chmod -R 775 bootstrap/cache
