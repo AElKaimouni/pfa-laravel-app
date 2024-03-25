@@ -24,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share("base", env("APP_ENV") === "local" ? "https://elkaimouni.live" : "");
+        View::share("base", env("APP_ENV") === "local" ? env("APP_HOST") : "");
     }
 }
