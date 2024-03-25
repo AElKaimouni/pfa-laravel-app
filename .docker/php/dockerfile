@@ -40,8 +40,6 @@ USER ${USER}
 # Copy permission to selected user
 COPY --chown=${USER}:${GROUP} . .
 
-RUN composer install
-
 EXPOSE 9000
 
 CMD ["php-fpm"]
