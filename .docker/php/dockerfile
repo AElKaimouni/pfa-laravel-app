@@ -1,7 +1,7 @@
 FROM php:8.1-fpm
 
-ENV USER=root
-ENV GROUP=root
+ENV USER=www
+ENV GROUP=www
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -29,7 +29,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 WORKDIR /var/www/
 
 # Create User and Group
-# RUN groupadd -g 1000 ${GROUP} && useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USER}
+RUN groupadd -g 1000 ${GROUP} && useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USER}
 
 # Grant Permissions
 RUN chown -R ${USER}:${GROUP} /var/www
