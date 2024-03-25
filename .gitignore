@@ -6,6 +6,7 @@
 /public/thumbnails
 /public/ethumbnails
 /storage/*.key
+/storage/app/videos
 /vendor
 .env
 .env.backup
