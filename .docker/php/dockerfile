@@ -32,14 +32,8 @@ WORKDIR /var/www/
 RUN groupadd -g 1000 ${GROUP} && useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USER}
 
 # Grant Permissions
-RUN chown -R ${USER}:${GROUP} /var/www \
-    && chmod -R 755 ${USER}:${GROUP} /var/www
-
-# Select User
-USER ${USER}
-
-# Copy permission to selected user
-COPY --chown=${USER}:${GROUP} . .
+RUN chown -R ${USER}:${GROUP} /var/www
+RUN chmod -R 755 /var/www
 
 EXPOSE 9000
 
