@@ -37,7 +37,7 @@ RUN groupadd -g 1000 ${GROUP} && useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USE
 RUN chown -R ${USER} /var/www
 # RUN chmod -R 775  /var/www/vendor/
 
-COPY ./composer.json /var/www/
+COPY . /var/www/
 RUN composer install --no-interaction
 
 # Select User
