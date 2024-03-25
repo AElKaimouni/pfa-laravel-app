@@ -35,8 +35,8 @@ RUN groupadd -g 1000 ${GROUP} && useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USE
 RUN chown -R ${USER}:${GROUP} /var/www
 RUN chmod -R 755 /var/www
 
-RUN chown -R ${USER}:${GROUP} /var/www/public/posters
-RUN chmod -R 755 /var/www/public/posters
+RUN chown -R ${USER}:${GROUP} /var/www/public/avatars
+RUN chmod -R 755 /var/www/public/avatars
 
 # Select User
 USER ${USER}
