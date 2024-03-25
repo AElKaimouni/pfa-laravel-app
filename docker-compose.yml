@@ -41,7 +41,7 @@ services:
       dockerfile: dockerfile
     container_name: tv-backend
     volumes:
-      # - ./:/var/www
+      - ./:/var/www
       - .docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       app-network:
