@@ -2,7 +2,6 @@ FROM php:8.1-fpm
 
 ENV USER=www
 ENV GROUP=www
-ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -34,6 +33,8 @@ RUN groupadd -g 1000 ${GROUP} && useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USE
 
 # Grant Permissions
 RUN chown -R ${USER} /var/www
+RUN mkdir vendor
+RUN chmod -R 775  /var/www/vendor/
 
 # Select User
 USER ${USER}
