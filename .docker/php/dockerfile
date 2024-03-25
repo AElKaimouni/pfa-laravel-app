@@ -29,7 +29,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 WORKDIR /var/www/
 
 # Create User and Group
-RUN useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USER}
+# RUN groupadd -g 1000 ${GROUP} && useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USER}
 
 # Grant Permissions
 RUN chown -R ${USER}:${GROUP} /var/www
