@@ -35,6 +35,12 @@ RUN groupadd -g 1000 ${GROUP} && useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USE
 RUN chown -R ${USER}:${GROUP} /var/www
 RUN chmod -R 755 /var/www
 
+# Select User
+USER ${USER}
+
+# Copy permission to selected user
+COPY --chown=${USER}:${GROUP} . .
+
 EXPOSE 9000
 
 CMD ["php-fpm"]
