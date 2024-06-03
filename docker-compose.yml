@@ -4,7 +4,7 @@ networks:
   app-network:
 
 volumes:
-  app-data:
+  tv-db:
 
 services:
   webserver:
@@ -36,6 +36,8 @@ services:
       - "30000:3306"
     networks:
       app-network:
+    volumes:
+      - tv-db:/var/lib/mysql
 
   backend:
     restart: always
