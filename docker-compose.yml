@@ -19,6 +19,8 @@ services:
       - .docker/nginx:/etc/nginx/conf.d
     networks:
       app-network:
+    depends_on:
+      - backend
 
   db:
     container_name: tv-db
@@ -36,6 +38,7 @@ services:
       app-network:
 
   backend:
+    restart: always
     build:
       context: .docker/php
       dockerfile: dockerfile
