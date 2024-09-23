@@ -3,6 +3,9 @@ version: '3.8'
 networks:
   app-test-network:
 
+volumes:
+  tv-test-db:
+
 services:
   db:
     container_name: tv-test-db
@@ -19,6 +22,8 @@ services:
       - "30001:3306"
     networks:
       app-test-network:
+    volumes:
+      - tv-test-db:/var/lib/mysql
 
   backend:
     build:
