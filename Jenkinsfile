@@ -16,7 +16,7 @@ pipeline {
                     while (retryCount < maxRetries && !commandSucceeded) {
                         try {
                             // Replace the following line with your command
-                            sh 'your-command-here'
+                            sh 'docker exec test-tv-backend php artisan migrate --force'
                             commandSucceeded = true
                         } catch (Exception e) {
                             retryCount++
@@ -27,9 +27,6 @@ pipeline {
                             sleep 10 // Optional: wait before retrying
                         }
                     }
-
-                    // Run migrations
-                    sh 'docker exec test-tv-backend php artisan migrate --force'
                     
                     // Run tests in the test-tv-backend container
                     sh 'docker exec test-tv-backend php artisan test'
