@@ -10,10 +10,10 @@ pipeline {
                     sh 'docker compose -f docker-compose.test.yml --env-file test.env up -d --build' 
 
                     // Run migrations
-                    sh 'docker exec tv-test-backend php artisan migrate --force'
+                    sh 'docker exec test-tv-backend php artisan migrate --force'
                     
-                    // Run tests in the tv-test-backend container
-                    sh 'docker exec tv-test-backend php artisan test'
+                    // Run tests in the test-tv-backend container
+                    sh 'docker exec test-tv-backend php artisan test'
                 }
             }
         }
