@@ -7,7 +7,7 @@ pipeline {
             steps {
                 script {
                     // Build Docker images
-                    sh 'docker compose -f docker-compose-test.yml --env-file prod.env up -d --build'
+                    sh 'docker compose -p test -f docker-compose-test.yml --env-file prod.env up -d --build'
 
                     def maxRetries = 10
                     def retryCount = 0
@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                      // Build Docker images
-                    sh 'docker compose --env-file prod.env up -d --force-recreate --build' 
+                    sh 'docker compose -p prod --env-file prod.env up -d --force-recreate --build' 
 
                     //Run migrations
                     def maxRetries = 10
@@ -65,10 +65,10 @@ pipeline {
     }
 
     post {
-        // always {
-        //     // stop testing containers
-        //     sh 'docker compose -f docker-compose-test.yml down' 
-        // }
+        always {
+            // stop testing containers
+            sh 'docker compose -p test -f docker-compose-test.yml down' 
+        }
         success {
             echo 'Build, tests, and deployment were successful.'
         }
