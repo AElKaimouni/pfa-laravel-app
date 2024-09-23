@@ -77,7 +77,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="title-hd">
-				<h2>Recommended SHOWS...</h2>
+				<h2>Recommended SHOWS</h2>
 			</div>
 			<div class="tabs">
 			    <div class="tab-content">
