@@ -18,9 +18,7 @@ pipeline {
 
     post {
         always {
-            script {
-                sh 'docker compose down'  // Clean up containers after the build
-            }
+
         }
         success {
             echo 'Build, tests, and deployment (if applicable) were successful.'
