@@ -6,7 +6,12 @@ pipeline {
         stage('Build & Test') {
             steps {
                 script {
-                    sh 'docker compose -f docker-compose.test.yml --env-file prod.env up -d --build'  // Build Docker images
+
+                    // Build Docker images
+                    sh 'docker compose -f docker-compose.test.yml --env-file prod.env up -d --build'  
+                    
+                    // Run tests in the tv-test-backend container
+                    sh 'docker compose exec tv-test-backend php artisan test'
                 }
             }
         }
@@ -21,9 +26,10 @@ pipeline {
     }
 
     post {
-        always {
-            sh 'docker compose -f docker-compose.test.yml --env-file prod.env down' // stop testing containers
-        }
+        // always {
+        //     // stop testing containers
+        //     sh 'docker compose -f docker-compose.test.yml down' 
+        // }
         success {
             echo 'Build, tests, and deployment were successful.'
         }

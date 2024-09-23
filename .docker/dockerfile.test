@@ -41,4 +41,4 @@ RUN npm run prod
 
 EXPOSE 9000
 
-CMD ["php artisan test"]
+CMD ["php-fpm"]
