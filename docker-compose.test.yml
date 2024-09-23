@@ -28,7 +28,7 @@ services:
     env_file:
       - prod.env
     environment: 
-      DB_HOST= 'tv-test-db'
+      DB_HOST: 'tv-test-db'
     volumes:
       - .docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
