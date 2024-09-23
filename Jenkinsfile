@@ -6,9 +6,11 @@ pipeline {
         stage('Build & Test') {
             steps {
                 script {
-
                     // Build Docker images
-                    sh 'docker compose -f docker-compose.test.yml --env-file prod.env up -d --build'  
+                    sh 'docker compose -f docker-compose.test.yml --env-file prod.env up -d --build' 
+
+                    // Run migrations
+                    sh 'docker exec tv-test-backend php artisan migrate'
                     
                     // Run tests in the tv-test-backend container
                     sh 'docker exec tv-test-backend php artisan test'
@@ -19,7 +21,11 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-                    sh 'docker compose --env-file prod.env up -d --force-recreate --build'  // Build Docker images
+                     // Build Docker images
+                    sh 'docker compose --env-file prod.env up -d --force-recreate --build' 
+
+                    // Run migrations
+                    sh 'docker exec tv-test-backend php artisan migrate'
                 }
             }
         }
