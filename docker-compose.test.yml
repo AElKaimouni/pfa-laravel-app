@@ -10,7 +10,7 @@ services:
     env_file:
       - prod.env
     environment:
-      MYSQL_DATABASE: 'tv-test-db'
+      MYSQL_DATABASE: '${DB_DATABASE}'
       MYSQL_USER: '${DB_USERNAME}'
       MYSQL_PASSWORD: '${DB_PASSWORD}'
       MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
@@ -27,6 +27,8 @@ services:
     container_name: tv-test-backend
     env_file:
       - prod.env
+    environment: 
+      DB_HOST= 'tv-test-db'
     volumes:
       - .docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
