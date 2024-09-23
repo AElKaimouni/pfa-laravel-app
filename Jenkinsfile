@@ -71,7 +71,7 @@ pipeline {
         }
         success {
             echo 'Build, tests, and deployment were successful.'
-            
+
             emailext(
                 to: 'abderrahmane_elkaimouni@um5.ac.ma',
                 subject: "SUCCESS: Job",
@@ -80,6 +80,12 @@ pipeline {
         }
         failure {
             echo 'Build or tests failed.'
+
+            emailext(
+                to: 'abderrahmane_elkaimouni@um5.ac.ma',
+                subject: "SUCCESS: Job",
+                body: "The pipeline  completed failed. Check it here:"
+            )
         }
     }
 }
