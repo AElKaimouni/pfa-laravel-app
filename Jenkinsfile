@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'main-node'
-    }
+    agent any
 
     environment {
         COMPOSE_FILE = 'docker-compose.yml'
