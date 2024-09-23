@@ -1,0 +1,33 @@
+version: '3.8'
+
+networks:
+  app-test-network:
+
+services:
+  db:
+    container_name: tv-db
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "30000:3306"
+    networks:
+      app-test-network:
+
+  backend:
+    build:
+      context: ./
+      dockerfile: .docker/dockerfile
+    container_name: tv-backend
+    env_file:
+      - prod.env
+    volumes:
+      - .docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      app-test-network:
+    depends_on:
+      - db
