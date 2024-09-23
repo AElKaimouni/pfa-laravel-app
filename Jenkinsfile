@@ -25,7 +25,7 @@ pipeline {
                     sh 'docker compose --env-file prod.env up -d --force-recreate --build' 
 
                     // Run migrations
-                    sh 'docker exec tv-backend php artisan migrate'
+                    sh 'docker exec tv-backend php artisan migrate -y'
                 }
             }
         }
