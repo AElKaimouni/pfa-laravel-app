@@ -1,7 +1,6 @@
 pipeline {
     agent {
-        // Use the 'deploy-server' label to specify the node where the pipeline should run
-        label 'deploy-server'
+        label 'Built-In Node'
     }
 
     environment {
