@@ -6,13 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Setup ENV file') {
-            steps {
-                script {
-                    sh "cp /home/ubuntu/prod.env /var/lib/jenkins/workspace/php"
-                }
-            }
-        }
 
         stage('Build Docker Images') {
             steps {
