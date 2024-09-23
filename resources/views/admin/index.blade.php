@@ -143,13 +143,13 @@
                 <ul class="list-group list-group-flush mb-0">
                     @php $sum = array_sum($subsTypesCount); @endphp
                     <li class="list-group-item border-top d-flex justify-content-between align-items-center bg-transparent">
-                        FAN<span style="background: #1692bb" class="badge rounded-pill">{{ round(100 * $subsTypesCount[0]/$sum) }}%</span>
+                        FAN<span style="background: #1692bb" class="badge rounded-pill">{{ round(100 * $subsTypesCount[0]/max($sum, 1)) }}%</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">
-                        MEGA FAN<span style="background: #dd003f" class="badge  rounded-pill">{{ round(100 * $subsTypesCount[1]/$sum) }}%</span>
+                        MEGA FAN<span style="background: #dd003f" class="badge  rounded-pill">{{ round(100 * $subsTypesCount[1]/max($sum, 1)) }}%</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">
-                        MEGA FAN (YEAR)<span style="background: #f5b50a" class="badge  rounded-pill">{{ round(100 * $subsTypesCount[2]/$sum) }}%</span>
+                        MEGA FAN (YEAR)<span style="background: #f5b50a" class="badge  rounded-pill">{{ round(100 * $subsTypesCount[2]/max($sum, 1)) }}%</span>
                     </li>
                 </ul>
                 </div>

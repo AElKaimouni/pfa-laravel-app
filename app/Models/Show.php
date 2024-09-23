@@ -24,7 +24,7 @@ class Show extends Model {
     public function editGenres($genres) {
         $this -> genres()->delete();
             
-        $this -> genres() -> createMany(array_map(function($gerne) {
+        if($genres) $this -> genres() -> createMany(array_map(function($gerne) {
             return [
                 "name" => $gerne,
                 "show_id" => $this->id
@@ -67,7 +67,7 @@ class Show extends Model {
     public function editRelateds($relateds) {
         $this -> relateds()->delete();
             
-        $this -> relateds() -> createMany(array_map(function($related) {
+        if($relateds) $this -> relateds() -> createMany(array_map(function($related) {
             return [
                 "related_id" => $related,
                 "show_id" => $this->id

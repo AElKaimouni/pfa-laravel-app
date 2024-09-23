@@ -1,0 +1,9 @@
+/node_modules
+/public/storage
+/public/cavatars
+/public/posters
+/public/thumbnails
+/public/ethumbnails
+/storage/*.key
+/storage/app/videos
+/vendor

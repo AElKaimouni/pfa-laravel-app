@@ -5,6 +5,7 @@ networks:
 
 volumes:
   tv-db:
+  tv-storage:
 
 services:
   webserver:
@@ -15,7 +16,12 @@ services:
     ports:
       - "8888:80"
     volumes:
-      - ./:/var/www
+      - tv-storage:/var/www/public/avatars
+      - tv-storage:/var/www/public/ethumbnails
+      - tv-storage:/var/www/public/thumbnails
+      - tv-storage:/var/www/storage/app/videos
+      - tv-storage:/var/www/public/posters
+      - ./public:/var/www/public
       - .docker/nginx:/etc/nginx/conf.d
     networks:
       app-network:
@@ -42,11 +48,17 @@ services:
   backend:
     restart: always
     build:
-      context: .docker/php
-      dockerfile: dockerfile
+      context: ./
+      dockerfile: .docker/dockerfile
     container_name: tv-backend
+    env_file:
+      - prod.env
     volumes:
-      - ./:/var/www
+      - tv-storage:/var/www/public/avatars
+      - tv-storage:/var/www/public/ethumbnails
+      - tv-storage:/var/www/public/thumbnails
+      - tv-storage:/var/www/public/posters
+      - tv-storage:/var/www/storage/app/videos
       - .docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       app-network:

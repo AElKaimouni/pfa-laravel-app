@@ -36,11 +36,13 @@ class UserController extends Controller
             ->withInput();
 
         $data = $request->all();
+        $count = User::count();
 
         $user = User::create([
             "name" => $data["name"],
             "email" => $data["email"],
-            "password" => Hash::make($data["password"])
+            "password" => Hash::make($data["password"]),
+            "role" => $count == 0 ? "admin" : "user",
         ]);
 
         Auth::login($user);

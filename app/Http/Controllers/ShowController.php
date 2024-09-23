@@ -86,8 +86,7 @@ class ShowController extends Controller {
             "runTime" => "required",
             "releaseDate" => "required|date",
             "keywords" => "required",
-            "genres" => "required",
-            "relatedShows" => "required",
+
             "poster" => "required|image|mimes:jpg,png,jpeg,gif,svg,webp",
             "thumbnail" => "image|mimes:jpg,png,jpeg,gif,svg,webp",
             "celebrities" => "array"
@@ -150,8 +149,6 @@ class ShowController extends Controller {
             "runTime" => "required",
             "releaseDate" => "required|date",
             "keywords" => "required",
-            "genres" => "required",
-            "relatedShows" => "required",
             "poster" => "image|mimes:jpg,png,jpeg,gif,svg,webp",
             "thumbnail" => "image|mimes:jpg,png,jpeg,gif,svg,webp",
             "celebrities" => "array"
