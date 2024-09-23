@@ -1,17 +1,14 @@
 version: '3.8'
 
 networks:
-  app-test-network:
+  test-app-network:
 
-volumes:
-  tv-test-db:
-
+  
 services:
   db:
-    container_name: tv-test-db
+    container_name: test-tv-db
     image: mysql:8.0
-    env_file:
-      - test.env
+    restart: always
     environment:
       MYSQL_DATABASE: 'laravel'
       MYSQL_USER: 'abdo'
@@ -19,22 +16,21 @@ services:
       MYSQL_ROOT_PASSWORD: 'D0tPAJqubDOJzGh'
       MYSQL_ROOT_HOST: '%'
     ports:
-      - "30001:3306"
+      - "30000:3306"
     networks:
-      app-test-network:
-    volumes:
-      - tv-test-db:/var/lib/mysql
+      test-app-network:
 
   backend:
+    restart: always
     build:
       context: ./
-      dockerfile: .docker/dockerfile.test
-    container_name: tv-test-backend
+      dockerfile: .docker/dockerfile
+    container_name: test-tv-backend
     env_file:
-      - test.env
+      - prod.env
     volumes:
       - .docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      app-test-network:
+      test-app-network:
     depends_on:
       - db
