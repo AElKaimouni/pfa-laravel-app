@@ -40,8 +40,25 @@ pipeline {
                      // Build Docker images
                     sh 'docker compose --env-file prod.env up -d --force-recreate --build' 
 
-                    // Run migrations
-                    // sh 'docker exec tv-backend php artisan migrate --force'
+                    //Run migrations
+                    def maxRetries = 10
+                    def retryCount = 0
+                    def commandSucceeded = false
+
+                    while (retryCount < maxRetries && !commandSucceeded) {
+                        try {
+                            // Replace the following line with your command
+                            sh 'docker exec tv-backend php artisan migrate --force'
+                            commandSucceeded = true
+                        } catch (Exception e) {
+                            retryCount++
+                            echo "Command failed. Retry count: ${retryCount}"
+                            if (retryCount >= maxRetries) {
+                                error "Command failed after ${maxRetries} attempts"
+                            }
+                            sleep 10 // Optional: wait before retrying
+                        }
+                    }
                 }
             }
         }
