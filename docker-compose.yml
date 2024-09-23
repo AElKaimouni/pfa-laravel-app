@@ -34,13 +34,11 @@ services:
     container_name: tv-db
     image: mysql:8.0
     restart: always
-    env_file:
-      - prod.env
     environment:
-      MYSQL_DATABASE: 'tv-db'
-      MYSQL_USER: '${DB_USERNAME}'
-      MYSQL_PASSWORD: '${DB_PASSWORD}'
-      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: 'laravel'
+      MYSQL_USER: 'abdo'
+      MYSQL_PASSWORD: 'power10v'
+      MYSQL_ROOT_PASSWORD: 'D0tPAJqubDOJzGh'
       MYSQL_ROOT_HOST: '%'
     ports:
       - "30000:3306"
