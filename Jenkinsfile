@@ -7,7 +7,28 @@ pipeline {
             steps {
                 script {
                     // Build Docker images
-                    sh 'docker compose -f docker-compose.test.yml --env-file test.env up -d --build' 
+                    sh 'docker compose -f docker-compose.test.yml --env-file test.env up -d --build'
+
+                    def commandSucceeded = false
+
+                    def maxRetries = 5
+                    def retryCount = 0
+                    def commandSucceeded = false
+
+                    while (retryCount < maxRetries && !commandSucceeded) {
+                        try {
+                            // Replace the following line with your command
+                            sh 'your-command-here'
+                            commandSucceeded = true
+                        } catch (Exception e) {
+                            retryCount++
+                            echo "Command failed. Retry count: ${retryCount}"
+                            if (retryCount >= maxRetries) {
+                                error "Command failed after ${maxRetries} attempts"
+                            }
+                            sleep 10 // Optional: wait before retrying
+                        }
+                    }
 
                     // Run migrations
                     sh 'docker exec test-tv-backend php artisan migrate --force'
