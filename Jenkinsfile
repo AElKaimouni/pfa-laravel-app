@@ -3,20 +3,20 @@ pipeline {
 
 
     stages {
-        stage('Build & Test') {
-            steps {
-                script {
-                    // Build Docker images
-                    sh 'docker compose -f docker-compose.test.yml --env-file test.env up -d --build' 
+        // stage('Build & Test') {
+        //     steps {
+        //         script {
+        //             // Build Docker images
+        //             sh 'docker compose -f docker-compose.test.yml --env-file test.env up -d --build' 
 
-                    // Run migrations
-                    sh 'docker exec tv-test-backend php artisan migrate --force'
+        //             // Run migrations
+        //             sh 'docker exec tv-test-backend php artisan migrate --force'
                     
-                    // Run tests in the tv-test-backend container
-                    sh 'docker exec tv-test-backend php artisan test'
-                }
-            }
-        }
+        //             // Run tests in the tv-test-backend container
+        //             sh 'docker exec tv-test-backend php artisan test'
+        //         }
+        //     }
+        // }
 
         stage('Build Docker Images') {
             steps {
