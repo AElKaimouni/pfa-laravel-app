@@ -16,7 +16,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'D0tPAJqubDOJzGh'
       MYSQL_ROOT_HOST: '%'
     ports:
-      - "30000:3306"
+      - "30001:3306"
     networks:
       app-test-network:
 
