@@ -13,7 +13,7 @@ pipeline {
                     sh 'docker exec tv-test-backend php artisan migrate'
                     
                     // Run tests in the tv-test-backend container
-                    sh 'docker exec tv-test-backend php artisan test'
+                    sh 'docker exec tv-test-backend php artisan test -y'
                 }
             }
         }
