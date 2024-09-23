@@ -51,7 +51,7 @@ services:
     restart: always
     build:
       context: ./
-      dockerfile: .docker/dockerfile
+      dockerfile: .docker/dockerfile.test
     container_name: test-tv-backend
     env_file:
       - test.env
