@@ -22,7 +22,7 @@ pipeline {
 
     post {
         always {
-            sh 'docker compose -f docker-compose.test.yml down' // stop testing containers
+            sh 'docker compose -f docker-compose.test.yml --env-file prod.env down' // stop testing containers
         }
         success {
             echo 'Build, tests, and deployment were successful.'
