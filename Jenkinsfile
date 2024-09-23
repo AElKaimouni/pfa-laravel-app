@@ -9,7 +9,7 @@ pipeline {
         stage('Setup ENV file') {
             steps {
                 script {
-                    sh "sudo cp /home/ubuntu/prod.env /var/lib/jenkins/workspace/php"
+                    sh "cp /home/ubuntu/prod.env /var/lib/jenkins/workspace/php"
                 }
             }
         }
