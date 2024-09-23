@@ -2,10 +2,18 @@ pipeline {
     agent any
 
     environment {
-        COMPOSE_FILE = 'docker-compose.yml'
+        WORKSPACE = 'php'
     }
 
     stages {
+        stage('Setup ENV file') {
+            steps {
+                script {
+                    sh "sudo cp /home/ubuntu/prod.env /var/lib/jenkins/workspace/php"
+                }
+            }
+        }
+
         stage('Build Docker Images') {
             steps {
                 script {
