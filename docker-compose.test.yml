@@ -1,7 +1,7 @@
 version: '3.8'
 
 networks:
-  app-network:
+  test-app-network:
 
 volumes:
   test-tv-db:
@@ -16,7 +16,7 @@ services:
     ports:
       - "${NGINX_PORT}:80"
     env_file:
-      - prod.env
+      - test.env
     volumes:
       - test-tv-storage:/var/www/public/avatars
       - test-tv-storage:/var/www/public/ethumbnails
@@ -26,7 +26,7 @@ services:
       - ./public:/var/www/public
       - .docker/nginx:/etc/nginx/conf.d
     networks:
-      app-network:
+      test-app-network:
     depends_on:
       - backend
 
@@ -43,7 +43,7 @@ services:
     ports:
       - "30000:3306"
     networks:
-      app-network:
+      test-app-network:
     volumes:
       - test-tv-db:/var/lib/mysql
 
@@ -54,7 +54,7 @@ services:
       dockerfile: .docker/dockerfile
     container_name: test-tv-backend
     env_file:
-      - prod.env
+      - test.env
     volumes:
       - test-tv-storage:/var/www/public/avatars
       - test-tv-storage:/var/www/public/ethumbnails
@@ -63,6 +63,6 @@ services:
       - test-tv-storage:/var/www/storage/app/videos
       - .docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      app-network:
+      test-app-network:
     depends_on:
       - db
