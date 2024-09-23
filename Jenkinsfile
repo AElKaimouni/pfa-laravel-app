@@ -9,8 +9,6 @@ pipeline {
                     // Build Docker images
                     sh 'docker compose -f docker-compose.test.yml --env-file test.env up -d --build'
 
-                    def commandSucceeded = false
-
                     def maxRetries = 5
                     def retryCount = 0
                     def commandSucceeded = false
