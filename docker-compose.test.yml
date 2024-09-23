@@ -5,8 +5,10 @@ networks:
 
 services:
   db:
-    container_name: tv-test-db-2
+    container_name: tv-test-db
     image: mysql:8.0
+    env_file:
+      - test.env
     environment:
       MYSQL_DATABASE: 'laravel'
       MYSQL_USER: 'abdo'
@@ -23,6 +25,8 @@ services:
       context: ./
       dockerfile: .docker/dockerfile.test
     container_name: tv-test-backend
+    env_file:
+      - test.env
     volumes:
       - .docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
