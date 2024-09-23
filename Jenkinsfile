@@ -17,9 +17,6 @@ pipeline {
     }
 
     post {
-        always {
-
-        }
         success {
             echo 'Build, tests, and deployment (if applicable) were successful.'
         }
