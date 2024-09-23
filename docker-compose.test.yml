@@ -26,9 +26,7 @@ services:
       dockerfile: .docker/dockerfile.test
     container_name: tv-test-backend
     env_file:
-      - prod.env
-    environment: 
-      DB_HOST: 'tv-test-db'
+      - test.env
     volumes:
       - .docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:

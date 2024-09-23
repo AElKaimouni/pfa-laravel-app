@@ -7,7 +7,7 @@ pipeline {
             steps {
                 script {
                     // Build Docker images
-                    sh 'docker compose -f docker-compose.test.yml --env-file prod.env up -d --build' 
+                    sh 'docker compose -f docker-compose.test.yml --env-file test.env up -d --build' 
 
                     // Run migrations
                     sh 'docker exec tv-test-backend php artisan migrate'
