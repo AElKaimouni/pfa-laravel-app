@@ -9,7 +9,7 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-                    sh 'docker-compose up -d --force-recreate --build'  // Build Docker images
+                    sh 'docker compose up -d --force-recreate --build'  // Build Docker images
                 }
             }
         }
@@ -18,7 +18,7 @@ pipeline {
     post {
         always {
             script {
-                sh 'docker-compose down'  // Clean up containers after the build
+                sh 'docker compose down'  // Clean up containers after the build
             }
         }
         success {
