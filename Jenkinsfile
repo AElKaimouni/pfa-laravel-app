@@ -11,7 +11,7 @@ pipeline {
                     sh 'docker compose -f docker-compose.test.yml --env-file prod.env up -d --build'  
                     
                     // Run tests in the tv-test-backend container
-                    sh 'docker compose exec tv-test-backend php artisan test'
+                    sh 'docker exec -it tv-test-backend php artisan test'
                 }
             }
         }
