@@ -25,17 +25,17 @@ pipeline {
                     sh 'docker compose --env-file prod.env up -d --force-recreate --build' 
 
                     // Run migrations
-                    sh 'docker exec tv-backend php artisan migrate --force'
+                    // sh 'docker exec tv-backend php artisan migrate --force'
                 }
             }
         }
     }
 
     post {
-        // always {
-        //     // stop testing containers
-        //     sh 'docker compose -f docker-compose.test.yml down' 
-        // }
+        always {
+            // stop testing containers
+            sh 'docker compose -f docker-compose.test.yml down' 
+        }
         success {
             echo 'Build, tests, and deployment were successful.'
         }
