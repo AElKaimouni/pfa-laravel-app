@@ -10,10 +10,10 @@ services:
     env_file:
       - prod.env
     environment:
-      MYSQL_DATABASE: 'laravel'
-      MYSQL_USER: 'abdo'
-      MYSQL_PASSWORD: 'power10v'
-      MYSQL_ROOT_PASSWORD: 'D0tPAJqubDOJzGh'
+      MYSQL_DATABASE: 'tv-test-db'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
       MYSQL_ROOT_HOST: '%'
     ports:
       - "30000:3306"
