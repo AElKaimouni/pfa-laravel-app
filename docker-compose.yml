@@ -35,13 +35,15 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_DATABASE: 'laravel'
-      MYSQL_USER: 'abdo'
-      MYSQL_PASSWORD: 'power10v'
-      MYSQL_ROOT_PASSWORD: 'D0tPAJqubDOJzGh'
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_HOST: '%'
+    env_file:
+      - prod.env
     ports:
-      - "30000:3306"
+      - "3306:3306"
     networks:
       app-network:
     volumes:
