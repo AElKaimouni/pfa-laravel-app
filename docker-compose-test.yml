@@ -1,0 +1,31 @@
+version: '3.8'
+
+networks:
+  test-app-network:
+
+services:
+  db:
+    container_name: test-tv-db
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_HOST: '%'
+    networks:
+      test-app-network:
+
+  backend:
+    restart: always
+    build:
+      context: ./
+      dockerfile: .docker/dockerfile.test
+    container_name: test-tv-backend
+    environment:
+      DB_HOST: 'test-tv-db'
+    env_file:
+      - prod.env
+    networks:
+      test-app-network:
+    depends_on:
+      - db
