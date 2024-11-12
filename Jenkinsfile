@@ -88,7 +88,7 @@ pipeline {
     post {
         always {
             // stop testing containers
-            sh 'docker compose -p test -f docker-compose-test.yml down' 
+            //sh 'docker compose -p test -f docker-compose-test.yml down' 
         }
         success {
             echo 'Build, tests, and deployment were successful.'
