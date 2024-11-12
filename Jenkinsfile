@@ -9,7 +9,7 @@ pipeline {
                  script {
                     def scannerHome = tool 'sonar-scanner';
                     withSonarQubeEnv("phpSonar") {
-                        sh "sonar-scanner \
+                        sh "${scannerHome}/bin/sonar-scanner \
                             -Dsonar.projectKey=php \
                             -Dsonar.sources=. \
                             -Dsonar.host.url=http://13.36.234.139:9000 \
