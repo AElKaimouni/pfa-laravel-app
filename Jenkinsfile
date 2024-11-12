@@ -7,8 +7,8 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                  script {
-                    def scannerHome = tool 'SonarScanner';
-                    withSonarQubeEnv() {
+                    def scannerHome = tool 'sonar-scanner';
+                    withSonarQubeEnv("phpSonar") {
                         sh "sonar-scanner \
                             -Dsonar.projectKey=php \
                             -Dsonar.sources=. \
