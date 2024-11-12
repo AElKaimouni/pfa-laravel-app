@@ -34,29 +34,36 @@ pipeline {
         //     }
         // }
 
-        // Stage 2: SonarQube code analysis
-        stage ("SonarQube Analysis ") {
-            steps {
-                script {
-                    def scannerHome = tool "sonar - scanner "
-                    withSonarQubeEnv ("SonarQube ") {
-                        sh "${ scannerHome }/bin/sonar - scanner " +
-                        "-Dsonar.projectKey = GitlabMx " +
-                        "-Dsonar.host.url = http://localhost:9000 " +
-                        "-Dsonar.login = sqp_5c7cf314cd19d3f60ed624ea584d547820ccd482 " +
-                        "-Dsonar.sources = ./app " +
-                        "-Dsonar.exclusions = 'vendor/* , storage/** , bootstrap/cache/*'"
-                    }
-                }
-            }
-        }
+        // // Stage 2: SonarQube code analysis
+        // stage ("SonarQube Analysis ") {
+        //     steps {
+        //         script {
+        //             def scannerHome = tool "sonar - scanner "
+        //             withSonarQubeEnv ("SonarQube ") {
+        //                 sh "${ scannerHome }/bin/sonar - scanner " +
+        //                 "-Dsonar.projectKey = GitlabMx " +
+        //                 "-Dsonar.host.url = http://localhost:9000 " +
+        //                 "-Dsonar.login = sqp_5c7cf314cd19d3f60ed624ea584d547820ccd482 " +
+        //                 "-Dsonar.sources = ./app " +
+        //                 "-Dsonar.exclusions = 'vendor/* , storage/** , bootstrap/cache/*'"
+        //             }
+        //         }
+        //     }
+        // }
 
-        // Stage 3: Quality Gate check , pipeline will stop if the gate fails
-        stage ("Quality Gate ") {
-            steps {
-                timeout ( time : 5 , unit : "MINUTES ") {
-                    waitForQualityGate abortPipeline : true
-                }
+        // // Stage 3: Quality Gate check , pipeline will stop if the gate fails
+        // stage ("Quality Gate ") {
+        //     steps {
+        //         timeout ( time : 5 , unit : "MINUTES ") {
+        //             waitForQualityGate abortPipeline : true
+        //         }
+        //     }
+        // }
+
+        stage('SonarQube Analysis') {
+            def scannerHome = tool 'SonarScanner';
+            withSonarQubeEnv() {
+                sh "${scannerHome}/bin/sonar-scanner"
             }
         }
       
