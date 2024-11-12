@@ -75,14 +75,14 @@ pipeline {
             }
         }
       
-        stage('Build Docker Images') {
-            steps {
-                script {
-                    // Build Docker images
-                    sh 'docker compose -p prod --env-file prod.env up -d --force-recreate --build' 
-                }
-            }
-        }
+        // stage('Build Docker Images') {
+        //     steps {
+        //         script {
+        //             // Build Docker images
+        //             sh 'docker compose -p prod --env-file prod.env up -d --force-recreate --build' 
+        //         }
+        //     }
+        // }
     }
 
     post {
